@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hemayet Hossain — Salesforce Portfolio</title>
+<meta name="description" content="Salesforce implementation portfolio — simulated end-to-end projects across Administrator, Platform App Builder, Advanced Administrator and Agentforce tracks. Sydney, Australia.">
+<style>
+  :root {
+    --paper:   #FAF9F7;
+    --surface: #FFFFFF;
+    --sunk:    #F1EFEC;
+    --ink:     #141210;
+    --ink-2:   #4A4540;
+    --ink-3:   #78716A;
+    --rule:    #DED9D3;
+    --rule-2:  #EBE7E2;
+    --key:     #1B4D3E;
+    --key-soft:#E6EEEA;
+    --live:    #1B4D3E;
+    --wip:     #8A6410;
+    --wip-soft:#F7EFDC;
+    --queued:  #78716A;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:   #100F0D;
+      --surface: #191714;
+      --sunk:    #141210;
+      --ink:     #EDE9E4;
+      --ink-2:   #A9A29A;
+      --ink-3:   #7D766E;
+      --rule:    #2C2823;
+      --rule-2:  #221F1B;
+      --key:     #6FBFA3;
+      --key-soft:#13251F;
+      --live:    #6FBFA3;
+      --wip:     #D8A94A;
+      --wip-soft:#251E10;
+      --queued:  #7D766E;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:   #100F0D; --surface: #191714; --sunk: #141210;
+    --ink:     #EDE9E4; --ink-2: #A9A29A; --ink-3: #7D766E;
+    --rule:    #2C2823; --rule-2: #221F1B;
+    --key:     #6FBFA3; --key-soft:#13251F;
+    --live:    #6FBFA3; --wip: #D8A94A; --wip-soft:#251E10; --queued:#7D766E;
+  }
+  :root {
+    --struc: "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    --prose: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --mono:  "Cascadia Code", "SF Mono", ui-monospace, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--prose); font-size: 17px; line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 72ch; margin: 0 auto; padding: 0 26px; }
+  a { color: var(--key); text-underline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--key); outline-offset: 2px; border-radius: 2px; }
+
+  header.top { border-bottom: 1px solid var(--rule); padding: 72px 0 40px; }
+  .eyebrow {
+    font-family: var(--struc); font-size: .7rem; font-weight: 700;
+    letter-spacing: .16em; text-transform: uppercase; color: var(--key);
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-family: var(--struc); font-weight: 700; letter-spacing: -.03em;
+    font-size: clamp(2rem, 5vw, 3rem); line-height: 1.05; margin: 0 0 16px;
+  }
+  header.top .sub { font-size: 1.12rem; color: var(--ink-2); margin: 0 0 22px; max-width: 54ch; }
+  .links { display: flex; flex-wrap: wrap; gap: 8px; font-family: var(--struc); font-size: .84rem; }
+  .links a {
+    text-decoration: none; border: 1px solid var(--rule); background: var(--surface);
+    padding: 7px 14px; border-radius: 100px; color: var(--ink-2);
+  }
+  .links a:hover { border-color: var(--key); color: var(--key); }
+
+  section { padding: 44px 0 8px; }
+  section + section { border-top: 1px solid var(--rule-2); }
+  h2 {
+    font-family: var(--struc); font-weight: 700; font-size: 1.3rem;
+    letter-spacing: -.02em; margin: 0 0 14px;
+  }
+  p { margin: 0 0 15px; }
+  strong { color: var(--ink); }
+
+  .disclosure {
+    background: var(--key-soft); border: 1px solid color-mix(in srgb, var(--key) 26%, transparent);
+    border-radius: 5px; padding: 18px 22px; margin: 26px 0 0;
+  }
+  .disclosure .lbl {
+    display: block; font-family: var(--struc); font-weight: 700; font-size: .68rem;
+    letter-spacing: .11em; text-transform: uppercase; color: var(--key); margin-bottom: 8px;
+  }
+  .disclosure p { margin: 0; font-size: .98rem; color: var(--ink-2); }
+  .disclosure p + p { margin-top: 10px; }
+
+  .proj {
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 5px; padding: 20px 22px; margin-bottom: 14px;
+  }
+  .proj-hd { display: flex; flex-wrap: wrap; gap: 10px; align-items: baseline; margin-bottom: 4px; }
+  .proj-hd h3 { font-family: var(--struc); font-size: 1.06rem; font-weight: 700; margin: 0; letter-spacing: -.01em; }
+  .status {
+    font-family: var(--struc); font-size: .62rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 3px; margin-left: auto; white-space: nowrap;
+  }
+  .status.wip    { background: var(--wip-soft); color: var(--wip); }
+  .status.queued { background: var(--sunk); color: var(--queued); }
+  .proj .cert {
+    font-family: var(--struc); font-size: .76rem; color: var(--key);
+    font-weight: 600; margin-bottom: 10px;
+  }
+  .proj p { font-size: .96rem; color: var(--ink-2); margin: 0 0 12px; }
+  .proj .foot {
+    font-family: var(--mono); font-size: .74rem; color: var(--ink-3);
+    display: flex; flex-wrap: wrap; gap: 14px; align-items: center;
+  }
+  .proj .foot a { text-decoration: none; }
+  .proj .foot a:hover { text-decoration: underline; }
+
+  ul.certs { list-style: none; padding: 0; margin: 0; font-family: var(--struc); font-size: .92rem; }
+  ul.certs li {
+    display: flex; gap: 12px; align-items: baseline;
+    padding: 9px 0; border-bottom: 1px solid var(--rule-2); color: var(--ink-2);
+  }
+  ul.certs li:last-child { border-bottom: none; }
+  ul.certs .n {
+    font-family: var(--mono); font-size: .74rem; color: var(--ink-3);
+    min-width: 20px; font-variant-numeric: tabular-nums;
+  }
+
+  footer {
+    border-top: 1px solid var(--rule); margin-top: 40px; padding: 26px 0 70px;
+    font-family: var(--struc); font-size: .82rem; color: var(--ink-3);
+  }
+  footer a { color: var(--ink-3); }
+
+  @media (max-width: 640px) {
+    header.top { padding: 44px 0 30px; }
+    .status { margin-left: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="eyebrow">Salesforce · Sydney, Australia</div>
+    <h1>Hemayet Hossain</h1>
+    <p class="sub">
+      Salesforce administrator and implementation consultant. I build complete,
+      documented implementations against realistic business scenarios — and
+      publish the working, not just the outcome.
+    </p>
+    <div class="links">
+      <a href="https://github.com/hossainconsulting">GitHub</a>
+      <a href="https://hossainconsulting.com">hossainconsulting.com</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section>
+  <h2>What this is</h2>
+  <p>
+    Each project below is a full engagement run end to end in its own Salesforce
+    Developer org: requirements gathered from stakeholders with conflicting
+    priorities, a data model designed before anything is clicked, security and
+    automation built and tested, and a written record of every decision.
+  </p>
+  <p>
+    The repositories contain the configuration, the seed data, and — most
+    usefully — the <strong>deliverables</strong>: design documents, SOPs,
+    analyses, incident write-ups and runbooks. The configuration proves the
+    clicks happened. The documents prove the thinking did.
+  </p>
+
+  <div class="disclosure">
+    <span class="lbl">Disclosure</span>
+    <p>
+      <strong>These are simulations, not client work.</strong> SunRise Solar
+      Solutions, Meridian Field Services, TradeLink Group and Meridian Appliance
+      Care are fictional companies. Every scenario, stakeholder and record is
+      invented for the purpose of developing and evidencing implementation skill.
+    </p>
+    <p>
+      No real customer data appears anywhere in these projects. I'd rather you
+      know that in the first thirty seconds than find out later.
+    </p>
+  </div>
+</section>
+
+<section>
+  <h2>Projects</h2>
+
+  <div class="proj">
+    <div class="proj-hd">
+      <h3>SunRise Solar Solutions</h3>
+      <span class="status wip">In progress</span>
+    </div>
+    <div class="cert">Salesforce Administrator</div>
+    <p>
+      Twelve weeks as the incoming administrator at a 47-person NSW solar
+      installer whose org has run unmaintained for six months — 340 duplicate
+      accounts, a lead assignment rule that stopped matching reality when
+      territory boundaries moved, and a quarter that missed quota with no
+      explanation anyone can produce.
+    </p>
+    <div class="foot">
+      <span>12 weeks · 21 projects</span>
+      <a href="https://github.com/hossainconsulting/sunrise-solar-internship">repository →</a>
+    </div>
+  </div>
+
+  <div class="proj">
+    <div class="proj-hd">
+      <h3>Meridian Field Services</h3>
+      <span class="status queued">Queued</span>
+    </div>
+    <div class="cert">Platform App Builder</div>
+    <p>
+      An end-to-end implementation for a Sydney plumbing, electrical and HVAC
+      company running its business on spreadsheets, a shared inbox and a group
+      text thread. Eighteen phases, every one traced to a numbered requirement
+      in the client's own words.
+    </p>
+    <div class="foot">
+      <span>18 phases</span>
+      <a href="https://github.com/hossainconsulting/meridian-field-services">repository →</a>
+    </div>
+  </div>
+
+  <div class="proj">
+    <div class="proj-hd">
+      <h3>TradeLink Group</h3>
+      <span class="status queued">Queued</span>
+    </div>
+    <div class="cert">Advanced Administrator · Sales Cloud · Service Cloud</div>
+    <p>
+      Eight sprints inside a national home-services franchise network — 450
+      staff, three brands, six years of organic growth in the org. A security
+      model reset, an acquisition data migration with a rehearsed rollback, an
+      SLA machine for a contact centre at 40% volume growth, and a packaged
+      go-live.
+    </p>
+    <div class="foot">
+      <span>8 sprints</span>
+      <a href="https://github.com/hossainconsulting/tradelink-group">repository →</a>
+    </div>
+  </div>
+
+  <div class="proj">
+    <div class="proj-hd">
+      <h3>Meridian Appliance Care</h3>
+      <span class="status queued">Queued</span>
+    </div>
+    <div class="cert">Agentforce Specialist</div>
+    <p>
+      A six-week consulting engagement for a national warranty administrator
+      handling 12,400 cases a month with zero self-service deflection. Agentforce
+      was licensed after a board directive and never switched on. Includes a live
+      incident with two seeded root causes and a blameless post-incident review.
+    </p>
+    <div class="foot">
+      <span>6 weeks</span>
+      <a href="https://github.com/hossainconsulting/agentforce-meridian-care">repository →</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Certification track</h2>
+  <ul class="certs">
+    <li><span class="n">01</span> Salesforce Administrator</li>
+    <li><span class="n">02</span> Platform App Builder</li>
+    <li><span class="n">03</span> Advanced Administrator</li>
+    <li><span class="n">04</span> Agentforce Specialist</li>
+    <li><span class="n">05</span> Sales Cloud Consultant</li>
+    <li><span class="n">06</span> Service Cloud Consultant</li>
+    <li><span class="n">07</span> Data Cloud Consultant</li>
+    <li><span class="n">08</span> Marketing Cloud Administrator</li>
+  </ul>
+</section>
+
+<footer>
+  <div class="wrap" style="padding:0">
+    Hemayet Hossain · Sydney, Australia ·
+    <a href="https://github.com/hossainconsulting">github.com/hossainconsulting</a><br>
+    Salesforce and related marks are property of Salesforce, Inc.
+  </div>
+</footer>
+
+</div>
+</body>
+</html>

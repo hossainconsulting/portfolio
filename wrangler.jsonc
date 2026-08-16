@@ -1,0 +1,10 @@
+{
+  // Static-asset Worker. `npx wrangler deploy` uploads everything in ./public
+  // and serves it directly - no build step, no framework, no server code.
+  "name": "portfolio",
+  "compatibility_date": "2026-01-01",
+  "assets": {
+    "directory": "./public",
+    "not_found_handling": "404-page"
+  }
+}
