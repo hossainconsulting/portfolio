@@ -40,17 +40,29 @@ subdomain is routed to this Worker.
 This matters beyond tidiness: `index.html` links to `https://hossainconsulting.com`
 in the site header, so the live site currently contains a broken link.
 
-Either point the apex at this Worker, or redirect it:
+**Decision (19/08/2026): 301 the apex to the portfolio subdomain.**
+`portfolio.hossainconsulting.com` stays the single canonical address.
 
-> **Redirect (simpler):** Cloudflare dashboard → **Rules** → **Redirect Rules** →
-> create rule, hostname equals `hossainconsulting.com`, dynamic redirect to
-> `concat("https://portfolio.hossainconsulting.com", http.request.uri.path)`,
-> status 301.
+> Cloudflare dashboard → select `hossainconsulting.com` → **Rules** →
+> **Redirect Rules** → **Create rule**.
 >
-> **Or serve the site at the apex:** Workers & Pages → `portfolio` → **Settings**
-> → **Domains & Routes** → add `hossainconsulting.com` as a custom domain. Then
-> decide which hostname is canonical and redirect the other, so the same content
-> is not served on two addresses.
+> - **Name:** `apex to portfolio`
+> - **When incoming requests match:** Custom filter expression →
+>   `(http.host eq "hossainconsulting.com")`
+> - **Then:** Type **Dynamic**, Expression
+>   `concat("https://portfolio.hossainconsulting.com", http.request.uri.path)`
+> - **Status code:** `301`
+> - Tick **Preserve query string**
+>
+> Deploy the rule. A DNS record must exist for the apex and be **proxied**
+> (orange cloud) for the rule to fire — Cloudflare only applies redirect rules
+> to hostnames whose traffic it proxies.
+>
+> If there is no apex record, add a proxied placeholder: `AAAA` for `@` pointing
+> at `100::`, or `A` for `@` pointing at `192.0.2.0`. Both are
+> [reserved originless placeholders](https://developers.cloudflare.com/dns/manage-dns-records/how-to/create-dns-records/#originless-setups) —
+> because the record is proxied, requests never reach the address; Cloudflare
+> intercepts them and applies the rule.
 
 Verify with:
 
