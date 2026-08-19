@@ -1,6 +1,23 @@
 # portfolio.hossainconsulting.com
 
-Static portfolio site. Deployed to Cloudflare on every push to `main`.
+Static portfolio site on Cloudflare Workers.
+
+> **Deploys are manual.** An earlier version of this README claimed the site
+> deployed on every push to `main`. It does not — verified 19/08/2026: the repo
+> has no GitHub Actions workflow, no Cloudflare Workers Builds connection, no
+> webhooks, and pushes produce no check runs or deployments. **Pushing to `main`
+> publishes nothing.**
+>
+> To release:
+>
+> ```bash
+> npx wrangler login     # once per machine, opens a browser
+> npx wrangler deploy
+> ```
+>
+> Then run the verification commands at the bottom of this file. If you want
+> push-to-deploy, connect the repo under Workers & Pages → `portfolio` →
+> **Settings** → **Builds**, and this note can go.
 
 - `public/` — the site. Plain HTML, no build step, no dependencies.
   - `index.html` — the site itself
