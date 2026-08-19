@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found — Hemayet Hossain</title>
+<meta name="robots" content="noindex">
+<style>
+  :root {
+    --paper:   #FAF9F7;
+    --surface: #FFFFFF;
+    --ink:     #141210;
+    --ink-2:   #4A4540;
+    --ink-3:   #78716A;
+    --rule:    #DED9D3;
+    --rule-2:  #EBE7E2;
+    --key:     #1B4D3E;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:   #100F0D;
+      --surface: #191714;
+      --ink:     #EDE9E4;
+      --ink-2:   #A9A29A;
+      --ink-3:   #7D766E;
+      --rule:    #2C2823;
+      --rule-2:  #221F1B;
+      --key:     #6FBFA3;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #100F0D; --surface: #191714;
+    --ink: #EDE9E4; --ink-2: #A9A29A; --ink-3: #7D766E;
+    --rule: #2C2823; --rule-2: #221F1B; --key: #6FBFA3;
+  }
+  :root {
+    --struc: "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    --prose: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--prose); font-size: 17px; line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh; display: flex; flex-direction: column;
+  }
+  .wrap { max-width: 72ch; margin: 0 auto; padding: 0 26px; width: 100%; }
+  a { color: var(--key); text-underline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--key); outline-offset: 2px; border-radius: 2px; }
+
+  main { flex: 1 0 auto; padding: 96px 0 64px; }
+  .eyebrow {
+    font-family: var(--struc); font-size: .7rem; font-weight: 700;
+    letter-spacing: .16em; text-transform: uppercase; color: var(--key);
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-family: var(--struc); font-weight: 700; letter-spacing: -.03em;
+    font-size: clamp(2rem, 5vw, 3rem); line-height: 1.05; margin: 0 0 16px;
+  }
+  .sub { font-size: 1.12rem; color: var(--ink-2); margin: 0 0 26px; max-width: 54ch; }
+  .links { display: flex; flex-wrap: wrap; gap: 8px; font-family: var(--struc); font-size: .84rem; }
+  .links a {
+    text-decoration: none; border: 1px solid var(--rule); background: var(--surface);
+    padding: 7px 14px; border-radius: 100px; color: var(--ink-2);
+  }
+  .links a:hover { border-color: var(--key); color: var(--key); }
+
+  footer {
+    flex-shrink: 0;
+    border-top: 1px solid var(--rule-2); padding: 28px 0 40px;
+    font-family: var(--struc); font-size: .8rem; color: var(--ink-3);
+  }
+</style>
+</head>
+<body>
+
+<main>
+  <div class="wrap">
+    <div class="eyebrow">404 · Page not found</div>
+    <h1>That page isn&rsquo;t here</h1>
+    <p class="sub">
+      The link may be out of date, or the address mistyped. Everything on this
+      site is reachable from the front page.
+    </p>
+    <div class="links">
+      <a href="/">Back to the portfolio</a>
+      <a href="https://github.com/hossainconsulting">GitHub</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    Hemayet Hossain · Sydney, Australia ·
+    <a href="https://github.com/hossainconsulting">github.com/hossainconsulting</a>
+  </div>
+</footer>
+
+</body>
+</html>

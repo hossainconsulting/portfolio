@@ -1,0 +1,30 @@
+# Response headers for every path served by this Worker.
+# Cloudflare Workers static assets reads this file natively - same syntax as Pages.
+# https://developers.cloudflare.com/workers/static-assets/headers/
+
+/*
+  # Tell browsers to only ever reach this origin over HTTPS. Two years, all
+  # subdomains, and eligible for the browser preload list.
+  #
+  # NOTE: this only protects visitors who have already reached the site over
+  # HTTPS once. The plain-http:// first visit is fixed at the zone level with
+  # "Always Use HTTPS" - see README.
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+
+  # The page is inline HTML and inline CSS with no scripts, no images and no
+  # external assets, so this can be tight. If you later add a script or an
+  # image, this is the line that will break first - by design.
+  Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'none'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests
+
+  # No MIME sniffing.
+  X-Content-Type-Options: nosniff
+
+  # Belt and braces alongside frame-ancestors, for older browsers.
+  X-Frame-Options: DENY
+
+  # Send the full referrer within the site, origin only cross-site, nothing
+  # when downgrading to http.
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # Nothing here needs any of these.
+  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
