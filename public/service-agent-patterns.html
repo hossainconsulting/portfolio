@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Service-Agent Pattern Library — Hemayet Hossain</title>
+<meta name="description" content="A public board offered 200 AI agent ideas for service businesses. It collapses into 25 patterns. Each one with its risk tier, integration cost and Australian compliance exposure.">
+<style>
+  :root {
+    --paper:   #FAF9F7;
+    --surface: #FFFFFF;
+    --sunk:    #F1EFEC;
+    --ink:     #141210;
+    --ink-2:   #4A4540;
+    --ink-3:   #78716A;
+    --rule:    #DED9D3;
+    --rule-2:  #EBE7E2;
+    --key:     #1B4D3E;
+    --key-soft:#E6EEEA;
+    --live:    #1B4D3E;
+    --wip:     #8A6410;
+    --wip-soft:#F7EFDC;
+    --queued:  #78716A;
+    /* Third semantic step, in the same warm register as --wip. The homepage
+       has no red because nothing there fails; this page grades risk. */
+    --risk:     #8E3520;
+    --risk-soft:#F7E7E1;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:   #100F0D;
+      --surface: #191714;
+      --sunk:    #141210;
+      --ink:     #EDE9E4;
+      --ink-2:   #A9A29A;
+      --ink-3:   #7D766E;
+      --rule:    #2C2823;
+      --rule-2:  #221F1B;
+      --key:     #6FBFA3;
+      --key-soft:#13251F;
+      --live:    #6FBFA3;
+      --wip:     #D8A94A;
+      --wip-soft:#251E10;
+      --queued:  #7D766E;
+      --risk:     #D9887A;
+      --risk-soft:#2A1712;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:   #100F0D; --surface: #191714; --sunk: #141210;
+    --ink:     #EDE9E4; --ink-2: #A9A29A; --ink-3: #7D766E;
+    --rule:    #2C2823; --rule-2: #221F1B;
+    --key:     #6FBFA3; --key-soft:#13251F;
+    --live:    #6FBFA3; --wip: #D8A94A; --wip-soft:#251E10; --queued:#7D766E;
+    --risk:    #D9887A; --risk-soft:#2A1712;
+  }
+  :root {
+    --struc: "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    --prose: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --mono:  "Cascadia Code", "SF Mono", ui-monospace, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--prose); font-size: 17px; line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Wider than the homepage's 72ch: this page carries an inventory and four
+     tables. Running text is held to 68ch by the p rule below, so the reading
+     measure is unchanged - only the furniture gets the extra room. */
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 0 26px; }
+
+  a { color: var(--key); text-underline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--key); outline-offset: 2px; border-radius: 2px; }
+
+  header.top { border-bottom: 1px solid var(--rule); padding: 64px 0 36px; }
+  .eyebrow {
+    font-family: var(--struc); font-size: .7rem; font-weight: 700;
+    letter-spacing: .16em; text-transform: uppercase; color: var(--key);
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-family: var(--struc); font-weight: 700; letter-spacing: -.03em;
+    font-size: clamp(1.9rem, 4.6vw, 2.8rem); line-height: 1.06; margin: 0 0 16px;
+    max-width: 22ch; text-wrap: balance;
+  }
+  header.top .sub { font-size: 1.1rem; color: var(--ink-2); margin: 0 0 22px; max-width: 60ch; }
+  .links { display: flex; flex-wrap: wrap; gap: 8px; font-family: var(--struc); font-size: .84rem; }
+  .links a {
+    text-decoration: none; border: 1px solid var(--rule); background: var(--surface);
+    padding: 7px 14px; border-radius: 100px; color: var(--ink-2);
+  }
+  .links a:hover { border-color: var(--key); color: var(--key); }
+
+  /* ---- the collapse ---- */
+  .collapse {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    border: 1px solid var(--rule); border-radius: 5px; background: var(--surface);
+    margin: 34px 0 0; overflow: hidden;
+  }
+  .cell { padding: 20px 22px; border-right: 1px solid var(--rule-2); }
+  .cell:last-child { border-right: none; }
+  .fig {
+    font-family: var(--struc); font-weight: 700; font-size: 1.95rem; line-height: 1;
+    letter-spacing: -.03em; font-variant-numeric: tabular-nums; margin-bottom: 6px;
+  }
+  .cell.was .fig { color: var(--ink-3); }
+  .cell.is  .fig { color: var(--key); }
+  .cell .lbl {
+    font-family: var(--struc); font-size: .64rem; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3);
+    margin-bottom: 6px;
+  }
+  .cell .nt { font-size: .88rem; color: var(--ink-2); line-height: 1.45; margin: 0; }
+
+  /* ---- sections ---- */
+  section { padding: 46px 0 8px; }
+  section + section { border-top: 1px solid var(--rule-2); }
+  .sec-n {
+    font-family: var(--mono); font-size: .72rem; font-weight: 600;
+    letter-spacing: .12em; color: var(--key); margin-bottom: 8px;
+  }
+  h2 {
+    font-family: var(--struc); font-weight: 700; font-size: 1.3rem;
+    letter-spacing: -.02em; margin: 0 0 14px; text-wrap: balance;
+  }
+  h3 {
+    font-family: var(--struc); font-weight: 700; font-size: 1rem;
+    letter-spacing: -.01em; margin: 0 0 8px;
+  }
+  p { margin: 0 0 15px; max-width: 68ch; }
+  strong { color: var(--ink); }
+  code {
+    font-family: var(--mono); font-size: .82em; background: var(--sunk);
+    padding: 1px 5px; border-radius: 3px;
+  }
+
+  .pull {
+    background: var(--key-soft);
+    border-left: 3px solid var(--key);
+    border-radius: 0 5px 5px 0;
+    padding: 16px 20px; margin: 0 0 20px; max-width: 68ch;
+  }
+  .pull p { margin: 0; font-size: .98rem; }
+
+  .disclosure {
+    background: var(--sunk); border: 1px solid var(--rule);
+    border-radius: 5px; padding: 18px 22px; margin: 24px 0 0;
+  }
+  .disclosure .lbl {
+    display: block; font-family: var(--struc); font-weight: 700; font-size: .68rem;
+    letter-spacing: .11em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px;
+  }
+  .disclosure p { margin: 0; font-size: .95rem; color: var(--ink-2); max-width: none; }
+
+  /* ---- tier cards ---- */
+  .tiers { display: grid; gap: 14px; grid-template-columns: 1fr; margin-bottom: 22px; }
+  @media (min-width: 760px) { .tiers { grid-template-columns: repeat(3, 1fr); } }
+  .tier {
+    background: var(--surface); border: 1px solid var(--rule);
+    border-top: 3px solid var(--tc); border-radius: 5px; padding: 18px 20px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .tier.g { --tc: var(--live); }
+  .tier.a { --tc: var(--wip); }
+  .tier.r { --tc: var(--risk); }
+  .tier .nm {
+    font-family: var(--struc); font-size: .68rem; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--tc);
+    display: flex; align-items: baseline; gap: 8px;
+  }
+  .tier .ct { margin-left: auto; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .tier .cost { font-size: .93rem; color: var(--ink-2); margin: 0; max-width: none; }
+  .tier .rl {
+    font-size: .92rem; margin: auto 0 0; max-width: none;
+    padding-top: 11px; border-top: 1px solid var(--rule-2);
+  }
+  .tier .rl span {
+    display: block; font-family: var(--struc); font-size: .6rem; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 4px;
+  }
+
+  /* ---- pattern inventory ---- */
+  .stage-hd {
+    display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+    padding: 26px 0 8px;
+  }
+  .stage-hd .sn {
+    font-family: var(--struc); font-size: .64rem; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3);
+  }
+  .stage-hd h3 { margin: 0; }
+
+  .phd, .pat {
+    display: grid;
+    grid-template-columns: 30px minmax(0, 1.05fr) minmax(0, 1fr) 72px;
+    gap: 16px; align-items: start;
+    padding: 12px 16px 12px 13px;
+    border-bottom: 1px solid var(--rule-2);
+    border-left: 3px solid transparent;
+  }
+  .phd { padding-top: 0; padding-bottom: 7px; border-bottom: 1px solid var(--rule); }
+  .phd span {
+    font-family: var(--struc); font-size: .6rem; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3);
+  }
+  ul.pats { list-style: none; margin: 0 0 4px; padding: 0; }
+  .pat { background: var(--surface); }
+  .pat.g { border-left-color: var(--live); }
+  .pat.a { border-left-color: var(--wip); }
+  .pat.r { border-left-color: var(--risk); }
+  .pat .num {
+    font-family: var(--mono); font-size: .74rem; color: var(--ink-3);
+    font-variant-numeric: tabular-nums; padding-top: 3px;
+  }
+  .pat h4 {
+    font-family: var(--struc); font-size: .95rem; font-weight: 700;
+    letter-spacing: -.01em; margin: 0 0 2px; line-height: 1.3;
+  }
+  .pat p { font-size: .87rem; color: var(--ink-2); margin: 0; max-width: none; line-height: 1.45; }
+  .pat .micro { display: none; }
+  .badge {
+    font-family: var(--struc); font-size: .6rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 3px; justify-self: start;
+    white-space: nowrap; margin-top: 2px;
+  }
+  .b-g { background: var(--key-soft);  color: var(--live); }
+  .b-a { background: var(--wip-soft);  color: var(--wip); }
+  .b-r { background: var(--risk-soft); color: var(--risk); }
+  .badge em { display: block; font-style: normal; font-size: .92em; letter-spacing: .04em;
+              text-transform: none; opacity: .8; margin-top: 2px; }
+
+  @media (max-width: 780px) {
+    .phd { display: none; }
+    .pat { grid-template-columns: 28px minmax(0, 1fr) 68px; gap: 6px 12px; padding: 14px 13px; }
+    .pat .main { grid-column: 2; }
+    .pat .ai   { grid-column: 2; margin-top: 8px; }
+    .pat .badge { grid-column: 3; grid-row: 1; }
+    .pat .micro {
+      display: block; font-family: var(--struc); font-size: .6rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 3px;
+    }
+  }
+
+  /* ---- tables ---- */
+  .tw { overflow-x: auto; border: 1px solid var(--rule); border-radius: 5px;
+        background: var(--surface); margin-bottom: 20px; }
+  table { border-collapse: collapse; width: 100%; min-width: 560px; }
+  th, td {
+    text-align: left; padding: 10px 16px; vertical-align: top;
+    border-bottom: 1px solid var(--rule-2); font-size: .88rem; line-height: 1.45;
+  }
+  th {
+    font-family: var(--struc); font-size: .6rem; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3);
+    border-bottom: 1px solid var(--rule); white-space: nowrap;
+  }
+  td { color: var(--ink-2); }
+  tbody tr:last-child td { border-bottom: none; }
+  td.nm { font-family: var(--struc); font-weight: 700; font-size: .87rem; color: var(--ink); }
+  td.ref { font-family: var(--mono); font-size: .76rem; color: var(--ink-3); white-space: nowrap; }
+  .st {
+    font-family: var(--struc); font-size: .6rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 3px; white-space: nowrap;
+  }
+  .st-y { background: var(--key-soft); color: var(--live); }
+  .st-p { background: var(--wip-soft); color: var(--wip); }
+  .st-n { background: var(--sunk);     color: var(--queued); }
+
+  /* ---- notes grid ---- */
+  .notes { display: grid; gap: 18px; grid-template-columns: 1fr; margin-bottom: 8px; }
+  @media (min-width: 760px) { .notes { grid-template-columns: repeat(2, 1fr); } }
+  .note { border-top: 2px solid var(--rule); padding-top: 13px; }
+  .note p { font-size: .92rem; color: var(--ink-2); margin: 0; max-width: none; }
+
+  /* ---- criteria ---- */
+  ol.crit { list-style: none; margin: 0 0 18px; padding: 0; }
+  ol.crit li {
+    display: grid; grid-template-columns: 28px 1fr; gap: 14px;
+    padding: 13px 0; border-bottom: 1px solid var(--rule-2); align-items: baseline;
+  }
+  ol.crit li:first-child { border-top: 1px solid var(--rule); }
+  ol.crit .k {
+    font-family: var(--mono); font-size: .74rem; font-weight: 600;
+    color: var(--key); font-variant-numeric: tabular-nums;
+  }
+  ol.crit b { font-family: var(--struc); font-size: .95rem; }
+  ol.crit p { font-size: .9rem; color: var(--ink-2); margin: 3px 0 0; max-width: 62ch; }
+
+  footer {
+    border-top: 1px solid var(--rule); margin-top: 44px; padding: 26px 0 70px;
+    font-family: var(--struc); font-size: .82rem; color: var(--ink-3);
+  }
+  footer a { color: var(--ink-3); }
+  footer p { max-width: 74ch; margin: 0 0 9px; }
+
+  @media (max-width: 640px) { header.top { padding: 44px 0 30px; } }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="eyebrow">The Meridian Engagement · Reference</div>
+    <h1>The Service-Agent Pattern Library</h1>
+    <p class="sub">
+      A public board offered 200 AI agent ideas for service businesses. Read across
+      the columns instead of down them and it collapses into 25 patterns wearing
+      eight different sets of nouns. Here they are, with the risk tier, the
+      integration bill and the compliance exposure each one actually carries.
+    </p>
+    <div class="links">
+      <a href="/">← Portfolio</a>
+      <a href="https://github.com/hossainconsulting/agentforce-meridian-care">Engagement repository</a>
+    </div>
+
+    <div class="collapse">
+      <div class="cell was">
+        <div class="fig">200</div>
+        <div class="lbl">Ideas on the board</div>
+        <p class="nt">25 cells across 8 service niches.</p>
+      </div>
+      <div class="cell is">
+        <div class="fig">25</div>
+        <div class="lbl">Distinct patterns</div>
+        <p class="nt">What survives once the duplicates across niches collapse.</p>
+      </div>
+      <div class="cell">
+        <div class="fig">8×</div>
+        <div class="lbl">Re-skinning factor</div>
+        <p class="nt">Trades' warranty triage is Clinics' insurance chase with different nouns.</p>
+      </div>
+      <div class="cell">
+        <div class="fig">6 / 15 / 4</div>
+        <div class="lbl">Green / amber / red</div>
+        <p class="nt">Only four patterns can't let the model speak for itself.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section>
+  <p>
+    The board presents itself as 200 opportunities: trades, cleaning, landscaping,
+    clinics, salons, repair shops, agencies, consultants, 25 ideas each. Read column
+    by column, that holds. Read row by row and the same skeleton repeats in nearly
+    every one — missed-call capture, booking, reminders, review requests, invoice
+    chase, handoff summaries, FAQ. Salons' <code>waitlist filler</code> is Trades'
+    <code>cancellation soft filler</code>. Clinics' <code>insurance document
+    chase-up</code> is Trades' <code>warranty question triage</code>.
+  </p>
+  <div class="pull">
+    <p><strong>The unit of reuse is the pattern, not the vertical.</strong> Build the
+    triage-and-handoff engine once and eight columns become eight configurations,
+    not eight builds.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-n">01</div>
+  <h2>The risk tiers decide the architecture</h2>
+  <p>
+    Every pattern here carries a tier, and the tier is not a severity label for its
+    own sake — it dictates where the answer is allowed to come from. This is the
+    single most load-bearing distinction in the document.
+  </p>
+
+  <div class="tiers">
+    <div class="tier g">
+      <div class="nm">Green <span class="ct">6</span></div>
+      <p class="cost">A wrong answer costs a minute of someone's time. A reminder fires twice; an ETA is off by ten minutes.</p>
+      <p class="rl"><span>Architectural rule</span>Generation is fine. Ship it.</p>
+    </div>
+    <div class="tier a">
+      <div class="nm">Amber <span class="ct">15</span></div>
+      <p class="cost">A wrong answer costs trust, or a booking. A misrouted enquiry, a bad summary, a review request sent to an angry customer.</p>
+      <p class="rl"><span>Architectural rule</span>Generation anchored on a retrieved fact, with a measured error rate.</p>
+    </div>
+    <div class="tier r">
+      <div class="nm">Red <span class="ct">4</span></div>
+      <p class="cost">A wrong answer costs money, safety or a legal breach. Coverage statements, clinical urgency, pricing, payment claims, anything touching a health record.</p>
+      <p class="rl"><span>Architectural rule</span>The answer comes from a retrieved action, never the model. The model may only phrase what the action returned.</p>
+    </div>
+  </div>
+
+  <p>
+    The red-tier rule is the generalised form of the constraint the Meridian build
+    runs on: coverage answers come from
+    <code>Warranty_Entitlement__c.Is_Currently_Covered__c</code>, a formula field the
+    agent retrieves, not a judgement it generates. The same logic extends to any
+    statement a customer could reasonably act on or hold you to. Under the Australian
+    Consumer Law a claim about coverage, remedy, repair rights or price is a
+    <strong>representation</strong> — an agent that improvises one is a compliance
+    problem wearing a chat interface.
+  </p>
+</section>
+
+<section>
+  <div class="sec-n">02</div>
+  <h2>The twenty-five patterns</h2>
+  <p>
+    Grouped by lifecycle stage. The column that matters is the last one: in most of
+    these the intelligence is a thin band and everything around it is deterministic
+    code.
+  </p>
+
+  <div class="stage-hd"><span class="sn">Stage 1</span><h3>Capture and qualify</h3></div>
+  <div class="phd"><span>#</span><span>Pattern &amp; trigger</span><span>The AI's actual job</span><span>Tier</span></div>
+  <ul class="pats">
+    <li class="pat g">
+      <span class="num">01</span>
+      <div class="main"><h4>Missed-call capture</h4><p>Unanswered inbound call → SMS within 60 seconds capturing intent</p></div>
+      <div class="ai"><span class="micro">AI's actual job</span><p>Parse the reply into an intent and a callback preference</p></div>
+      <span class="badge b-g">Green</span>
+    </li>
+    <li class="pat a">
+      <span class="num">02</span>
+      <div class="main"><h4>Enquiry triage</h4><p>Inbound form, email or DM → classified and routed</p></div>
+      <div class="ai"><span class="micro">AI's actual job</span><p>Classify intent, extract entities, pick a queue</p></div>
+      <span class="badge b-a">Amber</span>
+    </li>
+    <li class="pat a">
+      <span class="num">03</span>
+      <div class="main"><h4>Lead qualification</h4><p>New enquiry → qualified, or politely declined</p></div>
+      <div class="ai"><span class="micro">AI's actual job</span><p>Judge fit against service area, job type and budget signal</p></div>
+      <span class="badge b-a">Amber</span>
+    </li>
+    <li class="pat r">
+      <span class="num">04</span>
+      <div class="main"><h4>Urgency triage</h4><p>Any inbound → emergency path or normal queue</p></div>
+      <div class="ai"><span class="micro">AI's actual job</span><p>Detect the red flag — gas, water, electrical, clinical</p></div>
+      <span class="badge b-r">Red</span>
+    </li>
+    <li class="pat a">
+      <span class="num">05</span>
+      <div class="main"><h4>Quote request intake</h4><p>Free text and photos → structured scope on a record</p></div>
+      <div class="ai"><span class="micro">AI's actual job</span><p>Extract scope; describe what is in the photo</p></div>
+      <span class="badge b-a">Amber</span>
+    </li>
+  </ul>
+
+  <div class="pull">
+    <p>Pattern 04 is red-tiered and people miss it. An agent that fails to recognise
+    <em>"I can smell gas"</em> or a cardiac description is not a bad chatbot, it is an
+    incident. Emergency detection should be keyword-and-rule first, model second, and
+    it should over-escalate by design.</p>
+  </div>
+
+  <div class="stage-hd"><span class="sn">Stage 2</span><h3>Book and schedule</h3></div>
+  <div class="phd"><span>#</span><span>Pattern &amp; trigger</span><span>The AI's actual job</span><span>Tier</span></div>
+  <ul class="pats">
+    <li class="pat a">
+      <span class="num">06</span>
+      <div class="main"><h4>Booking agent</h4><p>Qualified enquiry → slot written to the calendar</p></div>
+      <div class="ai"><span class="micro">AI's actual job</span><p>Turn "sometime Thursday arvo" into a slot query</p></div>
+      <span class="badge b-a">Amber</span>
+    </li>
+    <li class="pat g">
+      <span class="num">07</span>
+      <div class="main"><h4>Appointment reminder</h4><p>T−24h and T−2h → confirmation received</p></div>
+      <div class="ai"><span class="micro">AI's actual job</span><p>Almost none. A scheduled job with a template.</p></div>
+      <span class="badge b-g">Green</span>
+    </li>
+    <li class="pat g">
+      <span class="num">08</span>
+      <div class="main"><h4>Reschedule handler</h4><p>Inbound "can we move it?" → calendar updated</p></div>
+      <div class="ai"><span class="micro">AI's actual job</span><p>Interpret a vague new time, then confirm it back</p></div>
+      <span class="badge b-g">Green</span>
+    </li>
+    <li class="pat g">
+      <span class="num">09</span>
+      <div class="main"><h4>Cancellation backfill</h4><p>Slot freed → offered to the waitlist in priority order</p></div>
+      <div class="ai"><span class="micro">AI's actual job</span><p>Draft the offer; rank who to ask first</p></div>
+      <span class="badge b-g">Green</span>
+    </li>
+    <li class="pat a">
+      <span class="num">10</span>
+      <div class="main"><h4>No-show recovery</h4><p>Missed appointment → rebooked, or closed out</p></div>
+      <div class="ai"><span class="micro">AI's actual job</span><p>Tone. A message that reads as a telling-off loses the customer.</p></div>
+      <span class="badge b-a">Amber</span>
+    </li>
+    <li class="pat g">
+      <span class="num">11</span>
+      <div class="main"><h4>Route and ETA update</h4><p>Technician running late → customer told before they notice</p></div>
+      <div class="ai"><span class="micro">AI's actual job</span><p>None. Geofence plus template.</p></div>
+      <span class="badge b-g">Green</span>
+    </li>
+    <li class="pat g">
+      <span class="num">12</span>
+      <div class="main"><h4>Waitlist manager</h4><p>Capacity opens → waitlist worked down</p></div>
+      <div class="ai"><span class="micro">AI's actual job</span><p>Rank by fit and recency</p></div>
+      <span class="badge b-g">Green</span>
+    </li>
+  </ul>
+
+  <div class="pull">
+    <p>Six of the twelve patterns so far are green, and several need no model at all.
+    That is the board's own best advice, and it is correct: start with follow-up,
+    scheduling and reminders, then add AI only where language, judgment or triage
+    genuinely appear. Most of the value in Stage 2 is a working queue, not a clever
+    one.</p>
+  </div>
+
+  <div class="stage-hd"><span class="sn">Stage 3</span><h3>Deliver and hand off</h3></div>
+  <div class="phd"><span>#</span><span>Pattern &amp; trigger</span><span>The AI's actual job</span><span>Tier</span></div>
+  <ul class="pats">
+    <li class="pat a">
+      <span class="num">13</span>
+      <div class="main"><h4>Visit note summariser</h4><p>Voice memo or scrappy notes → structured record</p></div>
+      <div class="ai"><span class="micro">AI's actual job</span><p>Genuine summarisation. The strongest fit on the whole board.</p></div>
+      <span class="badge b-a">Amber</span>
+    </li>
+    <li class="pat a">
+      <span class="num">14</span>
+      <div class="main"><h4>Photo evidence summary</h4><p>Before and after images → written condition note</p></div>
+      <div class="ai"><span class="micro">AI's actual job</span><p>Vision description, tightly scoped</p></div>
+      <span class="badge b-a">Amber</span>
+    </li>
+    <li class="pat r">
+      <span class="num">15</span>
+      <div class="main"><h4>Crew and clinician handoff</h4><p>Shift or ownership change → receiving party briefed</p></div>
+      <div class="ai"><span class="micro">AI's actual job</span><p>Compress a history into what the next person needs</p></div>
+      <span class="badge b-r">Red<em>clinical</em></span>
+    </li>
+    <li class="pat a">
+      <span class="num">16</span>
+      <div class="main"><h4>Escalation handoff</h4><p>Agent hits its limit → human takes over with the full transcript</p></div>
+      <div class="ai"><span class="micro">AI's actual job</span><p>Summarise the conversation; never drop the raw transcript</p></div>
+      <span class="badge b-a">Amber</span>
+    </li>
+    <li class="pat a">
+      <span class="num">17</span>
+      <div class="main"><h4>Checklist and SOP Q&amp;A</h4><p>"What's the procedure for X?" → grounded answer</p></div>
+      <div class="ai"><span class="micro">AI's actual job</span><p>Retrieval over the actual SOP, with a citation</p></div>
+      <span class="badge b-a">Amber</span>
+    </li>
+  </ul>
+
+  <div class="pull">
+    <p>Pattern 16 is the one nobody builds and everybody needs. <strong>Every
+    conversation needs a human escalation path, and the handoff must carry the
+    transcript.</strong> The failure mode that destroys trust fastest is a customer
+    made to explain their problem twice — most "our chatbot was terrible" stories are
+    a missing pattern 16.</p>
+  </div>
+
+  <div class="stage-hd"><span class="sn">Stage 4</span><h3>Close and collect</h3></div>
+  <div class="phd"><span>#</span><span>Pattern &amp; trigger</span><span>The AI's actual job</span><span>Tier</span></div>
+  <ul class="pats">
+    <li class="pat a">
+      <span class="num">18</span>
+      <div class="main"><h4>Invoice reminder</h4><p>Invoice ages past terms → escalating reminder sequence</p></div>
+      <div class="ai"><span class="micro">AI's actual job</span><p>Tone laddering across the sequence</p></div>
+      <span class="badge b-a">Amber</span>
+    </li>
+    <li class="pat r">
+      <span class="num">19</span>
+      <div class="main"><h4>Payment status assistant</h4><p>"Has that been paid?" → answer from the ledger</p></div>
+      <div class="ai"><span class="micro">AI's actual job</span><p>Phrase a retrieved balance. Nothing else.</p></div>
+      <span class="badge b-r">Red</span>
+    </li>
+    <li class="pat a">
+      <span class="num">20</span>
+      <div class="main"><h4>Document collection</h4><p>Missing form, certificate or insurance doc → chased until received</p></div>
+      <div class="ai"><span class="micro">AI's actual job</span><p>Track what is outstanding; draft the chase</p></div>
+      <span class="badge b-a">Amber</span>
+    </li>
+  </ul>
+
+  <div class="stage-hd"><span class="sn">Stage 5</span><h3>Retain and grow</h3></div>
+  <div class="phd"><span>#</span><span>Pattern &amp; trigger</span><span>The AI's actual job</span><span>Tier</span></div>
+  <ul class="pats">
+    <li class="pat a">
+      <span class="num">21</span>
+      <div class="main"><h4>Satisfaction check-in</h4><p>Job closed plus N days → sentiment captured</p></div>
+      <div class="ai"><span class="micro">AI's actual job</span><p>Read sentiment from a free-text reply</p></div>
+      <span class="badge b-a">Amber</span>
+    </li>
+    <li class="pat a">
+      <span class="num">22</span>
+      <div class="main"><h4>Review request</h4><p>Positive sentiment confirmed → review link sent</p></div>
+      <div class="ai"><span class="micro">AI's actual job</span><p>Gate on 21. Never ask an unhappy customer.</p></div>
+      <span class="badge b-a">Amber</span>
+    </li>
+    <li class="pat r">
+      <span class="num">23</span>
+      <div class="main"><h4>Complaint triage</h4><p>Negative sentiment or explicit complaint → owner assigned, clock started</p></div>
+      <div class="ai"><span class="micro">AI's actual job</span><p>Classify severity and route; never resolve autonomously</p></div>
+      <span class="badge b-r">Red</span>
+    </li>
+    <li class="pat a">
+      <span class="num">24</span>
+      <div class="main"><h4>Reactivation</h4><p>Dormant customer, or recurring service due → re-engaged</p></div>
+      <div class="ai"><span class="micro">AI's actual job</span><p>Personalise on service history</p></div>
+      <span class="badge b-a">Amber</span>
+    </li>
+    <li class="pat a">
+      <span class="num">25</span>
+      <div class="main"><h4>Renewal and upsell prompt</h4><p>Contract or plan approaching end → offer made</p></div>
+      <div class="ai"><span class="micro">AI's actual job</span><p>Draft the offer against actual usage</p></div>
+      <span class="badge b-a">Amber</span>
+    </li>
+  </ul>
+
+  <div class="pull">
+    <p>Patterns 21 and 22 must be built as one thing. A review request that fires
+    without a sentiment gate is a machine for collecting one-star reviews at scale.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-n">03</div>
+  <h2>What the board doesn't cost in</h2>
+  <p>
+    The infographic's implicit promise is that the idea is the hard part. It isn't.
+    Four costs sit between any cell on that grid and a working system — and the first
+    of them is most of the build.
+  </p>
+
+  <h3>Integration surface</h3>
+  <p>
+    The agent is perhaps a tenth of the work. Auth, sync, retry, reconciliation and
+    the sandbox you test it in are the rest. Grouped by what they touch, in the
+    Australian market:
+  </p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>System class</th><th>Australian examples</th><th>Patterns</th></tr></thead>
+      <tbody>
+        <tr><td class="nm">Telephony &amp; SMS</td><td>Twilio, MessageMedia</td><td class="ref">01, 07, 08, 10, 11, 18</td></tr>
+        <tr><td class="nm">Field service</td><td>ServiceM8, Jobber, simPRO, Tradify</td><td class="ref">05, 06, 09, 12, 13, 14</td></tr>
+        <tr><td class="nm">Practice management</td><td>Cliniko, Halaxy, Best Practice</td><td class="ref">04, 06, 07, 10, 15</td></tr>
+        <tr><td class="nm">Booking &amp; rostering</td><td>Fresha, Timely, Square</td><td class="ref">06, 08, 09, 12</td></tr>
+        <tr><td class="nm">Accounting</td><td>Xero, MYOB</td><td class="ref">18, 19, 20, 25</td></tr>
+        <tr><td class="nm">CRM &amp; case</td><td>Salesforce, HubSpot</td><td class="ref">02, 03, 16, 21, 23, 24</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="notes">
+    <div class="note">
+      <h3>Data readiness</h3>
+      <p>Pattern 22 needs to know the job finished <em>and</em> went well. Pattern 01
+      needs call logs joined to customer records. Pattern 19 needs a ledger the agent
+      can read. Most small operators cannot answer these questions today, and no
+      amount of model quality fixes an unqueryable "job complete" flag.</p>
+    </div>
+    <div class="note">
+      <h3>Volume economics</h3>
+      <p>A three-van plumbing business misses perhaps fifteen calls a week. At ten
+      minutes recovered each that is two and a half hours — real, but small. The
+      economics concentrate where volume does. Meridian, at 12,400 cases a month
+      across 35 seats, sits on the right side of that line. The solo tradie in the
+      board's hero image does not.</p>
+    </div>
+    <div class="note">
+      <h3>"Owned, not rented"</h3>
+      <p>The board's closing claim is positioning, not architecture. You own the
+      orchestration logic, the prompts and the data. You rent the model API, the SMS
+      gateway, the scheduling SaaS and the host. Worth saying plainly to any client
+      who repeats the phrase back to you.</p>
+    </div>
+    <div class="note">
+      <h3>The measurement you skipped</h3>
+      <p>Every pattern here implies a baseline you needed <em>before</em> you built.
+      Meridian's is stark and typical: 71% CSAT, 9:40 average handle time, 28% repeat
+      contact, and 0% self-service deflection. An improvement you cannot count is an
+      improvement that gets switched off in month four.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-n">04</div>
+  <h2>The Australian compliance layer</h2>
+  <p>
+    Roughly a third of the board's cells carry an obligation the board never mentions.
+    The exposure is not evenly spread — it clusters hard in the retention patterns and
+    in the entire clinics column.
+  </p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Regime</th><th>Bites</th><th>The practical constraint</th></tr></thead>
+      <tbody>
+        <tr><td class="nm">Spam Act 2003 (Cth)</td><td class="ref">21, 22, 24, 25</td><td>Commercial electronic messages need consent, sender identification and a functional unsubscribe. Review requests, reactivation and upsell offers are commercial.</td></tr>
+        <tr><td class="nm">Spam Act — transactional</td><td class="ref">07, 08, 10, 11, 18, 20</td><td>Messages about an existing booking or debt are generally factual rather than commercial. Still collect consent at booking; the line moves the moment an offer is attached.</td></tr>
+        <tr><td class="nm">Do Not Call Register Act 2006</td><td class="ref">outbound</td><td>Applies where a pattern places marketing calls rather than sending messages.</td></tr>
+        <tr><td class="nm">Privacy Act 1988 — APPs</td><td class="ref">all</td><td>APP 3 collection, APP 5 notification, APP 6 use and disclosure, APP 11 security. Conversation transcripts are personal information.</td></tr>
+        <tr><td class="nm">Privacy Act — health</td><td class="ref">04, 06, 10, 15, 20</td><td>Health service providers are covered <strong>regardless of turnover</strong> — the small-business exemption does not apply. State law stacks on top, e.g. the NSW <em>Health Records and Information Privacy Act 2002</em>.</td></tr>
+        <tr><td class="nm">Australian Consumer Law</td><td class="ref">04, 05, 17, 19, 23</td><td>Statements about coverage, remedy, repair rights or price are representations. A generated one is misleading-conduct risk.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    Add to this a practice standard rather than a statute: <strong>disclose that the
+    customer is talking to an AI</strong>, and make the escalation path visible in the
+    first message. Not yet a general legal requirement in Australia, but it is where
+    expectations are heading and it costs nothing.
+  </p>
+  <div class="disclosure">
+    <span class="lbl">Not legal advice</span>
+    <p>General Australian context for a real build. Confirm with someone qualified
+    before any of these patterns ship to customers.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-n">05</div>
+  <h2>The map to Meridian</h2>
+  <p>
+    Meridian Appliance Care is a fictional warranty administrator built as a six-week
+    Agentforce engagement simulation — 35 contact-centre seats, 12,400 cases a month,
+    Agentforce licensed after a board directive and never switched on. Here is which
+    of the twenty-five it answers, and where.
+  </p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>#</th><th>Pattern</th><th>Status</th><th>Component</th></tr></thead>
+      <tbody>
+        <tr><td class="ref">02</td><td class="nm">Enquiry triage</td><td><span class="st st-y">Covered</span></td><td>Case record types + <code>Meridian Case Routing</code> assignment rule</td></tr>
+        <tr><td class="ref">04</td><td class="nm">Urgency triage</td><td><span class="st st-p">Partial</span></td><td>Tier-based, not content-based — Retailer VIP routes to Escalations</td></tr>
+        <tr><td class="ref">16</td><td class="nm">Escalation handoff</td><td><span class="st st-y">Designed</span></td><td>Week 3 agent, transcript-carrying handoff</td></tr>
+        <tr><td class="ref">17</td><td class="nm">Checklist &amp; SOP Q&amp;A</td><td><span class="st st-p">Planned</span></td><td>Agent FAQ topic</td></tr>
+        <tr><td class="ref">19</td><td class="nm">Coverage status assistant</td><td><span class="st st-y">Covered</span></td><td>The red-tier exemplar — <code>Is_Currently_Covered__c</code> formula, read by a retrieved action</td></tr>
+        <tr><td class="ref">23</td><td class="nm">Complaint triage</td><td><span class="st st-p">Partial</span></td><td><code>Resolution_Category__c</code> captures the outcome, not severity routing</td></tr>
+        <tr><td class="ref">13</td><td class="nm">Visit note summariser</td><td><span class="st st-n">Out of scope</span></td><td>Case comments exist; no summarisation</td></tr>
+        <tr><td class="ref">18, 20</td><td class="nm">Invoice &amp; document collection</td><td><span class="st st-n">Out of scope</span></td><td>No billing object in the data model</td></tr>
+        <tr><td class="ref">21, 22</td><td class="nm">Check-in &amp; review request</td><td><span class="st st-n">Out of scope</span></td><td>No marketing consent model</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="notes">
+    <div class="note">
+      <h3>A single cell, done properly</h3>
+      <p>The whole engagement is essentially pattern 19 plus 02, 16 and 17, built to a
+      standard the board never describes: coverage as a computed fact, restricted
+      picklists so an import can't invent a fourth SLA tier, and a first-response
+      clock — 48, 24 and 8 business hours — running on Australia/Sydney business
+      hours, Mon–Sat 8:00–18:00, so a VIP breach can't happen overnight while nobody
+      is working. The board sells breadth. The value is depth.</p>
+    </div>
+    <div class="note">
+      <h3>The gaps are deliberate</h3>
+      <p>Patterns 21–25 need a marketing consent model Meridian doesn't have; 18–20
+      need a billing integration outside the six-week scope. Naming the cells you
+      <em>chose not to build</em>, and why, is what separates a scoped engagement from
+      an unfinished one.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-n">06</div>
+  <h2>The pick-one test</h2>
+  <p>When a client points at the grid and asks which cell to build first, four criteria, in this order.</p>
+  <ol class="crit">
+    <li><span class="k">01</span><span><b>Frequency</b><p>Does it happen daily? Weekly is too rare to learn from.</p></span></li>
+    <li><span class="k">02</span><span><b>Blast radius</b><p>Green tier only for a first build. Never start on a red cell.</p></span></li>
+    <li><span class="k">03</span><span><b>Baseline</b><p>Can you measure today's performance before you build? If not, you cannot prove the thing worked.</p></span></li>
+    <li><span class="k">04</span><span><b>Single integration</b><p>One system to write to. Two systems triples the timeline.</p></span></li>
+  </ol>
+  <p>
+    Scored that way, the board's own "best places to start" box turns out to be right:
+    missed-call follow-up, bookings and reminders, enquiry qualification, review
+    follow-up. Patterns 01, 06, 07 and 21/22 — two green, two amber, all with an
+    obvious baseline.
+  </p>
+  <div class="pull">
+    <p>The Meridian corollary, and the rule the engagement is built on: <strong>define
+    how you count a deflected conversation, build the report, then launch.</strong>
+    Not the other way around.</p>
+  </div>
+</section>
+
+<footer>
+  <p>
+    Derived from a public marketing infographic, <em>"200 Business Service Agent Ideas
+    for Service Businesses"</em> (AI Matt, @aimattant), analysed 4 September 2026.
+  </p>
+  <p>
+    Meridian Appliance Care Pty Ltd is a fictional company. This page documents a
+    self-directed Agentforce Specialist simulation; no real customer data appears
+    anywhere in it.
+  </p>
+  <p>
+    Hemayet Hossain · Sydney, Australia ·
+    <a href="https://github.com/hossainconsulting">github.com/hossainconsulting</a>
+  </p>
+</footer>
+
+</div>
+</body>
+</html>

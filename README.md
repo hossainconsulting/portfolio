@@ -21,6 +21,8 @@ Static portfolio site on Cloudflare Workers.
 
 - `public/` — the site. Plain HTML, no build step, no dependencies.
   - `index.html` — the site itself
+  - `service-agent-patterns.html` — a written piece, linked from the Meridian
+    Appliance Care project card; served at `/service-agent-patterns`
   - `404.html` — served for unknown paths (`not_found_handling: "404-page"`)
   - `_headers` — response headers, read natively by Workers static assets
 - `wrangler.jsonc` — tells Wrangler to serve `public/` as static assets.
