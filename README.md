@@ -22,6 +22,9 @@ Static portfolio site on Cloudflare Workers.
 - `public/` — the site. Plain HTML, no build step, no dependencies.
   - `index.html` — the site itself
   - `404.html` — served for unknown paths (`not_found_handling: "404-page"`)
+  - `writing/` — one standalone page per post, plus its images. Each page
+    carries its own inline `<style>` block, same as `index.html` and
+    `404.html`; there is no shared stylesheet by design.
   - `_headers` — response headers, read natively by Workers static assets
 - `wrangler.jsonc` — tells Wrangler to serve `public/` as static assets.
 
