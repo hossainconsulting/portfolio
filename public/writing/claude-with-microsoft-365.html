@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to use Claude with Microsoft 365 — Hemayet Hossain</title>
+<meta name="description" content="Seven places Claude earns its keep inside Microsoft 365 — Outlook, Word, Excel, PowerPoint, OneNote, Teams and OneDrive — and what each one actually looks like in practice.">
+<style>
+  :root {
+    --paper:   #FAF9F7;
+    --surface: #FFFFFF;
+    --sunk:    #F1EFEC;
+    --ink:     #141210;
+    --ink-2:   #4A4540;
+    --ink-3:   #78716A;
+    --rule:    #DED9D3;
+    --rule-2:  #EBE7E2;
+    --key:     #1B4D3E;
+    --key-soft:#E6EEEA;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:   #100F0D;
+      --surface: #191714;
+      --sunk:    #141210;
+      --ink:     #EDE9E4;
+      --ink-2:   #A9A29A;
+      --ink-3:   #7D766E;
+      --rule:    #2C2823;
+      --rule-2:  #221F1B;
+      --key:     #6FBFA3;
+      --key-soft:#13251F;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #100F0D; --surface: #191714; --sunk: #141210;
+    --ink: #EDE9E4; --ink-2: #A9A29A; --ink-3: #7D766E;
+    --rule: #2C2823; --rule-2: #221F1B;
+    --key: #6FBFA3; --key-soft: #13251F;
+  }
+  :root {
+    --struc: "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    --prose: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --mono:  "Cascadia Code", "SF Mono", ui-monospace, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--prose); font-size: 17px; line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 72ch; margin: 0 auto; padding: 0 26px; }
+  a { color: var(--key); text-underline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--key); outline-offset: 2px; border-radius: 2px; }
+  img { max-width: 100%; height: auto; }
+
+  header.top { border-bottom: 1px solid var(--rule); padding: 56px 0 36px; }
+  .back {
+    font-family: var(--struc); font-size: .82rem; text-decoration: none;
+    color: var(--ink-3); display: inline-block; margin-bottom: 26px;
+  }
+  .back:hover { color: var(--key); }
+  .eyebrow {
+    font-family: var(--struc); font-size: .7rem; font-weight: 700;
+    letter-spacing: .16em; text-transform: uppercase; color: var(--key);
+    margin-bottom: 14px;
+  }
+  h1 {
+    font-family: var(--struc); font-weight: 700; letter-spacing: -.03em;
+    font-size: clamp(1.8rem, 4.4vw, 2.6rem); line-height: 1.08; margin: 0 0 16px;
+  }
+  header.top .sub { font-size: 1.1rem; color: var(--ink-2); margin: 0; max-width: 56ch; }
+
+  section { padding: 40px 0 8px; }
+  section + section { border-top: 1px solid var(--rule-2); }
+  h2 {
+    font-family: var(--struc); font-weight: 700; font-size: 1.3rem;
+    letter-spacing: -.02em; margin: 0 0 14px;
+  }
+  p { margin: 0 0 15px; }
+  strong { color: var(--ink); }
+
+  figure { margin: 0 0 8px; }
+  figure img {
+    display: block; width: 100%; border: 1px solid var(--rule); border-radius: 5px;
+    background: var(--surface);
+  }
+  figcaption {
+    font-family: var(--struc); font-size: .8rem; color: var(--ink-3);
+    margin-top: 10px;
+  }
+
+  .step {
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 5px; padding: 18px 22px; margin-bottom: 14px;
+  }
+  .step-hd { display: flex; gap: 12px; align-items: baseline; margin-bottom: 6px; }
+  .step-hd .n {
+    font-family: var(--mono); font-size: .74rem; color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+  }
+  .step-hd h3 {
+    font-family: var(--struc); font-size: 1.04rem; font-weight: 700;
+    margin: 0; letter-spacing: -.01em;
+  }
+  .step > p { font-size: .96rem; color: var(--ink-2); margin: 0 0 12px; }
+  .step ul {
+    list-style: none; padding: 0; margin: 0 0 14px;
+    font-family: var(--struc); font-size: .9rem; color: var(--ink-2);
+  }
+  .step ul li { padding: 5px 0 5px 20px; position: relative; }
+  .step ul li::before {
+    content: "\2192"; position: absolute; left: 0; color: var(--key);
+  }
+  .eg {
+    background: var(--sunk); border-radius: 4px; padding: 12px 15px;
+    font-size: .92rem; color: var(--ink-2);
+  }
+  .eg .lbl {
+    display: block; font-family: var(--struc); font-weight: 700; font-size: .64rem;
+    letter-spacing: .11em; text-transform: uppercase; color: var(--ink-3);
+    margin-bottom: 5px;
+  }
+
+  .note {
+    background: var(--key-soft); border: 1px solid color-mix(in srgb, var(--key) 26%, transparent);
+    border-radius: 5px; padding: 18px 22px; margin: 22px 0 0;
+  }
+  .note .lbl {
+    display: block; font-family: var(--struc); font-weight: 700; font-size: .68rem;
+    letter-spacing: .11em; text-transform: uppercase; color: var(--key); margin-bottom: 8px;
+  }
+  .note p { margin: 0; font-size: .98rem; color: var(--ink-2); }
+  .note p + p { margin-top: 10px; }
+
+  footer {
+    border-top: 1px solid var(--rule); margin-top: 40px; padding: 26px 0 70px;
+    font-family: var(--struc); font-size: .82rem; color: var(--ink-3);
+  }
+  footer a { color: var(--ink-3); }
+
+  @media (max-width: 640px) { header.top { padding: 36px 0 28px; } }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="back" href="/">&larr; Hemayet Hossain</a>
+    <div class="eyebrow">Writing · AI in practice</div>
+    <h1>How to use Claude with Microsoft&nbsp;365</h1>
+    <p class="sub">
+      Most people use Microsoft 365 every day. Almost none of them use Claude
+      with it. Here are seven places it earns its keep.
+    </p>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section>
+  <figure>
+    <img src="claude-microsoft-365-workflow.webp" width="1320" height="1701"
+         alt="A seven-step workflow chart titled &quot;How to Use Claude With Microsoft 365&quot;. Each row covers one app — Outlook, Word, Excel, PowerPoint, OneNote, Teams and OneDrive — with a description, a list of ways Claude helps, and a worked example.">
+    <figcaption>The whole workflow on one page — the seven steps below, in order.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2>The workflow: steps across Microsoft 365</h2>
+
+  <div class="step">
+    <div class="step-hd"><span class="n">01</span><h3>Outlook</h3></div>
+    <p>Manage emails, save time, and communicate with clarity.</p>
+    <ul>
+      <li>Summarise long email threads in seconds</li>
+      <li>Extract key points, action items and deadlines</li>
+      <li>Draft, rewrite or improve email responses</li>
+      <li>Adjust tone: professional, friendly, concise</li>
+    </ul>
+    <div class="eg">
+      <span class="lbl">Example</span>
+      Summarise a 15-email thread, pull out the action items, and draft a concise
+      reply that moves the conversation forward.
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-hd"><span class="n">02</span><h3>Word</h3></div>
+    <p>Create, edit and refine documents faster.</p>
+    <ul>
+      <li>Draft first versions from an outline or prompt</li>
+      <li>Rewrite and strengthen content for clarity</li>
+      <li>Improve structure, flow and tone</li>
+      <li>Shorten, expand or simplify sections</li>
+    </ul>
+    <div class="eg">
+      <span class="lbl">Example</span>
+      Turn rough notes into a polished document, improve the clarity, and get it
+      ready to share.
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-hd"><span class="n">03</span><h3>Excel</h3></div>
+    <p>Work with data, find insights, and make better decisions.</p>
+    <ul>
+      <li>Explain what your data means in plain language</li>
+      <li>Identify trends, patterns and outliers</li>
+      <li>Help with formulas, functions and calculations</li>
+      <li>Create summaries, charts and recommendations</li>
+    </ul>
+    <div class="eg">
+      <span class="lbl">Example</span>
+      Explain last quarter&rsquo;s sales data, spot the trends, and suggest next
+      steps to improve performance.
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-hd"><span class="n">04</span><h3>PowerPoint</h3></div>
+    <p>Turn ideas into engaging presentations.</p>
+    <ul>
+      <li>Turn content or documents into slide outlines</li>
+      <li>Create compelling titles, headings and copy</li>
+      <li>Suggest visuals, layouts and slide flow</li>
+      <li>Generate speaker notes and key takeaways</li>
+    </ul>
+    <div class="eg">
+      <span class="lbl">Example</span>
+      Create a 10-slide deck outline, write the key messages, and generate the
+      speaker notes for your presentation.
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-hd"><span class="n">05</span><h3>OneNote</h3></div>
+    <p>Capture ideas, organise notes, and build knowledge.</p>
+    <ul>
+      <li>Turn messy notes into clear, organised summaries</li>
+      <li>Extract action items, decisions and next steps</li>
+      <li>Create checklists, templates and frameworks</li>
+      <li>Connect ideas and build knowledge bases</li>
+    </ul>
+    <div class="eg">
+      <span class="lbl">Example</span>
+      Convert meeting notes into action items, assign owners, and organise them
+      by project.
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-hd"><span class="n">06</span><h3>Teams</h3></div>
+    <p>Collaborate effectively and stay aligned.</p>
+    <ul>
+      <li>Summarise meeting transcripts and chats</li>
+      <li>Highlight decisions, risks and action items</li>
+      <li>Draft follow-up messages and announcements</li>
+      <li>Create agendas and status updates</li>
+    </ul>
+    <div class="eg">
+      <span class="lbl">Example</span>
+      Summarise a Teams meeting, list the key decisions and action items, and
+      draft a follow-up message for the team.
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-hd"><span class="n">07</span><h3>OneDrive</h3></div>
+    <p>Find files, organise content, and surface insights.</p>
+    <ul>
+      <li>Find the right files and information fast</li>
+      <li>Summarise documents across multiple files</li>
+      <li>Compare versions and pull key takeaways</li>
+      <li>Organise and tag content for easy access</li>
+    </ul>
+    <div class="eg">
+      <span class="lbl">Example</span>
+      Find the relevant project files, summarise the key documents, and create a
+      one-page executive summary.
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>How the connection actually works</h2>
+  <p>
+    None of the above requires Microsoft to ship anything. Some of it runs
+    through Claude&rsquo;s connectors, which read your mail, calendar and files
+    directly; the rest is paste-in-and-ask, which costs nothing to try and works
+    from any plan.
+  </p>
+  <p>
+    Which connectors are available to you depends on your Claude plan and on
+    what your Microsoft 365 administrator permits, so check the connector list
+    in your own account before designing a workflow around one.
+  </p>
+
+  <div class="note">
+    <span class="lbl">The part worth keeping</span>
+    <p>
+      The pattern under all seven steps is the same: Claude is good at the
+      reading, the drafting and the summarising, and you stay responsible for
+      the judgement. Ask it to explain the data, not to decide what to do about
+      it. Ask it to draft the reply, not to send it.
+    </p>
+    <p>
+      That division is also what makes the output safe to put in front of a
+      client &mdash; which is the standard the rest of this site is built to.
+    </p>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="wrap" style="padding:0">
+    Hemayet Hossain · Sydney, Australia ·
+    <a href="https://github.com/hossainconsulting">github.com/hossainconsulting</a><br>
+    Microsoft, Microsoft 365, Outlook, Word, Excel, PowerPoint, OneNote, Teams
+    and OneDrive are trademarks of Microsoft Corporation. Claude is a trademark
+    of Anthropic, PBC. This page is not affiliated with or endorsed by either.
+  </div>
+</footer>
+
+</body>
+</html>

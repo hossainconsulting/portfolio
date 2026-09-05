@@ -11,9 +11,10 @@
   # "Always Use HTTPS" - see README.
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
 
-  # The page is inline HTML and inline CSS with no scripts, no images and no
-  # external assets, so this can be tight. If you later add a script or an
-  # image, this is the line that will break first - by design.
+  # The pages are inline HTML and inline CSS with no scripts and no external
+  # assets. Images are served from this origin only (/writing/), which
+  # 'img-src self' already covers. If you later add a script or pull an asset
+  # from another domain, this is the line that will break first - by design.
   Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'none'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests
 
   # No MIME sniffing.
