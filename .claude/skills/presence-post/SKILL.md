@@ -47,6 +47,10 @@ write a post from nothing.
    (short form in captions). Check this last, explicitly.
 6. UTM on every link: `utm_source=<platform>&utm_medium=post&utm_campaign=<pillar>`
    per `presence/measurement.md`.
+7. Run the `/presence-humanize` pass over every block before output:
+   audit against `presence/writing-checklist.md`, confirm each block
+   carries a genuine opinion and a sourced claim, rewrite in the author's
+   voice. The output is the humanized version, not the first draft.
 
 ## Rules
 

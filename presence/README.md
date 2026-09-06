@@ -54,6 +54,9 @@ Rules that fall out of the model:
 | `measurement.md` | What to count, UTM convention, the monthly review. |
 | `linkedin-profile-audit.md` | The 15-minute Claude audit workflow for LinkedIn (and any other profile). |
 | `github-profile-README.md` | Drop-in content for the `hossainconsulting/hossainconsulting` profile repository. |
+| `video-topic-research.md` | The faceless-video market-research prompt with "My details" pre-filled. Run quarterly. |
+| `writing-checklist.md` | The pre-publish pass: the tells of machine-written copy and the fix. Every post goes through it. |
+| `research/` | Saved research runs. `2026-09-faceless-video-topics.md` is the first: 15 scored topics, top 3 with validation. |
 | `platforms/` | One playbook per platform: setup fields, content shape, cadence, what each audience sees. |
 | `scripts/check-links.sh` | Curls every URL in `profiles.md` and reports what is not live. |
 | `scripts/build-og.sh` | Rebuilds `public/og.png` from `assets/og.html`. |
@@ -76,7 +79,7 @@ The hub carries the machine-readable half of the presence, in `../public/`:
 
 ## Skills
 
-`../.claude/skills/` holds four Claude Code skills that run this manual:
+`../.claude/skills/` holds six Claude Code skills that run this manual:
 
 | Skill | Use it when |
 |---|---|
@@ -84,6 +87,8 @@ The hub carries the machine-readable half of the presence, in `../public/`:
 | `/presence-audit` | Auditing a profile export (LinkedIn PDF, a bio, a channel About page) against the brand kit. |
 | `/presence-check` | Checking that every handle, link and bio is live and consistent everywhere. |
 | `/presence-calendar` | Building the week's calendar from what actually shipped in the repos. |
+| `/presence-research` | Finding and scoring 15 video topics the audience will act on, then picking three to validate. |
+| `/presence-humanize` | The last pass before anything is published: strip the tells, put the voice and an opinion back. |
 
 ## Status
 

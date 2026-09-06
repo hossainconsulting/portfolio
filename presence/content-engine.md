@@ -42,6 +42,9 @@ does not go out.
 
 Order matters: the long-form goes out first so every cut can point to it.
 
+Every cut goes through `writing-checklist.md` (`/presence-humanize`) before
+it is scheduled. No exceptions for "it is only a caption".
+
 ## Weekly cadence (about 4 hours)
 
 | Day | Action | Time |
@@ -93,3 +96,9 @@ The hub already has the voice. Keep it:
 8. Regulated response deadlines: giving an SLA milestone a consequence.
 9. Notes-to-invoice without letting the model do arithmetic.
 10. One guarded write path: how the Jobs MCP server decides what Claude may change.
+
+From `research/2026-09-faceless-video-topics.md`, validated first:
+
+11. When a trades business outgrows ServiceM8 or Tradify, and what Salesforce costs at 20 staff.
+12. The security questions people fail on the Admin exam, shown live in an org.
+13. The coverage answer an agent must never generate, and the incident when it did.
