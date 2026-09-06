@@ -1,0 +1,11 @@
+{#
+  Module 09 preview: a login banner rendered per host from gathered facts.
+  Used by playbooks/01-baseline.yml. Managed by Ansible - edits on the host
+  are overwritten on the next run, which is the point.
+#}
+=====================================================================
+  {{ ansible_facts['hostname'] }}  ({{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }})
+  Groups: {{ group_names | join(', ') }}
+  Managed by Ansible from the portfolio learning lab.
+  Do not edit config by hand - change the playbook and re-run it.
+=====================================================================

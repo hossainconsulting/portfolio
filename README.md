@@ -24,6 +24,10 @@ Static portfolio site on Cloudflare Workers.
   - `404.html` — served for unknown paths (`not_found_handling: "404-page"`)
   - `_headers` — response headers, read natively by Workers static assets
 - `wrangler.jsonc` — tells Wrangler to serve `public/` as static assets.
+- `learning/` — learning tracks referenced from the site, kept here rather than
+  in their own repositories. Not deployed: Wrangler only uploads `public/`.
+  - `ansible-linux/` — the Ansible with Linux track: curriculum, lab inventory
+    and playbooks.
 
 ## Configuration that does not live in this repo
 

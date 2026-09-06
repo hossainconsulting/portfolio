@@ -1,0 +1,63 @@
+---
+# Module 07: the baseline every lab host gets, regardless of role.
+#
+# The point of this playbook is idempotence. Run it three times:
+#
+#   ansible-playbook playbooks/01-baseline.yml --check --diff
+#   ansible-playbook playbooks/01-baseline.yml
+#   ansible-playbook playbooks/01-baseline.yml    # changed=0 everywhere, or it has a bug
+#
+# Ubuntu and Rocky hosts are both in the inventory, so package tasks use the
+# generic package module and branch on os_family for the names that differ.
+#
+- name: Baseline every lab host
+  hosts: lab
+  gather_facts: true
+  become: true
+
+  vars:
+    baseline_packages_common:
+      - curl
+      - git
+      - htop
+      - tmux
+      - vim
+    baseline_packages_by_family:
+      Debian:
+        - unattended-upgrades
+      RedHat:
+        - dnf-automatic
+    baseline_timezone: Australia/Sydney
+    baseline_admin_group: "{{ 'sudo' if ansible_facts['os_family'] == 'Debian' else 'wheel' }}"
+
+  tasks:
+    - name: Set the timezone
+      community.general.timezone:
+        name: "{{ baseline_timezone }}"
+
+    - name: Install the packages every host gets
+      ansible.builtin.package:
+        name: "{{ baseline_packages_common + baseline_packages_by_family[ansible_facts['os_family']] }}"
+        state: present
+
+    - name: Ensure the deploy user exists and can sudo
+      ansible.builtin.user:
+        name: deploy
+        groups: "{{ baseline_admin_group }}"
+        append: true
+        shell: /bin/bash
+        state: present
+
+    - name: Render the login banner
+      ansible.builtin.template:
+        src: motd.j2
+        dest: /etc/motd
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Ensure sshd is enabled and running
+      ansible.builtin.service:
+        name: "{{ 'ssh' if ansible_facts['os_family'] == 'Debian' else 'sshd' }}"
+        state: started
+        enabled: true
