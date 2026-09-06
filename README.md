@@ -273,6 +273,7 @@ check the real certificate from a browser or an external service.
 ## Disclosure
 
 The projects listed on this site are **simulations, not client work**. SunRise
-Solar Solutions, Meridian Field Services, TradeLink Group and Meridian Appliance
-Care are fictional companies used to develop and evidence Salesforce
+Solar Solutions, Meridian Field Services, TradeLink Group, Meridian Appliance
+Care, Coastline Retail Group, Ironbark Industrial Supply and Kurrajong Energy are
+fictional companies used to develop and evidence Salesforce
 implementation skills. No real customer data is involved.
