@@ -52,6 +52,10 @@ Static portfolio site on Cloudflare Workers.
 - `.claude/skills/` — six Claude Code skills that run the manual:
   `/presence-post`, `/presence-audit`, `/presence-check`,
   `/presence-calendar`, `/presence-research`, `/presence-humanize`.
+- `learning/` — learning tracks referenced from the site, kept here rather than
+  in their own repositories. Not deployed: Wrangler only uploads `public/`.
+  - `ansible-linux/` — the Ansible with Linux track: curriculum, lab inventory
+    and playbooks.
 
 
 ## The CONCIERGE widget

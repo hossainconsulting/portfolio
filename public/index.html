@@ -226,6 +226,7 @@
     font-weight: 600; margin-bottom: 10px;
   }
   .proj p { font-size: .96rem; color: var(--ink-2); margin: 0 0 12px; }
+  .proj p code { font-family: var(--mono); font-size: .86em; }
   .proj .foot {
     font-family: var(--mono); font-size: .74rem; color: var(--ink-3);
     display: flex; flex-wrap: wrap; gap: 14px; align-items: center;
@@ -572,6 +573,33 @@
     <div class="foot">
       <span>7 steps · 4 min read</span>
       <a href="/writing/claude-with-microsoft-365.html">read &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Infrastructure</h2>
+  <p class="tally">What everything above runs on. A learning track rather than a
+  simulated engagement: Linux by hand first, then Ansible to make it repeatable.</p>
+
+  <div class="proj">
+    <div class="proj-hd">
+      <h3>Ansible with Linux</h3>
+      <span class="status wip">In progress</span>
+    </div>
+    <div class="cert">Linux administration · Ansible</div>
+    <p>
+      Twelve modules across a four-VM lab — two Ubuntu web hosts and a Rocky
+      Linux database host, so every playbook has to cope with two package
+      managers. Users, permissions, <code>systemd</code> and SSH hardening done
+      manually before any of it is automated; then inventory, idempotent
+      playbooks, templates and handlers, roles, Vault, and a full lab rebuilt
+      from a blank VM in one command. Each module ends with a note recording
+      what broke, not what the documentation says.
+    </p>
+    <div class="foot">
+      <span>12 modules · 4 hosts</span>
+      <a href="https://github.com/hossainconsulting/portfolio/tree/main/learning/ansible-linux">learning track →</a>
     </div>
   </div>
 </section>
