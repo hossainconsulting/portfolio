@@ -20,9 +20,19 @@ Static portfolio site on Cloudflare Workers.
 > **Settings** → **Builds**, and this note can go.
 
 - `public/` — the site. Plain HTML, no build step.
-  - `index.html` — the site itself
+  - `index.html` — the site itself. Carries the Open Graph and Twitter Card
+    meta and the schema.org JSON-LD (`Person`, `ProfessionalService`,
+    `WebSite`) that ties every social profile to this hub.
   - `service-agent-patterns.html` — a written piece, linked from the Meridian
     Appliance Care project card; served at `/service-agent-patterns`
+  - `links.html` — the link-in-bio page, served at `/links`. Instagram,
+    TikTok and YouTube allow one URL in a bio; that URL is this page.
+  - `og.png` — the 1200×630 social preview card. Generated, do not edit by
+    hand: `presence/scripts/build-og.sh` renders it from
+    `presence/assets/og.html`.
+  - `robots.txt`, `sitemap.xml` — for the crawlers. Bump `lastmod` on release.
+  - `<32-hex>.txt` — the IndexNow key file. Public by design; see
+    `presence/seo.md`.
   - `404.html` — served for unknown paths (`not_found_handling: "404-page"`)
   - `widget.js` — the CONCIERGE chat widget, browser half
   - `writing/` — one standalone page per post, plus its images. Each page
@@ -34,6 +44,15 @@ Static portfolio site on Cloudflare Workers.
   - `system-prompt.js` — the widget's system prompt (the copy that runs)
 - `scripts/check-prompt-sync.mjs` — checks that prompt against its authored source
 - `wrangler.jsonc` — Worker config and the static-asset binding
+- `presence/` — the omnichannel presence manual: the profile directory
+  (source of truth for every handle and URL), brand kit, per-platform
+  playbooks, SEO setup for Google and Microsoft, the content pipeline, the
+  30-day launch checklist and the measurement plan. Start at
+  `presence/README.md`.
+- `.claude/skills/` — six Claude Code skills that run the manual:
+  `/presence-post`, `/presence-audit`, `/presence-check`,
+  `/presence-calendar`, `/presence-research`, `/presence-humanize`.
+
 
 ## The CONCIERGE widget
 
@@ -137,6 +156,17 @@ delivery outcomes (delivered, webhook 5xx, no webhook configured), a refusal, an
 a rejected API key. **What has not:** a real conversation against the live
 Anthropic API. Have one before announcing the site.
 
+## After a deploy that changes content
+
+```bash
+# tell Bing/Yandex/Naver immediately (Google: use Search Console instead)
+KEY=$(basename public/*.txt .txt | grep -E '^[a-f0-9]{32}$')
+curl -sS "https://api.indexnow.org/indexnow?url=https://portfolio.hossainconsulting.com/&key=$KEY"
+```
+
+Then re-scrape the preview on LinkedIn Post Inspector, Facebook Sharing
+Debugger and X Card Validator; all three cache the old card.
+
 ## Configuration that does not live in this repo
 
 Two things are zone-level Cloudflare settings and cannot be set from here. Both
@@ -168,6 +198,8 @@ subdomain is routed to this Worker.
 
 This matters beyond tidiness: `index.html` links to `https://hossainconsulting.com`
 in the site header, so the live site currently contains a broken link.
+The Instagram profile also links to `www.hossainconsulting.com`, so the same
+redirect rule should match `www.` as well as the apex.
 
 **Decision (19/08/2026): 301 the apex to the portfolio subdomain.**
 `portfolio.hossainconsulting.com` stays the single canonical address.
