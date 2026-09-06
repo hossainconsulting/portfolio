@@ -1,0 +1,23 @@
+---
+# Module 06: confirm every lab host is reachable over SSH with a working
+# Python, then print the facts that later modules will branch on.
+#
+#   ansible-playbook playbooks/00-ping.yml
+#
+- name: Reachability check
+  hosts: lab
+  gather_facts: true
+  become: false
+
+  tasks:
+    - name: Ping every host
+      ansible.builtin.ping:
+
+    - name: Show the facts later playbooks depend on
+      ansible.builtin.debug:
+        msg:
+          hostname: "{{ ansible_facts['hostname'] }}"
+          distribution: "{{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }}"
+          os_family: "{{ ansible_facts['os_family'] }}"
+          package_manager: "{{ ansible_facts['pkg_mgr'] }}"
+          python: "{{ ansible_facts['python_version'] }}"

@@ -19,11 +19,157 @@ Static portfolio site on Cloudflare Workers.
 > push-to-deploy, connect the repo under Workers & Pages → `portfolio` →
 > **Settings** → **Builds**, and this note can go.
 
-- `public/` — the site. Plain HTML, no build step, no dependencies.
-  - `index.html` — the site itself
+- `public/` — the site. Plain HTML, no build step.
+  - `index.html` — the site itself. Carries the Open Graph and Twitter Card
+    meta and the schema.org JSON-LD (`Person`, `ProfessionalService`,
+    `WebSite`) that ties every social profile to this hub.
+  - `service-agent-patterns.html` — a written piece, linked from the Meridian
+    Appliance Care project card; served at `/service-agent-patterns`
+  - `links.html` — the link-in-bio page, served at `/links`. Instagram,
+    TikTok and YouTube allow one URL in a bio; that URL is this page.
+  - `og.png` — the 1200×630 social preview card. Generated, do not edit by
+    hand: `presence/scripts/build-og.sh` renders it from
+    `presence/assets/og.html`.
+  - `robots.txt`, `sitemap.xml` — for the crawlers. Bump `lastmod` on release.
+  - `<32-hex>.txt` — the IndexNow key file. Public by design; see
+    `presence/seo.md`.
   - `404.html` — served for unknown paths (`not_found_handling: "404-page"`)
+  - `widget.js` — the CONCIERGE chat widget, browser half
+  - `writing/` — one standalone page per post, plus its images. Each page
+    carries its own inline `<style>` block, same as `index.html` and
+    `404.html`; there is no shared stylesheet by design.
   - `_headers` — response headers, read natively by Workers static assets
-- `wrangler.jsonc` — tells Wrangler to serve `public/` as static assets.
+- `src/` — the Worker.
+  - `index.js` — serves `public/` and handles `POST /api/chat`
+  - `system-prompt.js` — the widget's system prompt (the copy that runs)
+- `scripts/check-prompt-sync.mjs` — checks that prompt against its authored source
+- `wrangler.jsonc` — Worker config and the static-asset binding
+- `presence/` — the omnichannel presence manual: the profile directory
+  (source of truth for every handle and URL), brand kit, per-platform
+  playbooks, SEO setup for Google and Microsoft, the content pipeline, the
+  30-day launch checklist and the measurement plan. Start at
+  `presence/README.md`.
+- `.claude/skills/` — six Claude Code skills that run the manual:
+  `/presence-post`, `/presence-audit`, `/presence-check`,
+  `/presence-calendar`, `/presence-research`, `/presence-humanize`.
+- `learning/` — learning tracks referenced from the site, kept here rather than
+  in their own repositories. Not deployed: Wrangler only uploads `public/`.
+  - `ansible-linux/` — the Ansible with Linux track: curriculum, lab inventory
+    and playbooks.
+
+
+## The CONCIERGE widget
+
+A chat widget in the bottom-right corner asks visitors whether they want to hire
+Hemayet or engage him as a consultant, collects enough detail for a useful reply,
+and hands the lead on. It is the site's only interactive part.
+
+**The API key never reaches the browser.** The browser holds the conversation and
+posts it to `/api/chat`; the Worker calls the Anthropic API with a key held as a
+Worker secret. A widget that called the API directly from the page would publish
+the key to anyone who opened devtools.
+
+Because the browser holds the history, everything arriving at `/api/chat` is
+treated as untrusted: role, type, per-message length, total length and turn count
+are all checked before a request is billed (`src/index.js`).
+
+Lead capture is a tool call. Once the assistant has a name and one contact route
+it calls `capture_lead`, and the Worker POSTs the structured lead plus the full
+transcript to `LEAD_WEBHOOK_URL`. **If delivery fails, the tool result tells the
+assistant so**, and it gives the visitor the email address instead of promising a
+reply within one business day. A promise nobody can keep is worse than no promise.
+
+### Required configuration
+
+```bash
+npx wrangler secret put ANTHROPIC_API_KEY   # required — without it the widget
+                                            # answers with the email fallback
+npx wrangler secret put LEAD_WEBHOOK_URL    # required for the one-business-day
+                                            # promise to mean anything
+```
+
+`LEAD_WEBHOOK_URL` is any endpoint that turns a JSON POST into something Hemayet
+reads daily — an n8n or Make webhook that emails him is the least work. Without
+it, leads are only written to the Worker log, which nobody watches.
+
+### Optional configuration
+
+```bash
+npx wrangler secret put CONTACT_PHONE       # optional — see below
+```
+
+`CONTACT_EMAIL` is a plain var in `wrangler.jsonc`. `CONTACT_PHONE` is a secret
+and is **unset by default**: a number handed out by a public chat assistant is a
+public number, so publishing the mobile is a deliberate act, not a side effect of
+a commit. With it unset, the assistant offers the email and takes the visitor's
+number instead. Set it and the assistant volunteers it.
+
+### Decisions worth knowing about
+
+- **Model: `claude-opus-5`, effort `low`.** Opus with low effort, not a smaller
+  model — the visitor's first impression of the practice is this conversation.
+  Low effort keeps latency and spend down without turning thinking off. Both are
+  one-line changes at the top of `src/index.js` if the bill argues otherwise.
+- **Thinking stays on.** Disabling it on this model can leak reasoning into the
+  visible reply or put a tool call into prose where it never executes. Lowering
+  effort is the cheaper lever and has neither failure mode.
+- **Server-side refusal fallbacks are not enabled.** For a greeter, the right
+  response to a refusal is the polite close the prompt already specifies, not a
+  reroute to a weaker model. The Worker checks `stop_reason === "refusal"` and
+  returns the fallback line with the email address.
+- **CSP moved from `script-src 'none'` to `'self'`**, and no further. The widget's
+  behaviour is in `/widget.js`, not an inline `<script>`, so injected inline
+  script still cannot run.
+
+### Before this gets real traffic
+
+1. **Rate-limit `/api/chat`.** There is no per-IP limit in the Worker — the
+   per-request caps bound one conversation, not a thousand of them. Add a
+   Cloudflare WAF rate-limiting rule on the path (`portfolio.hossainconsulting.com`
+   → Security → WAF → Rate limiting rules); the free plan allows one, which is
+   all this needs. **Do this before announcing the site.**
+2. **Set `LEAD_WEBHOOK_URL`**, or the response standard is not being met.
+3. **Publish a privacy statement** and link it from the footer. The widget
+   collects names, emails and phone numbers from people in Australia, and says
+   in-chat what happens to them; a linked statement is the other half.
+
+### Working on the widget
+
+```bash
+npm install
+npx wrangler dev              # needs .dev.vars — gitignored
+npm run check                 # syntax + prompt-sync
+```
+
+`.dev.vars` for local work:
+
+```
+ANTHROPIC_API_KEY="sk-ant-..."
+LEAD_WEBHOOK_URL="https://..."      # optional
+ANTHROPIC_BASE_URL="http://..."     # optional, point at a mock
+```
+
+The system prompt exists twice: `src/system-prompt.js` is what runs, and the
+authored source is in the private `acquisition-system` repo
+(`agents/Agent_Inbound_CONCIERGE.md`). `npm run check` compares them when both
+repos are checked out side by side, and skips when they are not.
+
+**What has been tested:** routing, the 404 fallthrough, every request-validation
+rejection, the full `capture_lead` round-trip against a mock API, all three lead
+delivery outcomes (delivered, webhook 5xx, no webhook configured), a refusal, and
+a rejected API key. **What has not:** a real conversation against the live
+Anthropic API. Have one before announcing the site.
+
+## After a deploy that changes content
+
+```bash
+# tell Bing/Yandex/Naver immediately (Google: use Search Console instead)
+KEY=$(basename public/*.txt .txt | grep -E '^[a-f0-9]{32}$')
+curl -sS "https://api.indexnow.org/indexnow?url=https://portfolio.hossainconsulting.com/&key=$KEY"
+```
+
+Then re-scrape the preview on LinkedIn Post Inspector, Facebook Sharing
+Debugger and X Card Validator; all three cache the old card.
 
 ## Configuration that does not live in this repo
 
@@ -56,6 +202,8 @@ subdomain is routed to this Worker.
 
 This matters beyond tidiness: `index.html` links to `https://hossainconsulting.com`
 in the site header, so the live site currently contains a broken link.
+The Instagram profile also links to `www.hossainconsulting.com`, so the same
+redirect rule should match `www.` as well as the apex.
 
 **Decision (19/08/2026): 301 the apex to the portfolio subdomain.**
 `portfolio.hossainconsulting.com` stays the single canonical address.
@@ -100,7 +248,22 @@ curl -sS -o /dev/null -w '%{http_code} %{size_download} bytes\n' \
 # security headers are present
 curl -sSI https://portfolio.hossainconsulting.com/ \
   | grep -Ei 'strict-transport|content-security|x-frame|x-content-type|referrer-policy|permissions-policy'
+
+# the widget endpoint is alive and rejecting rubbish
+curl -sS -X POST https://portfolio.hossainconsulting.com/api/chat \
+  -H 'content-type: application/json' -d '{}'
+# want: {"error":"messages must be a non-empty array"}
+
+# and answers a real message
+curl -sS -X POST https://portfolio.hossainconsulting.com/api/chat \
+  -H 'content-type: application/json' \
+  -d '{"messages":[{"role":"user","content":"Hi, who is Hemayet?"}]}'
 ```
+
+The first `diff` above compares the served page with `public/index.html`. That
+still holds — the Worker serves the same file — but the widget only works when
+`ANTHROPIC_API_KEY` is set, and a page that looks right can still have a dead
+endpoint behind it. Run the two `/api/chat` checks as well.
 
 Note: if you run these on a machine with antivirus HTTPS inspection enabled
 (Norton, Kaspersky, ESET and similar), the TLS certificate you see will be the
@@ -110,6 +273,7 @@ check the real certificate from a browser or an external service.
 ## Disclosure
 
 The projects listed on this site are **simulations, not client work**. SunRise
-Solar Solutions, Meridian Field Services, TradeLink Group and Meridian Appliance
-Care are fictional companies used to develop and evidence Salesforce
+Solar Solutions, Meridian Field Services, TradeLink Group, Meridian Appliance
+Care, Coastline Retail Group, Ironbark Industrial Supply and Kurrajong Energy are
+fictional companies used to develop and evidence Salesforce
 implementation skills. No real customer data is involved.

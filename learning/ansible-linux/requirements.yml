@@ -1,0 +1,6 @@
+---
+# Collections beyond ansible-core that the lab playbooks use.
+#   ansible-galaxy collection install -r requirements.yml
+collections:
+  - name: community.general
+    version: ">=9.0.0"
