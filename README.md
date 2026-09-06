@@ -25,6 +25,9 @@ Static portfolio site on Cloudflare Workers.
     Appliance Care project card; served at `/service-agent-patterns`
   - `404.html` — served for unknown paths (`not_found_handling: "404-page"`)
   - `widget.js` — the CONCIERGE chat widget, browser half
+  - `writing/` — one standalone page per post, plus its images. Each page
+    carries its own inline `<style>` block, same as `index.html` and
+    `404.html`; there is no shared stylesheet by design.
   - `_headers` — response headers, read natively by Workers static assets
 - `src/` — the Worker.
   - `index.js` — serves `public/` and handles `POST /api/chat`
