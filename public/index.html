@@ -54,6 +54,10 @@
   }
 
   * { box-sizing: border-box; }
+  .visually-hidden {
+    position: absolute; width: 1px; height: 1px; margin: -1px;
+    padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
   body {
     margin: 0; background: var(--paper); color: var(--ink);
     font-family: var(--prose); font-size: 17px; line-height: 1.62;
@@ -154,6 +158,76 @@
     header.top { padding: 44px 0 30px; }
     .status { margin-left: 0; }
   }
+
+  /* --- CONCIERGE widget ------------------------------------------------- */
+  #cx-launcher {
+    position: fixed; right: 20px; bottom: 20px; z-index: 20;
+    font-family: var(--struc); font-size: .86rem; font-weight: 600;
+    background: var(--key); color: var(--paper); border: none;
+    padding: 12px 20px; border-radius: 100px; cursor: pointer;
+    box-shadow: 0 2px 14px rgba(0,0,0,.16);
+  }
+  #cx-launcher:hover { opacity: .92; }
+  #cx-launcher:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+  #cx-panel {
+    position: fixed; right: 20px; bottom: 74px; z-index: 21;
+    width: min(370px, calc(100vw - 40px)); height: min(520px, calc(100vh - 120px));
+    display: flex; flex-direction: column;
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 8px; box-shadow: 0 6px 34px rgba(0,0,0,.20); overflow: hidden;
+  }
+  .cx-head {
+    display: flex; align-items: baseline; gap: 10px;
+    padding: 13px 16px; border-bottom: 1px solid var(--rule-2); background: var(--sunk);
+  }
+  .cx-head .t {
+    font-family: var(--struc); font-size: .8rem; font-weight: 700;
+    letter-spacing: .04em; color: var(--ink);
+  }
+  .cx-head .s { font-family: var(--struc); font-size: .72rem; color: var(--ink-3); }
+  #cx-close {
+    margin-left: auto; background: none; border: none; cursor: pointer;
+    color: var(--ink-3); font-size: 1.1rem; line-height: 1; padding: 2px 4px;
+  }
+  #cx-close:hover { color: var(--ink); }
+
+  #cx-log { flex: 1; overflow-y: auto; padding: 14px 16px; }
+  .cx-msg { display: flex; margin-bottom: 10px; }
+  .cx-msg.cx-you { justify-content: flex-end; }
+  .cx-bubble {
+    font-family: var(--struc); font-size: .87rem; line-height: 1.5;
+    padding: 9px 13px; border-radius: 12px; max-width: 85%;
+    white-space: pre-wrap; overflow-wrap: anywhere;
+  }
+  .cx-bot .cx-bubble { background: var(--sunk); color: var(--ink-2); border-bottom-left-radius: 3px; }
+  .cx-you .cx-bubble { background: var(--key-soft); color: var(--ink); border-bottom-right-radius: 3px; }
+  .cx-pending .cx-bubble { color: var(--ink-3); }
+
+  #cx-form { display: flex; gap: 8px; padding: 11px 13px; border-top: 1px solid var(--rule-2); }
+  #cx-input {
+    flex: 1; font-family: var(--struc); font-size: .87rem;
+    background: var(--paper); color: var(--ink);
+    border: 1px solid var(--rule); border-radius: 100px; padding: 9px 14px;
+  }
+  #cx-input:focus-visible { outline: 2px solid var(--key); outline-offset: 1px; }
+  #cx-send {
+    font-family: var(--struc); font-size: .82rem; font-weight: 600;
+    background: var(--key); color: var(--paper);
+    border: none; border-radius: 100px; padding: 9px 16px; cursor: pointer;
+  }
+  #cx-send:disabled, #cx-input:disabled { opacity: .55; cursor: default; }
+
+  .cx-note {
+    font-family: var(--struc); font-size: .68rem; color: var(--ink-3);
+    padding: 0 16px 11px; margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    #cx-panel { right: 10px; left: 10px; bottom: 68px; width: auto; }
+    #cx-launcher { right: 12px; bottom: 12px; }
+  }
+
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
 </head>
@@ -393,11 +467,34 @@
 <footer>
   <div class="wrap" style="padding:0">
     Hemayet Hossain · Sydney, Australia ·
+    <a href="mailto:hossainconsulting@gmail.com">hossainconsulting@gmail.com</a> ·
     <a href="https://github.com/hossainconsulting">github.com/hossainconsulting</a><br>
     Salesforce and related marks are property of Salesforce, Inc.
   </div>
 </footer>
 
 </div>
+
+<button id="cx-launcher" type="button" hidden aria-expanded="false" aria-controls="cx-panel">
+  Ask about working with Hemayet
+</button>
+
+<div id="cx-panel" hidden role="dialog" aria-modal="false" aria-label="Chat with Hemayet's assistant">
+  <div class="cx-head">
+    <span class="t">Hemayet's assistant</span>
+    <span class="s">Replies within one business day</span>
+    <button id="cx-close" type="button" aria-label="Close chat">&times;</button>
+  </div>
+  <div id="cx-log" role="log" aria-live="polite"></div>
+  <form id="cx-form" autocomplete="off">
+    <label for="cx-input" class="visually-hidden">Your message</label>
+    <input id="cx-input" type="text" placeholder="Type your message" maxlength="4000">
+    <button id="cx-send" type="submit">Send</button>
+  </form>
+  <p class="cx-note">An AI assistant. Anything you share goes to Hemayet by email so he can reply, and nowhere else.</p>
+</div>
+
+<script src="/widget.js" defer></script>
+
 </body>
 </html>
