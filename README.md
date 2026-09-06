@@ -21,6 +21,8 @@ Static portfolio site on Cloudflare Workers.
 
 - `public/` — the site. Plain HTML, no build step.
   - `index.html` — the site itself
+  - `service-agent-patterns.html` — a written piece, linked from the Meridian
+    Appliance Care project card; served at `/service-agent-patterns`
   - `404.html` — served for unknown paths (`not_found_handling: "404-page"`)
   - `widget.js` — the CONCIERGE chat widget, browser half
   - `_headers` — response headers, read natively by Workers static assets
