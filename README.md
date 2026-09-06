@@ -20,10 +20,39 @@ Static portfolio site on Cloudflare Workers.
 > **Settings** → **Builds**, and this note can go.
 
 - `public/` — the site. Plain HTML, no build step, no dependencies.
-  - `index.html` — the site itself
+  - `index.html` — the site itself. Carries the Open Graph and Twitter Card
+    meta and the schema.org JSON-LD (`Person`, `ProfessionalService`,
+    `WebSite`) that ties every social profile to this hub.
+  - `links.html` — the link-in-bio page, served at `/links`. Instagram,
+    TikTok and YouTube allow one URL in a bio; that URL is this page.
+  - `og.png` — the 1200×630 social preview card. Generated, do not edit by
+    hand: `presence/scripts/build-og.sh` renders it from
+    `presence/assets/og.html`.
+  - `robots.txt`, `sitemap.xml` — for the crawlers. Bump `lastmod` on release.
+  - `<32-hex>.txt` — the IndexNow key file. Public by design; see
+    `presence/seo.md`.
   - `404.html` — served for unknown paths (`not_found_handling: "404-page"`)
   - `_headers` — response headers, read natively by Workers static assets
 - `wrangler.jsonc` — tells Wrangler to serve `public/` as static assets.
+- `presence/` — the omnichannel presence manual: the profile directory
+  (source of truth for every handle and URL), brand kit, per-platform
+  playbooks, SEO setup for Google and Microsoft, the content pipeline, the
+  30-day launch checklist and the measurement plan. Start at
+  `presence/README.md`.
+- `.claude/skills/` — four Claude Code skills that run the manual:
+  `/presence-post`, `/presence-audit`, `/presence-check`,
+  `/presence-calendar`.
+
+## After a deploy that changes content
+
+```bash
+# tell Bing/Yandex/Naver immediately (Google: use Search Console instead)
+KEY=$(basename public/*.txt .txt | grep -E '^[a-f0-9]{32}$')
+curl -sS "https://api.indexnow.org/indexnow?url=https://portfolio.hossainconsulting.com/&key=$KEY"
+```
+
+Then re-scrape the preview on LinkedIn Post Inspector, Facebook Sharing
+Debugger and X Card Validator; all three cache the old card.
 
 ## Configuration that does not live in this repo
 
@@ -56,6 +85,8 @@ subdomain is routed to this Worker.
 
 This matters beyond tidiness: `index.html` links to `https://hossainconsulting.com`
 in the site header, so the live site currently contains a broken link.
+The Instagram profile also links to `www.hossainconsulting.com`, so the same
+redirect rule should match `www.` as well as the apex.
 
 **Decision (19/08/2026): 301 the apex to the portfolio subdomain.**
 `portfolio.hossainconsulting.com` stays the single canonical address.
