@@ -57,7 +57,9 @@ it is scheduled. No exceptions for "it is only a caption".
 | Fri | LinkedIn #3 (a decision or a lesson, plain text). Company page reshare. | 15 min |
 | Sat | Off. Or batch pins once a month. | 0 |
 
-YouTube long-form every second week replaces Tuesday's recording.
+YouTube long-form every second week replaces Tuesday's recording. For the
+12-week launch sprint in `youtube/03-roadmap.md` it is weekly, and the
+long-form video becomes the week's source document.
 
 ## Format rules per platform
 

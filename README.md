@@ -39,10 +39,10 @@ Static portfolio site on Cloudflare Workers.
   playbooks, SEO setup for Google and Microsoft, the content pipeline, the
   30-day launch checklist and the measurement plan. Start at
   `presence/README.md`.
-- `.claude/skills/` — seven Claude Code skills that run the manual:
+- `.claude/skills/` — eight Claude Code skills that run the manual:
   `/presence-post`, `/presence-audit`, `/presence-check`,
   `/presence-calendar`, `/presence-research`, `/presence-humanize`,
-  `/presence-infographic`.
+  `/presence-infographic`, `/presence-youtube`.
 
 ## After a deploy that changes content
 
