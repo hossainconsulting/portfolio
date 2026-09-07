@@ -24,6 +24,10 @@ Static portfolio site on Cloudflare Workers.
   - `404.html` — served for unknown paths (`not_found_handling: "404-page"`)
   - `_headers` — response headers, read natively by Workers static assets
 - `wrangler.jsonc` — tells Wrangler to serve `public/` as static assets.
+- `platform/` — a **separate Worker**: the subscription platform for agents,
+  projects and agency services (Hono, D1, Stripe). It has its own
+  `wrangler.jsonc`, deploys independently, and does not change anything about
+  the static site above. See `platform/README.md`.
 
 ## Configuration that does not live in this repo
 
