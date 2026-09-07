@@ -65,6 +65,7 @@ YouTube long-form every second week replaces Tuesday's recording.
 |---|---|---|
 | LinkedIn | First line is the whole point. Line breaks every 1–2 sentences. Link in the first comment. 3–5 hashtags at the end. | External link in the body, engagement bait, "I'm humbled to announce" |
 | X | One idea per post. Thread numbered. Final post links the hub. | Threads over 8, screenshots of text |
+| LinkedIn (graphic) | One 4:5 board per post from `infographics/`, posted native as PNG or MP4. The poster frame carries the whole point. | A link to the image, a screenshot of text |
 | Instagram | Carousel slide 1 is the headline, slide 2 is the problem, last slide is "full write-up at link in bio". | Text-heavy single images |
 | TikTok / Reels / Shorts | Screen recording, talking over it, caption burned in, first 2 seconds state the problem. | Intros, logos, "hey guys" |
 | YouTube | Chaptered walkthrough. Title starts with the outcome. Description links the repo and the hub. | Unedited 40-minute recordings |

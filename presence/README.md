@@ -57,6 +57,7 @@ Rules that fall out of the model:
 | `video-topic-research.md` | The faceless-video market-research prompt with "My details" pre-filled. Run quarterly. |
 | `writing-checklist.md` | The pre-publish pass: the tells of machine-written copy and the fix. Every post goes through it. |
 | `research/` | Saved research runs. `2026-09-faceless-video-topics.md` is the first: 15 scored topics, top 3 with validation. |
+| `infographics/` | The LinkedIn infographic system: locked `system.css`, briefs, boards, the renderer that ships PNG, MP4 and GIF. Start at `infographics/README.md`. |
 | `platforms/` | One playbook per platform: setup fields, content shape, cadence, what each audience sees. |
 | `scripts/check-links.sh` | Curls every URL in `profiles.md` and reports what is not live. |
 | `scripts/build-og.sh` | Rebuilds `public/og.png` from `assets/og.html`. |
@@ -79,7 +80,7 @@ The hub carries the machine-readable half of the presence, in `../public/`:
 
 ## Skills
 
-`../.claude/skills/` holds six Claude Code skills that run this manual:
+`../.claude/skills/` holds seven Claude Code skills that run this manual:
 
 | Skill | Use it when |
 |---|---|
@@ -89,6 +90,7 @@ The hub carries the machine-readable half of the presence, in `../public/`:
 | `/presence-calendar` | Building the week's calendar from what actually shipped in the repos. |
 | `/presence-research` | Finding and scoring 15 video topics the audience will act on, then picking three to validate. |
 | `/presence-humanize` | The last pass before anything is published: strip the tells, put the voice and an opinion back. |
+| `/presence-infographic` | One pain, one metaphor, one locked system: a LinkedIn board rendered as PNG, MP4 and GIF. |
 
 ## Status
 
