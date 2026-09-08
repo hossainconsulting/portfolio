@@ -11,9 +11,10 @@
   # "Always Use HTTPS" - see README.
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
 
-  # The page is inline HTML and inline CSS with no scripts, no images and no
-  # external assets, so this can be tight. If you later add a script or an
-  # image, this is the line that will break first - by design.
+  # The front page is inline HTML and inline CSS with no scripts, no images and
+  # no external assets, so this can be tight. If you later add a script or an
+  # image, this is the line that will break first - by design. The one path
+  # that needs a script has its own, still same-origin-only, policy below.
   Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'none'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests
 
   # No MIME sniffing.
@@ -28,3 +29,14 @@
 
   # Nothing here needs any of these.
   Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
+
+# /burnout-recovery/ is the one page on this site with JavaScript. The script
+# and stylesheet are files in this repo, served from this origin, so the only
+# change from the site-wide policy is script-src 'none' -> 'self'. No inline
+# scripts, no third-party hosts, no network calls: the app never contacts a
+# server. The "Open in Claude / ChatGPT" links are ordinary navigations and
+# are not governed by CSP. Later rules merge with /* above; the "!" line
+# removes the stricter site-wide value before the replacement is set.
+/burnout-recovery/*
+  ! Content-Security-Policy
+  Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests

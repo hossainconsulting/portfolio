@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weekend Reset — Burnout recovery prompts</title>
+<meta name="description" content="Ten burnout-recovery prompts you fill in and hand to the AI assistant of your choice. Runs entirely in your browser. Not medical advice, not therapy.">
+<link rel="stylesheet" href="/burnout-recovery/app.css">
+</head>
+<body>
+
+<a class="skip" href="#builder">Skip to the prompt builder</a>
+
+<header class="top">
+  <div class="wrap">
+    <div class="eyebrow">Burnout recovery · Prompt kit</div>
+    <h1>Weekend Reset</h1>
+    <p class="sub">
+      Ten prompts that help an AI assistant help you: find what is draining you,
+      plan a gentle weekend, set a boundary, and walk into Monday lighter. Fill
+      in the blanks here, then copy the finished prompt into Claude, ChatGPT, or
+      whatever you use.
+    </p>
+    <div class="links">
+      <a href="/">Back to the portfolio</a>
+      <a href="/burnout-recovery/disclaimer.html">Read the disclaimer</a>
+      <a href="https://github.com/hossainconsulting/portfolio">Source</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <aside class="notice" role="note" aria-labelledby="notice-lbl">
+    <span class="lbl" id="notice-lbl">Before you start</span>
+    <p>
+      <strong>This is a set of writing prompts, not medical advice, therapy, or a
+      diagnosis.</strong> The answers come from a third-party AI and can be wrong.
+      If you are in immediate danger or thinking about harming yourself, stop here
+      and talk to a person.
+    </p>
+    <ul class="crisis">
+      <li><b>Emergency (Australia)</b> <a href="tel:000">000</a></li>
+      <li><b>Lifeline</b> <a href="tel:131114">13 11 14</a> · 24 hours</li>
+      <li><b>Beyond Blue</b> <a href="tel:1300224636">1300 22 4636</a> · 24 hours</li>
+      <li><b>Outside Australia</b> <a href="https://findahelpline.com" rel="noopener" target="_blank">findahelpline.com</a></li>
+    </ul>
+  </aside>
+</div>
+
+<main class="app wrap">
+  <nav class="list" aria-label="Prompts">
+    <div class="list-hd">
+      <span class="list-title">The ten prompts</span>
+      <span class="progress" id="progress" aria-live="polite">0 of 10 done</span>
+    </div>
+    <ol id="nav"></ol>
+    <p class="list-note">
+      Start with 1 if you are not sure what is wrong. Start with 2 if you already
+      know and just need the weekend to go well.
+    </p>
+  </nav>
+
+  <section class="builder" id="builder" aria-live="polite">
+    <div class="b-hd">
+      <div class="b-num" id="b-num">1</div>
+      <div>
+        <div class="b-tag" id="b-tag">Understand</div>
+        <h2 id="b-title">Loading…</h2>
+      </div>
+    </div>
+    <p class="b-blurb" id="b-blurb"></p>
+
+    <div class="fields-wrap">
+      <h3 class="sect">Fill in the blanks</h3>
+      <div class="fields" id="fields"></div>
+    </div>
+
+    <div class="preview-wrap">
+      <div class="preview-hd">
+        <h3 class="sect">Your prompt</h3>
+        <span class="blanks" id="blanks"></span>
+      </div>
+      <div class="preview" id="preview" tabindex="0"></div>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn primary" id="copy">Copy prompt</button>
+      <a class="btn" id="open-claude" href="#" target="_blank" rel="noopener">Open in Claude</a>
+      <a class="btn" id="open-chatgpt" href="#" target="_blank" rel="noopener">Open in ChatGPT</a>
+      <button type="button" class="btn quiet" id="done">Mark as done</button>
+      <button type="button" class="btn quiet" id="clear">Clear fields</button>
+    </div>
+    <p class="actions-note">
+      "Open in" starts a new chat in a new tab with the prompt already typed. Your
+      text goes to that provider under their terms. If you would rather not, copy
+      and paste instead.
+    </p>
+
+    <div class="pager">
+      <button type="button" class="btn quiet" id="prev">← Previous</button>
+      <button type="button" class="btn quiet" id="next">Next →</button>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>
+      Nothing you type here leaves your browser. Drafts and progress are stored
+      locally on this device only, and there are no analytics.
+      <button type="button" class="linkish" id="reset-all">Erase everything stored here</button>
+    </p>
+    <p>
+      <a href="/burnout-recovery/disclaimer.html">Disclaimer</a> ·
+      <a href="/">Hemayet Hossain</a> · Sydney, Australia ·
+      Not affiliated with Anthropic or OpenAI.
+    </p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<dialog id="gate" aria-labelledby="gate-title">
+  <div class="gate-body">
+    <div class="eyebrow">Please read this first</div>
+    <h2 id="gate-title">This is a prompt kit, not care</h2>
+    <p>
+      Weekend Reset gives you ten well-shaped prompts and a place to fill them in.
+      The replies come from an AI assistant you choose, not from a clinician, and
+      they can be wrong or unhelpful.
+    </p>
+    <ul>
+      <li>It is <strong>not medical advice, therapy, or a diagnosis</strong>, and it is not a substitute for a doctor, psychologist, or counsellor.</li>
+      <li>It is <strong>not for emergencies</strong>. If you are in danger or thinking about harming yourself, call 000 in Australia, Lifeline on 13 11 14, or your local emergency number.</li>
+      <li>Everything you type <strong>stays on this device</strong> until you copy it or open it in a third-party assistant.</li>
+    </ul>
+    <p class="gate-fine">
+      The full <a href="/burnout-recovery/disclaimer.html">disclaimer</a> covers the rest.
+      By continuing you confirm you have read this and you are using the prompts
+      at your own discretion.
+    </p>
+    <div class="gate-actions">
+      <button type="button" class="btn primary" id="ack">I understand, continue</button>
+      <a class="btn quiet" href="/">Not now, take me back</a>
+    </div>
+  </div>
+</dialog>
+
+<script src="/burnout-recovery/app.js" defer></script>
+</body>
+</html>
