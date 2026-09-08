@@ -32,6 +32,10 @@ Static portfolio site on Cloudflare Workers.
   crash and regime analysis, an honest backtester, risk sizing and a trader
   journal in Python. The foundation of a future product sold through
   `platform/`. See `trading/README.md` and `trading/docs/`.
+- `finance/` — a **finance dashboard**: ten views (overview, transactions,
+  P&L, cash flow, budget vs actual, CFO one-pager, runway, insights, net
+  worth, analyst audit) in one dependency-free page with sample data and CSV
+  import. See `finance/README.md`.
 
 ## Configuration that does not live in this repo
 
