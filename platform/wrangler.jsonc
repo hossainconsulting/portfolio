@@ -1,0 +1,49 @@
+{
+  // The subscription platform. A separate Worker from ../wrangler.jsonc (the
+  // static portfolio) so the two deploy independently and the portfolio keeps
+  // its "no server code" guarantee.
+  "name": "platform",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-22",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // Same reasoning as the portfolio: one public URL only.
+  "workers_dev": false,
+  "preview_urls": false,
+
+  // Wrangler creates the DNS record on first deploy because the zone is
+  // already on Cloudflare. Change the hostname here if you want a different one.
+  "routes": [
+    { "pattern": "platform.hossainconsulting.com", "custom_domain": true }
+  ],
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "platform-db",
+      // Run `npx wrangler d1 create platform-db` once and paste the id it prints.
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations"
+    }
+  ],
+
+  // Both times are Sydney mornings (UTC+10). Adjust after daylight saving.
+  //   0 21 * * *  -> 07:00 every day: reminders due today/overdue
+  //   0 22 * * 0  -> 08:00 Monday:   weekly owner digest
+  "triggers": { "crons": ["0 21 * * *", "0 22 * * 0"] },
+
+  // Plain-text config. Secrets (STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET,
+  // ANTHROPIC_API_KEY, RESEND_API_KEY) are set with `wrangler secret put`, never here.
+  "vars": {
+    "APP_NAME": "Hossain Consulting Platform",
+    "APP_URL": "https://platform.hossainconsulting.com",
+    "OWNER_EMAIL": "hossainconsulting@gmail.com",
+    "MAIL_FROM": "Hossain Consulting <platform@hossainconsulting.com>",
+    "CURRENCY": "aud"
+  },
+
+  // Lets src/index.ts import ROADMAP.md as a string for the weekly digest.
+  "rules": [{ "type": "Text", "globs": ["**/*.md"], "fallthrough": true }],
+
+  "observability": { "enabled": true }
+}

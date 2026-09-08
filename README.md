@@ -24,6 +24,18 @@ Static portfolio site on Cloudflare Workers.
   - `404.html` — served for unknown paths (`not_found_handling: "404-page"`)
   - `_headers` — response headers, read natively by Workers static assets
 - `wrangler.jsonc` — tells Wrangler to serve `public/` as static assets.
+- `platform/` — a **separate Worker**: the subscription platform for agents,
+  projects and agency services (Hono, D1, Stripe). It has its own
+  `wrangler.jsonc`, deploys independently, and does not change anything about
+  the static site above. See `platform/README.md`.
+- `trading/` — the **trading lab**: research, world-market data collection,
+  crash and regime analysis, an honest backtester, risk sizing and a trader
+  journal in Python. The foundation of a future product sold through
+  `platform/`. See `trading/README.md` and `trading/docs/`.
+- `finance/` — a **finance dashboard**: ten views (overview, transactions,
+  P&L, cash flow, budget vs actual, CFO one-pager, runway, insights, net
+  worth, analyst audit) in one dependency-free page with sample data and CSV
+  import. See `finance/README.md`.
 
 ## Configuration that does not live in this repo
 
