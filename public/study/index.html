@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Study Prompt Builder — Hemayet Hossain</title>
+<meta name="description" content="Seventeen tutoring and course-design prompts with the blanks turned into a form. Fill in the subject, level and goal, then copy a finished prompt into Claude or any AI assistant.">
+<style>
+  :root {
+    --paper:   #FAF9F7;
+    --surface: #FFFFFF;
+    --sunk:    #F1EFEC;
+    --ink:     #141210;
+    --ink-2:   #4A4540;
+    --ink-3:   #78716A;
+    --rule:    #DED9D3;
+    --rule-2:  #EBE7E2;
+    --key:     #1B4D3E;
+    --key-soft:#E6EEEA;
+    --wip:     #8A6410;
+    --wip-soft:#F7EFDC;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:   #100F0D;
+      --surface: #191714;
+      --sunk:    #141210;
+      --ink:     #EDE9E4;
+      --ink-2:   #A9A29A;
+      --ink-3:   #7D766E;
+      --rule:    #2C2823;
+      --rule-2:  #221F1B;
+      --key:     #6FBFA3;
+      --key-soft:#13251F;
+      --wip:     #D8A94A;
+      --wip-soft:#251E10;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #100F0D; --surface: #191714; --sunk: #141210;
+    --ink: #EDE9E4; --ink-2: #A9A29A; --ink-3: #7D766E;
+    --rule: #2C2823; --rule-2: #221F1B;
+    --key: #6FBFA3; --key-soft: #13251F; --wip: #D8A94A; --wip-soft: #251E10;
+  }
+  :root {
+    --struc: "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    --prose: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --mono:  "Cascadia Code", "SF Mono", ui-monospace, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--prose); font-size: 17px; line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 72ch; margin: 0 auto; padding: 0 26px; }
+  a { color: var(--key); text-underline-offset: 2px; }
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--key); outline-offset: 2px; border-radius: 2px;
+  }
+
+  header.top { border-bottom: 1px solid var(--rule); padding: 56px 0 32px; }
+  .eyebrow {
+    font-family: var(--struc); font-size: .7rem; font-weight: 700;
+    letter-spacing: .16em; text-transform: uppercase; color: var(--key);
+    margin-bottom: 16px;
+  }
+  .eyebrow a { text-decoration: none; }
+  h1 {
+    font-family: var(--struc); font-weight: 700; letter-spacing: -.03em;
+    font-size: clamp(1.8rem, 5vw, 2.6rem); line-height: 1.05; margin: 0 0 14px;
+  }
+  header.top .sub { font-size: 1.08rem; color: var(--ink-2); margin: 0; max-width: 56ch; }
+
+  section { padding: 36px 0 8px; }
+  section + section { border-top: 1px solid var(--rule-2); }
+  h2 {
+    font-family: var(--struc); font-weight: 700; font-size: 1.15rem;
+    letter-spacing: -.02em; margin: 0 0 6px;
+  }
+  .step {
+    font-family: var(--mono); font-size: .72rem; color: var(--ink-3);
+    letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px;
+  }
+  .hint { font-family: var(--struc); font-size: .88rem; color: var(--ink-2); margin: 0 0 16px; }
+
+  /* Step 1: template picker */
+  .group-lbl {
+    font-family: var(--struc); font-size: .68rem; font-weight: 700;
+    letter-spacing: .11em; text-transform: uppercase; color: var(--ink-3);
+    margin: 14px 0 8px;
+  }
+  .picker { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+  .picker button {
+    font-family: var(--struc); font-size: .84rem; cursor: pointer;
+    border: 1px solid var(--rule); background: var(--surface); color: var(--ink-2);
+    padding: 7px 14px; border-radius: 100px; line-height: 1.3;
+  }
+  .picker button:hover { border-color: var(--key); color: var(--key); }
+  .picker button[aria-pressed="true"] {
+    background: var(--key); border-color: var(--key); color: var(--paper); font-weight: 600;
+  }
+
+  /* Step 2: blanks */
+  .card {
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 5px; padding: 20px 22px; margin-bottom: 14px;
+  }
+  .card h3 {
+    font-family: var(--struc); font-size: 1.06rem; font-weight: 700; margin: 0 0 4px; letter-spacing: -.01em;
+  }
+  .card .meta { font-family: var(--mono); font-size: .74rem; color: var(--ink-3); margin-bottom: 14px; }
+  .field { margin-bottom: 14px; }
+  .field:last-child { margin-bottom: 0; }
+  .field label {
+    display: block; font-family: var(--struc); font-size: .8rem; font-weight: 600;
+    color: var(--ink); margin-bottom: 5px;
+  }
+  .field label .opts { font-weight: 400; color: var(--ink-3); }
+  .field input, .field textarea {
+    width: 100%; font: inherit; font-family: var(--struc); font-size: .95rem;
+    color: var(--ink); background: var(--paper); border: 1px solid var(--rule);
+    border-radius: 4px; padding: 9px 12px; line-height: 1.4;
+  }
+  .field textarea { min-height: 140px; resize: vertical; font-family: var(--mono); font-size: .84rem; }
+  .field input::placeholder, .field textarea::placeholder { color: var(--ink-3); }
+  .field input:focus, .field textarea:focus { border-color: var(--key); }
+  .none { font-family: var(--struc); font-size: .9rem; color: var(--ink-3); margin: 0; }
+
+  /* Step 3: preview */
+  .preview {
+    background: var(--surface); border: 1px solid var(--rule); border-radius: 5px;
+    padding: 20px 22px; white-space: pre-wrap; overflow-wrap: anywhere;
+    font-family: var(--prose); font-size: 1rem; line-height: 1.6; margin: 0 0 14px;
+  }
+  .preview .gap {
+    background: var(--wip-soft); color: var(--wip); border-radius: 3px;
+    padding: 0 5px; font-family: var(--struc); font-size: .82em; font-weight: 600;
+  }
+  .preview .filled { background: var(--key-soft); border-radius: 3px; padding: 0 3px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-family: var(--struc); font-size: .88rem; }
+  .actions button, .actions a {
+    font-family: var(--struc); font-size: .88rem; cursor: pointer; text-decoration: none;
+    border: 1px solid var(--rule); background: var(--surface); color: var(--ink-2);
+    padding: 8px 16px; border-radius: 100px; line-height: 1.3;
+  }
+  .actions button.primary { background: var(--key); border-color: var(--key); color: var(--paper); font-weight: 600; }
+  .actions button:hover, .actions a:hover { border-color: var(--key); color: var(--key); }
+  .actions button.primary:hover { color: var(--paper); opacity: .92; }
+  .actions .status { color: var(--ink-3); font-size: .82rem; margin-left: 4px; min-height: 1.2em; }
+  .actions .status.ok { color: var(--key); }
+  .actions .status.bad { color: var(--wip); }
+  .actions .clear { margin-left: auto; border: none; background: none; color: var(--ink-3); padding: 8px 4px; }
+  .actions .clear:hover { color: var(--wip); border: none; }
+  .counter { font-family: var(--mono); font-size: .74rem; color: var(--ink-3); margin: 10px 0 0; }
+
+  noscript .card { border-color: var(--wip); }
+
+  footer {
+    border-top: 1px solid var(--rule); margin-top: 40px; padding: 26px 0 70px;
+    font-family: var(--struc); font-size: .82rem; color: var(--ink-3);
+  }
+  footer a { color: var(--ink-3); }
+
+  @media (max-width: 640px) {
+    header.top { padding: 40px 0 26px; }
+    .actions .clear { margin-left: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="eyebrow"><a href="/">Hemayet Hossain</a> · Free tool</div>
+    <h1>Study Prompt Builder</h1>
+    <p class="sub">
+      Seventeen tutoring and course-design prompts with the blanks turned into a
+      form. Pick one, fill in your subject, level and goal, and copy the finished
+      prompt into Claude or any AI assistant. Nothing you type leaves this browser.
+    </p>
+  </div>
+</header>
+
+<div class="wrap">
+
+<noscript>
+  <section>
+    <div class="card">
+      <h3>This page needs JavaScript</h3>
+      <p class="hint" style="margin:0">The form is built in the browser. Without it,
+      the same seventeen prompts are readable as plain text in the
+      <a href="https://github.com/hossainconsulting/portfolio/blob/main/learning-course-templates.md">templates file on GitHub</a>.</p>
+    </div>
+  </section>
+</noscript>
+
+<section id="pick">
+  <div class="step">Step 1</div>
+  <h2>Choose a template</h2>
+  <p class="hint">Course-design prompts plan the learning. Tutoring prompts run a session.</p>
+  <div id="picker"></div>
+</section>
+
+<section id="fill">
+  <div class="step">Step 2</div>
+  <h2>Fill in the blanks</h2>
+  <p class="hint">Blanks with a slash show the options the prompt expects. Free text is fine too.</p>
+  <div class="card" id="form-card">
+    <h3 id="tpl-title">Loading…</h3>
+    <div class="meta" id="tpl-meta"></div>
+    <form id="form" autocomplete="off"></form>
+  </div>
+</section>
+
+<section id="use">
+  <div class="step">Step 3</div>
+  <h2>Copy the prompt</h2>
+  <p class="hint">Unfilled blanks stay highlighted so you can see what is missing.</p>
+  <div class="preview" id="preview" aria-live="polite"></div>
+  <div class="actions">
+    <button type="button" class="primary" id="copy">Copy prompt</button>
+    <a id="open-claude" href="https://claude.ai/new" target="_blank" rel="noopener">Open in Claude</a>
+    <a id="open-chatgpt" href="https://chatgpt.com/" target="_blank" rel="noopener">Open in ChatGPT</a>
+    <span class="status" id="status" role="status"></span>
+    <button type="button" class="clear" id="clear">Clear this template</button>
+  </div>
+  <p class="counter" id="counter"></p>
+</section>
+
+<footer>
+  <div class="wrap" style="padding:0">
+    Hemayet Hossain · Sydney, Australia ·
+    <a href="https://github.com/hossainconsulting">github.com/hossainconsulting</a><br>
+    Your answers are saved in this browser only, so you can come back to a half-filled prompt.
+  </div>
+</footer>
+
+</div>
+
+<script src="/study/templates.js"></script>
+<script src="/study/app.js"></script>
+</body>
+</html>

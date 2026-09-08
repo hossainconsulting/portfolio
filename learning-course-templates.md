@@ -60,3 +60,48 @@ Placeholders that recur across the set:
 A sensible order for a new subject: 2 (diagnose), 1 or 4 (design the course),
 6 (schedule it), 3 and 5 (daily lessons and tutoring), 7 (practice), 9
 (retention), 8 (exam), 10 (capstone).
+
+---
+
+# AI tutor prompt templates
+
+Seven prompts for one-on-one tutoring sessions: assessment first, then teaching
+one concept at a time. Same placeholder conventions as above.
+
+## 1. Build your personal AI tutor
+
+> Act as an expert tutor in [SUBJECT]. I'm a [BEGINNER/INTERMEDIATE/ADVANCED] learner studying [TOPIC] for [GOAL]. First, ask me 5 short questions to assess what I already understand. Then create a personalized lesson using simple explanations, practical examples, and short exercises. Teach one concept at a time, check my understanding before continuing, and adjust the difficulty based on my answers. Don't reveal exercise answers until I attempt them.
+
+## 2. Learn a difficult concept from zero
+
+> Teach me [DIFFICULT CONCEPT] as if I have no previous knowledge of it. Begin with the simplest possible explanation, then explain it using an everyday analogy and one real-world example. Break the concept into small steps and define every technical term in plain language. After each step, ask me one quick question. Finish with a concise summary and 3 practice questions at increasing difficulty.
+
+## 3. Use the Socratic tutoring method
+
+> Help me understand [TOPIC/QUESTION] using the Socratic method. Don't give me the final answer immediately. Ask one guiding question at a time so I can reason toward the answer myself. If I make a mistake, identify the specific gap in my thinking and give me a small hint, not the solution. Continue until I can explain the answer correctly in my own words.
+
+## 4. Turn course material into a lesson
+
+> I'll paste my notes, textbook section, or lecture transcript below. Turn it into a structured tutoring session. Identify the most important ideas, explain them in beginner-friendly language, and show how they connect. Include one example for each major idea, highlight common mistakes, and quiz me after every section. End with a one-page revision guide.
+>
+> Material:
+> [PASTE YOUR MATERIAL HERE]
+
+## 5. Master a topic through worked examples
+
+> Teach me how to solve [TYPE OF PROBLEM]. First, show one fully worked example and explain the reason behind every step. Then give me a similar problem to solve independently. Review my attempt line by line, identify exactly where my reasoning succeeds or fails, and give one targeted hint at a time. Continue with harder problems only after I demonstrate understanding.
+
+## 6. Find and repair knowledge gaps
+
+> I'm studying [SUBJECT/TOPIC], but I'm unsure what I don't understand. Test me with 10 diagnostic questions covering the essential skills, one question at a time. Based on my responses, create a 'knowledge-gap report' showing: what I understand, what I partially understand, what I misunderstand, and what I should study next. Then teach my weakest area with examples and practice.
+
+## 7. Create an exam rescue plan
+
+> My [EXAM NAME] is on [DATE]. I have [TIME AVAILABLE] per day, and the exam covers [TOPICS]. My strongest areas are [STRENGTHS], and my weakest are [WEAKNESSES]. Create a realistic daily study plan that prioritizes high-impact topics, active recall, practice questions, and spaced review. Include specific tasks, time blocks, progress checks, and a lighter final review day.
+
+---
+
+Every template above is also available as a fill-in-the-blanks form at
+[`/study/`](public/study/index.html) on the portfolio site. The form data in
+`public/study/templates.js` is generated from this file by
+`scripts/build-study-templates.py`; edit here, then re-run the script.

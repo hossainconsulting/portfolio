@@ -24,8 +24,16 @@ Static portfolio site on Cloudflare Workers.
   - `404.html` — served for unknown paths (`not_found_handling: "404-page"`)
   - `_headers` — response headers, read natively by Workers static assets
 - `wrangler.jsonc` — tells Wrangler to serve `public/` as static assets.
-- `learning-course-templates.md` — ten reusable prompts for AI-assisted study
-  (course design, tutoring, exams, spaced repetition). Not served by the site.
+  - `study/` — the Study Prompt Builder: seventeen tutoring and course-design
+    prompts as a fill-in-the-blanks form. `index.html` is the page, `app.js`
+    the logic, `templates.js` the data. It is the only page with a script, so
+    `_headers` carries a `/study/*` rule that relaxes `script-src` to `'self'`.
+- `learning-course-templates.md` — the source text of those seventeen prompts.
+  Not served by the site. Edit prompts here, then regenerate the form data:
+
+  ```bash
+  python3 scripts/build-study-templates.py
+  ```
 
 ## Configuration that does not live in this repo
 
@@ -102,6 +110,12 @@ curl -sS -o /dev/null -w '%{http_code} %{size_download} bytes\n' \
 # security headers are present
 curl -sSI https://portfolio.hossainconsulting.com/ \
   | grep -Ei 'strict-transport|content-security|x-frame|x-content-type|referrer-policy|permissions-policy'
+
+# the prompt builder gets the relaxed script-src, and only it
+curl -sSI https://portfolio.hossainconsulting.com/study/ | grep -i content-security
+# want: exactly one line, containing script-src 'self'
+curl -sSI https://portfolio.hossainconsulting.com/ | grep -i content-security
+# want: exactly one line, containing script-src 'none'
 ```
 
 Note: if you run these on a machine with antivirus HTTPS inspection enabled
