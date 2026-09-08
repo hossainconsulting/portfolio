@@ -24,6 +24,8 @@ Static portfolio site on Cloudflare Workers.
   - `404.html` — served for unknown paths (`not_found_handling: "404-page"`)
   - `_headers` — response headers, read natively by Workers static assets
 - `wrangler.jsonc` — tells Wrangler to serve `public/` as static assets.
+- `learning-course-templates.md` — ten reusable prompts for AI-assisted study
+  (course design, tutoring, exams, spaced repetition). Not served by the site.
 
 ## Configuration that does not live in this repo
 
