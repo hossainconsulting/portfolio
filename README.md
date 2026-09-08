@@ -23,6 +23,7 @@ Static portfolio site on Cloudflare Workers.
   - `index.html` — the site itself
   - `404.html` — served for unknown paths (`not_found_handling: "404-page"`)
   - `_headers` — response headers, read natively by Workers static assets
+  - `burnout-recovery/` — **Weekend Reset**, a self-contained prompt kit (see below)
 - `wrangler.jsonc` — tells Wrangler to serve `public/` as static assets.
 
 ## Configuration that does not live in this repo
@@ -85,6 +86,47 @@ Verify with:
 
 ```bash
 curl -sS -o /dev/null -w '%{http_code} %{url_effective}\n' -L https://hossainconsulting.com/
+```
+
+## /burnout-recovery — Weekend Reset
+
+A small client-side app at `public/burnout-recovery/`. It holds ten
+burnout-recovery prompts (find the sources, weekend plan, brain dump, calm menu,
+balanced thoughts, boundary scripts, digital reset, evening wind-down, Monday
+prep, support plan). The user fills in the bracketed blanks in a form, the page
+assembles the finished prompt, and they copy it or open it in Claude or ChatGPT
+via a `?q=` link. Drafts and "done" ticks live in `localStorage`; nothing is sent
+anywhere and there are no analytics.
+
+- `index.html` — the app shell. All text nodes are set with `textContent`, never
+  `innerHTML`, so user input is never parsed as markup.
+- `app.js` — the ten prompts as data (`{{key}}` placeholders + field definitions)
+  and the builder. No dependencies.
+- `app.css` — the portfolio's tokens and type, plus the app layout.
+- `disclaimer.html` — the full disclaimer: not medical advice or therapy, not
+  for emergencies (Australian crisis lines), the AI assistant is a third party,
+  what is stored where, no warranty. The app also shows a first-visit
+  acknowledgement dialog that links to it, and a permanent crisis-contacts
+  notice above the prompts.
+
+`_headers` carries a per-path CSP for `/burnout-recovery/*` that differs from
+the site-wide one in exactly one directive: `script-src 'self'` instead of
+`'none'`. Everything stays same-origin; there are no inline scripts.
+
+The app is deliberately **not linked from the front page** yet — that is a
+content decision for `index.html`, made separately.
+
+Verify after a deploy:
+
+```bash
+# the app and its assets are served
+for p in / /app.js /app.css /disclaimer.html; do
+  curl -sS -o /dev/null -w "%{http_code} $p\n" "https://portfolio.hossainconsulting.com/burnout-recovery$p"
+done
+
+# the per-path CSP is the one that allows the script
+curl -sSI https://portfolio.hossainconsulting.com/burnout-recovery/ | grep -i content-security-policy
+# want: ... script-src 'self' ...
 ```
 
 ## Verifying a deploy
