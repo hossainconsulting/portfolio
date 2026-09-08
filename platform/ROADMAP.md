@@ -22,6 +22,8 @@ asking first; otherwise it only proposes.
 - [ ] Record a 60-second demo of each agent from the dashboard and embed it in home-services-ai
 - [ ] Replace placeholder prices in `seed/catalogue.json` with real ones and re-sync
 - [ ] Switch Stripe to live mode and make the first real sale
+- [ ] Record `src` on sign-up (query string -> users table) and add sign-ups by source to the Monday digest (MARKETING.md)
+- [ ] Open the YouTube channel; publish the three agent demos as Shorts and one five-minute long-form (MARKETING.md, stage 1)
 
 ## Phase 2: product depth
 
@@ -30,6 +32,8 @@ asking first; otherwise it only proposes.
 - [ ] Booking write-path for After-Hours Triage via the Jobs MCP server from home-services-ai
 - [ ] Eval harness results published on each agent card (accuracy, cost per call)
 - [ ] Usage-based overage pricing through Stripe meters once any customer hits a quota
+- [ ] One engagement walkthrough video per Salesforce project, embedded on the project cards (MARKETING.md)
+- [ ] Two guest demos on Australian trades or small-business channels after the first ten subscribers (MARKETING.md, stage 2)
 
 ## Phase 3: agency operations
 
