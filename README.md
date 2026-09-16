@@ -1,115 +1,127 @@
-# portfolio.hossainconsulting.com
+# Hossain Consulting Portfolio
 
-Static portfolio site on Cloudflare Workers.
+Hemayet Hossain’s Salesforce + AI Solutions Engineering portfolio,
+building toward Forward Deployed Engineering.
 
-> **Deploys are manual.** An earlier version of this README claimed the site
-> deployed on every push to `main`. It does not — verified 19/08/2026: the repo
-> has no GitHub Actions workflow, no Cloudflare Workers Builds connection, no
-> webhooks, and pushes produce no check runs or deployments. **Pushing to `main`
-> publishes nothing.**
->
-> To release:
->
-> ```bash
-> npx wrangler login     # once per machine, opens a browser
-> npx wrangler deploy
-> ```
->
-> Then run the verification commands at the bottom of this file. If you want
-> push-to-deploy, connect the repo under Workers & Pages → `portfolio` →
-> **Settings** → **Builds**, and this note can go.
+The portfolio presents self-directed projects across Salesforce,
+automation, AI and integrations. Project pages distinguish work in
+progress from queued work.
 
-- `public/` — the site. Plain HTML, no build step, no dependencies.
-  - `index.html` — the site itself
-  - `404.html` — served for unknown paths (`not_found_handling: "404-page"`)
-  - `_headers` — response headers, read natively by Workers static assets
-- `wrangler.jsonc` — tells Wrangler to serve `public/` as static assets.
+**Live portfolio:** https://portfolio.hossainconsulting.com
+**GitHub:** https://github.com/hossainconsulting
 
-## Configuration that does not live in this repo
+## Technology and structure
 
-Two things are zone-level Cloudflare settings and cannot be set from here. Both
-were outstanding as of 19/08/2026:
+Static HTML and CSS served through Cloudflare Workers static assets.
+There is no application build step or frontend package dependency.
 
-### 1. Always Use HTTPS — **outstanding**
+- `public/index.html` — portfolio homepage.
+- `public/404.html` — custom page for unknown paths.
+- `public/_headers` — static asset response headers.
+- `wrangler.jsonc` — Worker and static asset configuration.
 
-`http://portfolio.hossainconsulting.com/` currently returns **200 and serves the
-page over plain HTTP**, with no redirect to HTTPS.
+The Worker is named `portfolio`. Its asset directory is `public/`,
+with `not_found_handling` set to `404-page`. The configuration disables
+workers.dev and preview URLs.
 
-`_headers` sets `Strict-Transport-Security`, which protects anyone who has
-reached the site over HTTPS at least once. It does **not** protect a first-time
-visitor arriving over `http://`. That needs the zone toggle:
+## Local preview
 
-> Cloudflare dashboard → select `hossainconsulting.com` → **SSL/TLS** → **Edge
-> Certificates** → turn on **Always Use HTTPS**.
-
-Verify with:
+From the repository root:
 
 ```bash
-curl -sSI http://portfolio.hossainconsulting.com/ | head -1
-# want: HTTP/1.1 301 Moved Permanently
+python3 -m http.server 8000 --bind 127.0.0.1 --directory public
 ```
 
-### 2. The apex domain — **outstanding**
+Open http://localhost:8000. Stop the server with Ctrl+C.
 
-`https://hossainconsulting.com/` returns **403**. Only the `portfolio.`
-subdomain is routed to this Worker.
+This previews page content. Python’s server does not apply Cloudflare’s
+`_headers` file or reproduce its routing configuration.
 
-This matters beyond tidiness: `index.html` links to `https://hossainconsulting.com`
-in the site header, so the live site currently contains a broken link.
+## Deployment
 
-**Decision (19/08/2026): 301 the apex to the portfolio subdomain.**
-`portfolio.hossainconsulting.com` stays the single canonical address.
+The established release process is manual using Wrangler.
+A Git push is not a deployment step in this workflow.
 
-> Cloudflare dashboard → select `hossainconsulting.com` → **Rules** →
-> **Redirect Rules** → **Create rule**.
->
-> - **Name:** `apex to portfolio`
-> - **When incoming requests match:** Custom filter expression →
->   `(http.host eq "hossainconsulting.com")`
-> - **Then:** Type **Dynamic**, Expression
->   `concat("https://portfolio.hossainconsulting.com", http.request.uri.path)`
-> - **Status code:** `301`
-> - Tick **Preserve query string**
->
-> Deploy the rule. A DNS record must exist for the apex and be **proxied**
-> (orange cloud) for the rule to fire — Cloudflare only applies redirect rules
-> to hostnames whose traffic it proxies.
->
-> If there is no apex record, add a proxied placeholder: `AAAA` for `@` pointing
-> at `100::`, or `A` for `@` pointing at `192.0.2.0`. Both are
-> [reserved originless placeholders](https://developers.cloudflare.com/dns/manage-dns-records/how-to/create-dns-records/#originless-setups) —
-> because the record is proxied, requests never reach the address; Cloudflare
-> intercepts them and applies the rule.
+Prerequisites: Node.js, npm and access to the Cloudflare account
+hosting the `portfolio` Worker.
 
-Verify with:
+From the repository root:
 
 ```bash
-curl -sS -o /dev/null -w '%{http_code} %{url_effective}\n' -L https://hossainconsulting.com/
+npx wrangler login
+npx wrangler whoami
+npx wrangler deploy
 ```
 
-## Verifying a deploy
+Login is needed when the machine is not already authenticated.
+Check the account before deploying.
+
+The positioning update from PR #14 was manually deployed on
+15 September 2026 and verified in a browser on the public domain.
+
+## Domain observations
+
+Checked on 16 September 2026:
+
+| Address | Observed response |
+| --- | --- |
+| http://portfolio.hossainconsulting.com/ | 301 redirect to the HTTPS portfolio address |
+| https://hossainconsulting.com/ | 200 response with a Vercel server header; no redirect in that response |
+
+These observations replace the outdated 19 August notes about HTTP
+being served without a redirect and the apex domain returning 403.
+
+The portfolio address is https://portfolio.hossainconsulting.com.
+The apex domain currently responds separately. Its hosting and
+configuration are outside this repository.
+
+Response checks do not establish which dashboard setting implements
+a redirect. Recheck behaviour before changing domain configuration.
+
+## Release verification
+
+Open the public portfolio and confirm the expected content after a
+hard refresh.
+
+From the repository root, compare the deployed homepage with the
+local file:
 
 ```bash
-# up, and serving what is in this repo
-curl -sS https://portfolio.hossainconsulting.com/ | diff - public/index.html && echo "in sync"
+curl -fsS --max-time 20 https://portfolio.hossainconsulting.com/ -o /tmp/hossain-portfolio-live.html &&
+diff - /tmp/hossain-portfolio-live.html < public/index.html
+```
 
-# 404 page renders rather than returning an empty body
-curl -sS -o /dev/null -w '%{http_code} %{size_download} bytes\n' \
+No diff output means the files match.
+
+Check the custom 404 response; expect status 404 and a nonempty body:
+
+```bash
+curl -sS --max-time 20 -o /dev/null \
+  -w '%{http_code} %{size_download} bytes\n' \
   https://portfolio.hossainconsulting.com/no-such-page
-
-# security headers are present
-curl -sSI https://portfolio.hossainconsulting.com/ \
-  | grep -Ei 'strict-transport|content-security|x-frame|x-content-type|referrer-policy|permissions-policy'
 ```
 
-Note: if you run these on a machine with antivirus HTTPS inspection enabled
-(Norton, Kaspersky, ESET and similar), the TLS certificate you see will be the
-antivirus's, not Cloudflare's. That is local interception, not a site problem —
-check the real certificate from a browser or an external service.
+Inspect deployed response headers against `public/_headers`:
 
-## Disclosure
+```bash
+curl -sSI --max-time 20 https://portfolio.hossainconsulting.com/
+```
 
-The projects listed on this site are **simulations, not client work**. SunRise
-Solar Solutions, Meridian Field Services, TradeLink Group and Meridian Appliance
-Care are fictional companies used to develop and evidence Salesforce
-implementation skills. No real customer data is involved.
+Check domain responses:
+
+```bash
+curl -sSI --max-time 20 http://portfolio.hossainconsulting.com/
+curl -sSI --max-time 20 https://hossainconsulting.com/
+```
+
+## Simulation disclosure
+
+The Salesforce projects presented here are simulations, not client work.
+SunRise Solar Solutions, Meridian Field Services, TradeLink Group,
+Meridian Appliance Care, Coastline Retail Group, Ironbark Industrial
+Supply and Kurrajong Energy are fictional companies.
+
+Home Services AI is a self-directed AI engineering project.
+In-progress and queued work must not be presented as completed delivery.
+
+No real customer data is used in these portfolio simulations.
