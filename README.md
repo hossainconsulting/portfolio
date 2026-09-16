@@ -125,4 +125,3 @@ Home Services AI is a self-directed AI engineering project.
 In-progress and queued work must not be presented as completed delivery.
 
 No real customer data is used in these portfolio simulations.
-
