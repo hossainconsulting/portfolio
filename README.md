@@ -114,6 +114,10 @@ curl -sSI --max-time 20 http://portfolio.hossainconsulting.com/
 curl -sSI --max-time 20 https://hossainconsulting.com/
 ```
 
+## AI-assisted project method
+
+The [AI-assisted project workflow](docs/ai-assisted-project-workflow.md) maps learning, research, writing and evaluation prompts to existing repositories. Its examples are planning aids; project completion requires linked evidence.
+
 ## Simulation disclosure
 
 The Salesforce projects presented here are simulations, not client work.
