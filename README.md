@@ -135,3 +135,15 @@ No real customer data is used in these portfolio simulations.
 Hemayet Hossain holds four credentials verified through Salesforce's public credential record: Salesforce Certified Agentforce Specialist, Salesforce Certified Platform Administrator II, Salesforce Certified Platform App Builder, and Salesforce Certified Platform Administrator.
 
 [View the public Salesforce credential record](https://trailhead.salesforce.com/en/credentials/certification-detail-print/?searchString=/EMytG9drkgo/H4/0tgVITa/sw2U8vhbkvkc3jqlaJgauY5cCr+PvNo4YAw1Ki9f) · [Review the Salesforce User Lifecycle SOP](https://github.com/hossainconsulting/salesforce-user-lifecycle-sop)
+
+
+## AI contributor credit
+
+**OpenAI Codex** is credited as an AI-assisted contributor for authorised
+repository work under Hemayet Hossain's direction. This includes assistance
+with documentation and repository maintenance; implementation or validation
+contributions are recorded in the relevant commits and task evidence.
+
+Hemayet Hossain remains the project owner and decision-maker. This credit does
+not represent a separate GitHub account or collaborator invitation, and does
+not change existing authorship, licensing or project completion claims.
