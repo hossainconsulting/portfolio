@@ -139,7 +139,7 @@ Hemayet Hossain holds four credentials verified through Salesforce's public cred
 
 ## AI contributor credit
 
-**OpenAI Codex** is credited as an AI-assisted contributor for authorised
+**OpenAI Codex** is credited as an AI-assisted contributor (Chief of Engineer) for authorised
 repository work under Hemayet Hossain's direction. This includes assistance
 with documentation and repository maintenance; implementation or validation
 contributions are recorded in the relevant commits and task evidence.
