@@ -1,6 +1,6 @@
 # AI resource triage — 5 October 2026
 
-**Status:** Sorting record for 84 distinct social-media screenshots (six batches; repeats not re-counted) Hemayet supplied. It records what was kept for current projects and why the rest was dropped. It is a planning aid, not evidence of completed work. Claims in the posts (benchmarks, "10x", attributions) were not verified.
+**Status:** Sorting record for 99 distinct social-media screenshots (seven batches; repeats not re-counted) Hemayet supplied. It records what was kept for current projects and why the rest was dropped. It is a planning aid, not evidence of completed work. Claims in the posts (benchmarks, "10x", attributions) were not verified.
 
 The screenshots themselves are not committed: they show third-party names, profile photos and Hemayet's Facebook account. Only adapted, project-specific wording is kept here.
 
@@ -123,6 +123,17 @@ Nothing is sent to a customer automatically.
 | Website prompts 1–7 (Alex AI Updates) | Drop | Conversion copy, same reason as the third batch. The kept portfolio page review covers the legitimate need |
 | Offer, lead magnet, scarcity, ad copy, niche, conversion prompts (AI Mastery) | Drop | Sales tactics; no business offer in scope |
 | CLAUDE.md "Workflow Orchestration" post | Drop | Repeat of the first batch; its lessons idea is in the proposal below |
+
+## Seventh batch (15 screenshots)
+
+| Screenshot | Decision | Reason |
+| --- | --- | --- |
+| "9 AI agent terms" (harness, memory and state, RAG, MCP, skills, guardrails, evals, A2A, multi-agent) | **Keep as a design checklist** | Replaces the second batch's cheat sheet as the concept map for home-services-ai `03-jobs-mcp`, `04-after-hours-agent` and `05-evals`, and agentforce-meridian-care. Use it to check each design names its guardrails (least access, human approval before risky actions, every action logged) and its evals (test set before launch). Governance claims, such as MCP and A2A sitting with the Linux Foundation, were not verified |
+| Competitor prompts (attack plan, positioning gap, customer switch, defence plan) | Drop | No business offer to position. Playing a stakeholder in character is already part of the agentforce-meridian-care workflow |
+| Dashboard UI prompts 1–7 (blueprint, animated charts, dark mode, sidebar, empty states, skeletons, build order) | Drop | Salesforce dashboards are built in Setup, not custom front-end code; the portfolio is static HTML. "30-minute build" and "production-ready" are claims, not checks |
+| "Perfect Claude project setup" (VOICE, AUDIENCE, STYLE, SEO files) | Drop | Repos already keep standing instructions in AGENTS.md and CLAUDE.md. A separate SEO file has no use |
+| "Chief of Staff" one-prompt post and "path to $1M" | Drop | The useful parts (ask clarifying questions, disagree when wrong) are already in Expert reasoning. Its invented persona and income goals conflict with the no-invented-claims rule |
+| Pinterest sales-channel thread | Drop | Sales channel advice; its statistics were not verified |
 
 ## Proposed, not adopted: correction log
 
