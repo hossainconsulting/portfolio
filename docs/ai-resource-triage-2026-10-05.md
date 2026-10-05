@@ -1,6 +1,6 @@
 # AI resource triage — 5 October 2026
 
-**Status:** Sorting record for 70 distinct social-media screenshots (five batches; repeats not re-counted) Hemayet supplied. It records what was kept for current projects and why the rest was dropped. It is a planning aid, not evidence of completed work. Claims in the posts (benchmarks, "10x", attributions) were not verified.
+**Status:** Sorting record for 84 distinct social-media screenshots (six batches; repeats not re-counted) Hemayet supplied. It records what was kept for current projects and why the rest was dropped. It is a planning aid, not evidence of completed work. Claims in the posts (benchmarks, "10x", attributions) were not verified.
 
 The screenshots themselves are not committed: they show third-party names, profile photos and Hemayet's Facebook account. Only adapted, project-specific wording is kept here.
 
@@ -110,7 +110,19 @@ Nothing is sent to a customer automatically.
 
 ### Segment hypothesis check (kept, for coastline-retail-group)
 
-> Using only the fictional Coastline Retail Group scenario and the synthetic data in this repository, propose customer segments for [CAMPAIGN OBJECTIVE]. For each segment: the defining attributes and the Data Cloud fields or calculated insights that would identify it, the need it reflects, and the activation target. Label every point as either supported by the repository data or an assumption needing more data. Do not invent customer insights or present assumptions as facts.
+> Using only the fictional Coastline Retail Group scenario and the synthetic data in this repository, propose customer segments for [CAMPAIGN OBJECTIVE]. For each segment: the defining attributes and the Data Cloud fields or calculated insights that would identify it, the need it reflects, and the activation target. Label every point as either supported by the repository data or an assumption needing more data. Do not invent customer insights or present assumptions as facts. After activation, given the synthetic results: compare segments, and separate what the results directly show from possible explanations that would need more evidence.
+
+## Sixth batch (15 screenshots, 1 repeat)
+
+| Screenshot | Decision | Reason |
+| --- | --- | --- |
+| Marketing performance analysis (Andalus, #7) | **Keep one rule** | Added to the Coastline segment prompt below as a follow-up step: separate what the activation results show from explanations that need more evidence |
+| Marketing campaign, messaging, content brief, channel copy, repurposing (Andalus #2–6) | Drop | Marketing copywriting, out of scope |
+| Course-creation workflow (NotebookLM → Claude → quiz) | Drop | Selling courses is out of scope. Its quiz and hands-on-exercise idea is already covered by the kept certification prompts |
+| Claude Cowork 10-level playbook | Drop | General overview. Its prompt formula repeats the One Codex Prompt; its feature list is unverified and should be checked against docs.claude.com |
+| Website prompts 1–7 (Alex AI Updates) | Drop | Conversion copy, same reason as the third batch. The kept portfolio page review covers the legitimate need |
+| Offer, lead magnet, scarcity, ad copy, niche, conversion prompts (AI Mastery) | Drop | Sales tactics; no business offer in scope |
+| CLAUDE.md "Workflow Orchestration" post | Drop | Repeat of the first batch; its lessons idea is in the proposal below |
 
 ## Proposed, not adopted: correction log
 
