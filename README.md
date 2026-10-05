@@ -117,6 +117,7 @@ curl -sSI --max-time 20 https://hossainconsulting.com/
 ## AI-assisted project method
 
 The [AI-assisted project workflow](docs/ai-assisted-project-workflow.md) maps learning, research, writing and evaluation prompts to existing repositories. Its examples are planning aids; project completion requires linked evidence.
+The [AI resource triage (5 October 2026)](docs/ai-resource-triage-2026-10-05.md) records which saved social-media prompts were kept for current projects and why the rest were dropped.
 
 ## Simulation disclosure
 
