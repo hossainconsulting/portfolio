@@ -1,6 +1,6 @@
 # AI resource triage — 5 October 2026
 
-**Status:** Sorting record for 45 social-media screenshots (three batches) Hemayet supplied. It records what was kept for current projects and why the rest was dropped. It is a planning aid, not evidence of completed work. Claims in the posts (benchmarks, "10x", attributions) were not verified.
+**Status:** Sorting record for 57 distinct social-media screenshots (four batches; repeats not re-counted) Hemayet supplied. It records what was kept for current projects and why the rest was dropped. It is a planning aid, not evidence of completed work. Claims in the posts (benchmarks, "10x", attributions) were not verified.
 
 The screenshots themselves are not committed: they show third-party names, profile photos and Hemayet's Facebook account. Only adapted, project-specific wording is kept here.
 
@@ -73,6 +73,29 @@ Track mapping: Platform App Builder — meridian-field-services; Agentforce Spec
 ### Portfolio page review (kept)
 
 > Review https://portfolio.hossainconsulting.com (source: `public/index.html`) as a hiring manager for Solutions Engineering / Forward Deployed Engineering roles. Within 10 seconds, can they tell who I am, what I build and where the evidence is? Check: project cards link to their repositories and evidence; simulations are clearly labelled; About builds trust with verifiable facts only; one clear contact path. Then check it at 375px width: no horizontal scroll, tap targets at least 44px, readable text, images sized for mobile. List issues by severity with the exact section. Propose edits as a diff for my review — no invented metrics, testimonials or client claims.
+
+## Fourth batch (16 screenshots, 4 repeats)
+
+| Screenshot | Decision | Reason |
+| --- | --- | --- |
+| Upwork pipeline with Claude + MCP (search → filter → score → draft → human review) | **Keep as a design pattern** | Same shape as home-services-ai `01-quote-triage` (not started). The two design choices are worth reusing: criteria and weights live in data, not in the prompt; output is draft-only and a person sends it. Not adopted for job hunting; no Upwork or Airtable connection set up |
+| Motion-design harness (CLAUDE.md house rules, render contract, critique loop) | **Keep two ideas** | (1) A self-review loop that scores against named criteria, logs the three worst problems and stops at an agreed round limit; useful for the `05-evals` project. (2) "Never invent screens or product metrics; ask if an asset is inaccessible; show the plan and wait for approval" — already matches AGENTS.md. Video tooling itself has no project use |
+| Finance spreadsheet prompts 3–10 (cash flow, subscriptions, debt, savings, invoices, creator profit, net worth, business budget) | Drop | Repeats of the third batch |
+| "Content empire" prompts (ManyChat DM funnel, short-form video scripts) | Drop | No social-media marketing in scope; automated DM funnels are outside the projects' human-review rule |
+| "The AI Updates" prompts 1–8 (assistant, research, skill plan, document analysis, expert, notes, challenge ideas, decision matrix) | Drop | Duplicates Research intern, 30-day plan, Summarizer, Expert reasoning and the ADR records already in use |
+| @sifuyik cards — image, writing, voice, music tools | Drop | Generic; no media production in scope. Their cautions (check facts, use licensed or permitted voices, check usage terms) agree with existing review rules |
+
+### Triage scoring pattern (kept, for 01-quote-triage design)
+
+Hard filters first, then a weighted score, then an action band. Keep the weights in a data file so changing a rule does not change the prompt. Example shape only; real criteria are decided when the project starts:
+
+| Band | Action |
+| --- | --- |
+| High score | Draft the job spec / quote for review |
+| Middle | Flag for a person, listing what is missing |
+| Low or failed hard filter | No draft; record why |
+
+Nothing is sent to a customer automatically.
 
 ## Proposed, not adopted: correction log
 
