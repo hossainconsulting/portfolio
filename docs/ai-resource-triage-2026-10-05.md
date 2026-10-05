@@ -1,6 +1,6 @@
 # AI resource triage — 5 October 2026
 
-**Status:** Sorting record for 99 distinct social-media screenshots (seven batches; repeats not re-counted) Hemayet supplied. It records what was kept for current projects and why the rest was dropped. It is a planning aid, not evidence of completed work. Claims in the posts (benchmarks, "10x", attributions) were not verified.
+**Status:** Sorting record for 113 distinct social-media screenshots (eight batches; repeats not re-counted) Hemayet supplied. It records what was kept for current projects and why the rest was dropped. It is a planning aid, not evidence of completed work. Claims in the posts (benchmarks, "10x", attributions) were not verified.
 
 The screenshots themselves are not committed: they show third-party names, profile photos and Hemayet's Facebook account. Only adapted, project-specific wording is kept here.
 
@@ -42,7 +42,7 @@ Track mapping: Platform App Builder — meridian-field-services; Agentforce Spec
 
 ### LinkedIn profile review
 
-> Act as a reviewer for a Salesforce + AI Solutions Engineering profile aimed at Forward Deployed Engineering roles. Inputs: my current headline, About section, and https://portfolio.hossainconsulting.com. Identify what weakens positioning, credibility and clarity, then propose a headline, About section, Featured-section plan and three positioning options. Every section should answer: who I help, what problem I solve, why they should trust me. Constraints: the Salesforce projects are self-directed simulations with fictional companies and must be described that way; use only certifications, results and dates that are linked to evidence; no invented metrics, buzzwords or exaggerated claims. Drafts only — I publish.
+> Act as a reviewer for a Salesforce + AI Solutions Engineering profile aimed at Forward Deployed Engineering roles. Inputs: my current headline, About section, and https://portfolio.hossainconsulting.com. Identify what weakens positioning, credibility and clarity, then propose a headline, About section, Featured-section plan and three positioning options. Every section should answer: who I help, what problem I solve, why they should trust me. Constraints: the Salesforce projects are self-directed simulations with fictional companies and must be described that way; use only certifications, results and dates that are linked to evidence; no invented metrics, buzzwords or exaggerated claims. Finally, check that the headline, About, Featured section and banner use the same one-line description and facts as the portfolio and my GitHub profile, and list any mismatches. Drafts only — I publish.
 
 ### Headshot retouch
 
@@ -134,6 +134,17 @@ Nothing is sent to a customer automatically.
 | "Perfect Claude project setup" (VOICE, AUDIENCE, STYLE, SEO files) | Drop | Repos already keep standing instructions in AGENTS.md and CLAUDE.md. A separate SEO file has no use |
 | "Chief of Staff" one-prompt post and "path to $1M" | Drop | The useful parts (ask clarifying questions, disagree when wrong) are already in Expert reasoning. Its invented persona and income goals conflict with the no-invented-claims rule |
 | Pinterest sales-channel thread | Drop | Sales channel advice; its statistics were not verified |
+
+## Eighth batch (15 screenshots, 1 repeat)
+
+| Screenshot | Decision | Reason |
+| --- | --- | --- |
+| LinkedIn profile anatomy (Muselinka) and AI-visibility "entity legibility" (Chris M. Walker, #2) | **Keep one idea, added to the LinkedIn prompt** | Both say the same useful thing: one clear description of who you are, with the same facts everywhere people (or AI search) look. The LinkedIn prompt now checks the headline, About, Featured and banner against the portfolio and GitHub profile for consistency |
+| AI-visibility prompts #1, #3–5 (recommendation audit, answer-block pages, off-site sources, monthly scoreboard) | Drop | Business marketing programme; no product to be recommended. Its claims about how ChatGPT ranks businesses were not verified |
+| "Path to $1M" prompts 1–7 | Drop | Personal income planning, not project work; same series as the seventh batch |
+| "Claude second brain" folder structure | Drop | Same idea as the seventh batch's project-file post; AGENTS.md and CLAUDE.md already hold standing instructions |
+| "Full Claude course" advert | Drop | Paid advert. Its "get certified" claim is not an Anthropic certification |
+| AI Agents Ultimate Cheat Sheet | Drop | Repeat of the second batch; superseded by the nine agent terms checklist |
 
 ## Proposed, not adopted: correction log
 

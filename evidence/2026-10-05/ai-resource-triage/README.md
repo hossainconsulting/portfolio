@@ -1,6 +1,6 @@
 # AI resource triage
 Date/time and timezone: 2026-10-05 (Australia/Sydney)
-Requirement or issue: Hemayet supplied 16, then 15, then 14 more social-media screenshots (a repeat upload of the second batch was not re-recorded), then a fourth batch of 16 (4 repeats), then a fifth batch of 15 (2 repeats), then a sixth batch of 15 (1 repeat), then a seventh batch of 15 of Claude/AI prompts and asked to sort them and keep anything needed for current projects.
+Requirement or issue: Hemayet supplied 16, then 15, then 14 more social-media screenshots (a repeat upload of the second batch was not re-recorded), then a fourth batch of 16 (4 repeats), then a fifth batch of 15 (2 repeats), then a sixth batch of 15 (1 repeat), then a seventh batch of 15, then an eighth batch of 15 (1 repeat) of Claude/AI prompts and asked to sort them and keep anything needed for current projects.
 Environment/target: portfolio repository (documentation only); no Salesforce org, deployment or other repository touched.
 Starting state: docs/ai-assisted-project-workflow.md existed as the single prompt guide.
 Changes made:
@@ -11,6 +11,7 @@ Changes made:
 - Fifth batch (same doc): decision table for 15 screenshots; kept one segment hypothesis prompt for coastline-retail-group.
 - Sixth batch (same doc): decision table for 15 screenshots; added one results-analysis step to the Coastline segment prompt; everything else dropped.
 - Seventh batch (same doc): decision table for 15 screenshots; kept the nine agent terms as a design checklist for the agent projects; everything else dropped.
+- Eighth batch (same doc): decision table for 15 screenshots; added a cross-profile consistency check to the LinkedIn prompt; everything else dropped.
 - README.md: one sentence linking the triage record.
 Validation procedure/command: Content read-through against each screenshot and the existing workflow doc; `git diff --check`.
 Observed result and exit status: See commit; diff check run before commit.
