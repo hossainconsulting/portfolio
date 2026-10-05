@@ -1,6 +1,6 @@
 # AI resource triage — 5 October 2026
 
-**Status:** Sorting record for 16 social-media screenshots Hemayet supplied. It records what was kept for current projects and why the rest was dropped. It is a planning aid, not evidence of completed work. Claims in the posts (benchmarks, "10x", attributions) were not verified.
+**Status:** Sorting record for 31 social-media screenshots (two batches) Hemayet supplied. It records what was kept for current projects and why the rest was dropped. It is a planning aid, not evidence of completed work. Claims in the posts (benchmarks, "10x", attributions) were not verified.
 
 The screenshots themselves are not committed: they show third-party names, profile photos and Hemayet's Facebook account. Only adapted, project-specific wording is kept here.
 
@@ -48,6 +48,31 @@ Track mapping: Platform App Builder — meridian-field-services; Agentforce Spec
 
 > Retouch this photo of me for a professional profile. Keep my identity, facial features, skin texture, proportions, hairstyle and clothing natural and recognisable. Improve lighting, sharpness, colour balance and exposure; remove only small distractions. Do not make the skin look plastic or obviously edited.
 
+## Second batch (15 screenshots)
+
+| Screenshot | Decision | Reason |
+| --- | --- | --- |
+| Six-section AGENTS.md post (plan, smallest change, subagents, own the bug, verify, lessons) | **Keep four ideas, proposed** | Repos already route CLAUDE.md to AGENTS.md and require verification and minimal scope. New: a Lessons section, `PLAN.md` for resumable long tasks, stop after two failed tries on one step, back up before overwriting. See the proposal below |
+| "16 rules to stop wasting credits" | **Keep three habits** | One session per repository; ask for a handover summary before starting fresh on a long task; share the error and relevant files only. The rest repeats the prompt rules above |
+| AI agents cheat sheet (model, tools, orchestration, MCP/A2A) | **Keep as concept map only** | Matches home-services-ai `03-jobs-mcp` (tools over MCP) and `04-after-hours-agent` (orchestration, escalation), and agentforce-meridian-care (actions as tools). Its model table is dated; check current vendor docs before quoting it |
+| Seven general prompts (daily planning, thinking clarification, research, learning, decision, problem solving, writing) | Drop | Duplicates Research intern, Expert reasoning, Writing feedback and 80/20 learning in the existing workflow. For decisions, use the repos' `docs/adr` records |
+| Image prompts 8–10 | Drop | Already dropped in the first batch |
+| Social-media growth prompts, "Money making ChatGPT prompts", "ChatGPT as your marketing agency" | Drop | No content-marketing, side-hustle or ad-copy work in scope. The marketing prompts don't fit coastline-retail-group either, which covers Data Cloud segmentation and activation, not copywriting |
+
 ## Proposed, not adopted: correction log
 
-The CLAUDE.md post suggests recording each correction as a reusable rule (for example `tasks/lessons.md`) and reviewing it at session start. Existing AGENTS.md files already require preserving history and adding dated corrections. If Hemayet wants the log, one option is a dated "Lessons" section in each repo's AGENTS.md, added only when a real correction occurs. No repository was changed for this.
+Two posts (the CLAUDE.md best-practices post and the six-section AGENTS.md post) suggest the same idea: turn each correction into a one-line rule and review it at session start. Existing AGENTS.md files already require preserving history and adding dated corrections, but none has a Lessons section, `PLAN.md` convention, retry limit or backup rule.
+
+If Hemayet approves, append this to each repo's AGENTS.md:
+
+```markdown
+## Working rules (proposed)
+- Long task: write the steps and how each will be proved to `PLAN.md`; leave it in place when pausing so the next session can resume.
+- Two failed tries on one step: stop, record what failed, re-plan.
+- Back up a file before deleting or overwriting it, unless it is tracked and committed.
+
+## Lessons
+<!-- One line per correction: "When X, do Y". Newest first. Same mistake twice: rewrite the lesson. -->
+```
+
+No repository was changed for this.
