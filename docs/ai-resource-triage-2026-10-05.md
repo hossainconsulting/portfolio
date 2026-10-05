@@ -1,6 +1,6 @@
 # AI resource triage — 5 October 2026
 
-**Status:** Sorting record for 31 social-media screenshots (two batches) Hemayet supplied. It records what was kept for current projects and why the rest was dropped. It is a planning aid, not evidence of completed work. Claims in the posts (benchmarks, "10x", attributions) were not verified.
+**Status:** Sorting record for 45 social-media screenshots (three batches) Hemayet supplied. It records what was kept for current projects and why the rest was dropped. It is a planning aid, not evidence of completed work. Claims in the posts (benchmarks, "10x", attributions) were not verified.
 
 The screenshots themselves are not committed: they show third-party names, profile photos and Hemayet's Facebook account. Only adapted, project-specific wording is kept here.
 
@@ -58,6 +58,21 @@ Track mapping: Platform App Builder — meridian-field-services; Agentforce Spec
 | Seven general prompts (daily planning, thinking clarification, research, learning, decision, problem solving, writing) | Drop | Duplicates Research intern, Expert reasoning, Writing feedback and 80/20 learning in the existing workflow. For decisions, use the repos' `docs/adr` records |
 | Image prompts 8–10 | Drop | Already dropped in the first batch |
 | Social-media growth prompts, "Money making ChatGPT prompts", "ChatGPT as your marketing agency" | Drop | No content-marketing, side-hustle or ad-copy work in scope. The marketing prompts don't fit coastline-retail-group either, which covers Data Cloud segmentation and activation, not copywriting |
+
+## Third batch (14 screenshots)
+
+| Screenshot | Decision | Reason |
+| --- | --- | --- |
+| Website prompts 4 (portfolio) and 7 (mobile) | **Keep, merged into one portfolio review prompt** | The portfolio is a live static site (`public/index.html`). "Premium", "$10K" and "persuasive" wording replaced with honest positioning and a testable mobile check |
+| Website prompts 1–3, 5, 6, 8 (premium site, hero, conversion copy, service page, About story, full copy) | Drop | Sales copy for a business offer. The portfolio presents self-directed simulations; conversion copy would conflict with the simulation disclosure |
+| Personal finance prompts (income streams, debt, expenses, budget, salary script, impulse spending, side hustle) | Drop | Personal finance, not project work |
+| Finance spreadsheet prompts (dashboard, budget, cash flow, subscriptions, debt, savings, invoices, creator profit, net worth) | Drop; note one pattern | Not project work, and they ask for bank exports, which must never enter a repository. Their good habit — flag unclear items instead of guessing, never count a payment twice — is already in EVIDENCE.md. The invoice-aging idea can be revisited when home-services-ai `02-notes-to-invoice` (not started) is designed |
+| "Claude cheat sheet nobody made" | Drop | Already dropped in the first batch |
+| "Complete guide to Claude links" | Drop | Every link is an `lnkd.in` short link that hides its destination. Use docs.claude.com and anthropic.com directly |
+
+### Portfolio page review (kept)
+
+> Review https://portfolio.hossainconsulting.com (source: `public/index.html`) as a hiring manager for Solutions Engineering / Forward Deployed Engineering roles. Within 10 seconds, can they tell who I am, what I build and where the evidence is? Check: project cards link to their repositories and evidence; simulations are clearly labelled; About builds trust with verifiable facts only; one clear contact path. Then check it at 375px width: no horizontal scroll, tap targets at least 44px, readable text, images sized for mobile. List issues by severity with the exact section. Propose edits as a diff for my review — no invented metrics, testimonials or client claims.
 
 ## Proposed, not adopted: correction log
 
