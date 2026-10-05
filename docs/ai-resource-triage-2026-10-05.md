@@ -2,6 +2,8 @@
 
 **Status:** Sorting record for 113 distinct social-media screenshots (eight batches; repeats not re-counted) Hemayet supplied. It records what was kept for current projects and why the rest was dropped. It is a planning aid, not evidence of completed work. Claims in the posts (benchmarks, "10x", attributions) were not verified.
 
+**Scope correction, 5 October 2026:** Hemayet clarified the screenshots are meant for projects, personal branding *and* the Hossain Consulting agency. Many marketing, website, offer and positioning prompts marked "Drop" below were judged against the repositories only; they are now kept, rewritten to the compliance rules, in the private planning repository's prompt-kit skill (referenced from Master Plan v4.2). The decisions below are preserved as the original record.
+
 The screenshots themselves are not committed: they show third-party names, profile photos and Hemayet's Facebook account. Only adapted, project-specific wording is kept here.
 
 This extends the [AI-assisted project workflow](ai-assisted-project-workflow.md). The One Codex Prompt (task, success criteria, context, evidence, approval boundaries, next step) remains the single template.

@@ -16,5 +16,6 @@ Changes made:
 Validation procedure/command: Content read-through against each screenshot and the existing workflow doc; `git diff --check`.
 Observed result and exit status: See commit; diff check run before commit.
 Supporting files: none. Screenshots deliberately not committed (third-party names and photos, Hemayet's Facebook account).
+- Scope correction: dated note added at the top of the doc; agency and branding prompts now kept in the private brain prompt-kit skill.
 Limitations / checks not run: Claims in the posts (NVIDIA benchmark figures, attributions, "10x") were not verified. Kept prompts have not been executed. Documentation-only; no build or tests.
 Related issue/PR: see PR for branch claude/project-dependencies-review-fgsxe5
