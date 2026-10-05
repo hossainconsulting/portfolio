@@ -1,6 +1,6 @@
 # AI resource triage — 5 October 2026
 
-**Status:** Sorting record for 57 distinct social-media screenshots (four batches; repeats not re-counted) Hemayet supplied. It records what was kept for current projects and why the rest was dropped. It is a planning aid, not evidence of completed work. Claims in the posts (benchmarks, "10x", attributions) were not verified.
+**Status:** Sorting record for 70 distinct social-media screenshots (five batches; repeats not re-counted) Hemayet supplied. It records what was kept for current projects and why the rest was dropped. It is a planning aid, not evidence of completed work. Claims in the posts (benchmarks, "10x", attributions) were not verified.
 
 The screenshots themselves are not committed: they show third-party names, profile photos and Hemayet's Facebook account. Only adapted, project-specific wording is kept here.
 
@@ -96,6 +96,21 @@ Hard filters first, then a weighted score, then an action band. Keep the weights
 | Low or failed hard filter | No draft; record why |
 
 Nothing is sent to a customer automatically.
+
+## Fifth batch (15 screenshots, 2 repeats)
+
+| Screenshot | Decision | Reason |
+| --- | --- | --- |
+| Audience research prompt (Andalus, #1) | **Keep, adapted** | Fits coastline-retail-group segmentation work. Its best rule — separate what the data supports from assumptions; never invent customer insights — matches EVIDENCE.md |
+| Selfie portrait prompts (Success Steps #1–7) | Drop | #1 overlaps the kept headshot retouch. Generating a new studio portrait from a selfie is not a real photo, so it should not be presented as one on the portfolio or LinkedIn |
+| Email prompts (professional rewrite, cold, reply, apology, follow-up, simplify, sales) | Drop | Writing feedback already covers rewrites; stakeholder emails in the simulations stay drafts. Cold and sales emails are out of scope |
+| @sifuyik cards 6–9 and overview (slides, coding, spreadsheets, automation) | Drop | Beginner material. Its cautions — test before connecting real accounts, use sample data first, keep an approval step before anything is sent — already match AGENTS.md |
+| Marketing campaign prompt (Andalus, #2) | Drop | Marketing, out of scope |
+| @sifuyik card 1, "team of AI agents" | Drop | Repeats of earlier batches |
+
+### Segment hypothesis check (kept, for coastline-retail-group)
+
+> Using only the fictional Coastline Retail Group scenario and the synthetic data in this repository, propose customer segments for [CAMPAIGN OBJECTIVE]. For each segment: the defining attributes and the Data Cloud fields or calculated insights that would identify it, the need it reflects, and the activation target. Label every point as either supported by the repository data or an assumption needing more data. Do not invent customer insights or present assumptions as facts.
 
 ## Proposed, not adopted: correction log
 
