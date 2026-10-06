@@ -61,3 +61,23 @@ Python `html.parser` tag-balance check found no unclosed or mismatched tags.
 Not deployed: the live site changes only after a manual `npx wrangler deploy`.
 No screenshot taken. The statement that the portfolio is maintained on
 `paperclip-dev` is as stated by Hemayet and was not verified on the VM.
+
+## Addendum: lab roles corrected (2026-10-07)
+
+Hemayet clarified the lab roles: `home-services-ai` is on `paperclip-dev` (not
+`agency-dev`); `agency-dev` is for client delivery; `fde-dev` is for contract
+delivery to recruiters and hiring managers; `rhce-dev` is for Red Hat Linux
+administration projects; `oscp-dev` is for OffSec Kali administration projects;
+`salesforce-dev` is for the job-search Salesforce projects; `paperclip-dev` is
+the intended home for running the business (CEO administration, winning
+clients). Card text in `public/index.html` was updated to match, and the earlier
+`agency-dev` sentence about Home Services AI was removed (it now sits on the
+`paperclip-dev` card). Wording is kept as intended use: no client project, no
+contract project, and no business task has been published or run, and the
+"I don't hold the certification" lines for RHCE and OSCP stay.
+
+Validation: `git diff --check` exit 0; local `python3 -m http.server` fetch
+returned HTTP 200 with each new phrase present; Python `html.parser` tag-balance
+check found no unclosed or mismatched tags. Not deployed (manual
+`npx wrangler deploy`). No screenshot. All role statements are as stated by
+Hemayet and were not verified on the VMs.
