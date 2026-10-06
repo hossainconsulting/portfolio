@@ -9,6 +9,7 @@ progress from queued work.
 
 **Live portfolio:** https://portfolio.hossainconsulting.com
 **GitHub:** https://github.com/hossainconsulting
+**Lab:** working copy maintained on `paperclip-dev` (Fedora Server 44, VirtualBox VM on my own hardware). `paperclip-dev` is my lab name for the Fedora Server VM.
 
 ## Technology and structure
 

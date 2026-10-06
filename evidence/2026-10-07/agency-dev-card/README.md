@@ -39,3 +39,13 @@ Limitations / checks not run:
 
 Related issue/PR: README lab lines in `home-services-ai` PR #11 and the
 `vm-lab` PR #7 evidence note.
+
+## Addendum: README lab line (2026-10-07)
+
+On Hemayet's statement that this repository is maintained on `paperclip-dev`,
+one `**Lab:**` line was added to `README.md` under the `**GitHub:**` line:
+`paperclip-dev` is the Fedora Server 44 VirtualBox VM. Fedora Server 44 is the
+string recorded in the `vm-lab` paperclip-dev evidence. `git diff --check`:
+exit 0. README-only; this does not change the deployed site, and no deploy is
+needed for it. That the portfolio is maintained on `paperclip-dev` is as
+stated by Hemayet and was not verified on the VM.
