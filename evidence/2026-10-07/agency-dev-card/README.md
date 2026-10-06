@@ -49,3 +49,15 @@ string recorded in the `vm-lab` paperclip-dev evidence. `git diff --check`:
 exit 0. README-only; this does not change the deployed site, and no deploy is
 needed for it. That the portfolio is maintained on `paperclip-dev` is as
 stated by Hemayet and was not verified on the VM.
+
+## Addendum: paperclip-dev card (2026-10-07)
+
+On Hemayet's "yes", one sentence was added to the `paperclip-dev` card in
+`public/index.html`: "This portfolio site's source is also maintained from this
+lab." The rest of the card (Paperclip as a systemd service, agent paused, no
+business tasks run) is unchanged. Validation: `git diff --check` exit 0; local
+`python3 -m http.server` fetch returned HTTP 200 with the sentence present once;
+Python `html.parser` tag-balance check found no unclosed or mismatched tags.
+Not deployed: the live site changes only after a manual `npx wrangler deploy`.
+No screenshot taken. The statement that the portfolio is maintained on
+`paperclip-dev` is as stated by Hemayet and was not verified on the VM.
