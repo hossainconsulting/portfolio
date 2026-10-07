@@ -1,0 +1,61 @@
+<!doctype html>
+<!-- Source for public/og.png. Render with presence/scripts/build-og.sh.
+     Palette and type match public/index.html. Text sits inside the centre
+     60% so it survives every platform's crop. -->
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<style>
+  :root {
+    --paper: #FAF9F7; --surface: #FFFFFF; --ink: #141210; --ink-2: #4A4540;
+    --ink-3: #78716A; --rule: #DED9D3; --key: #1B4D3E; --key-soft: #E6EEEA;
+    --struc: "Segoe UI", -apple-system, "Helvetica Neue", "Liberation Sans", Arial, sans-serif;
+    --prose: "Iowan Old Style", "Palatino Linotype", Palatino, "DejaVu Serif", Georgia, serif;
+    --mono: "Cascadia Code", "SF Mono", "DejaVu Sans Mono", Consolas, monospace;
+  }
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    background: var(--paper); color: var(--ink); font-family: var(--prose);
+    position: relative; -webkit-font-smoothing: antialiased;
+  }
+  .bar { position: absolute; left: 0; top: 0; bottom: 0; width: 14px; background: var(--key); }
+  .card {
+    position: absolute; left: 96px; top: 84px; right: 96px; bottom: 84px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .eyebrow {
+    font-family: var(--struc); font-size: 20px; font-weight: 700;
+    letter-spacing: .18em; text-transform: uppercase; color: var(--key);
+  }
+  h1 { font-family: var(--struc); font-weight: 700; letter-spacing: -.03em; font-size: 84px; line-height: 1; margin: 22px 0 22px; }
+  .sub { font-size: 30px; line-height: 1.4; color: var(--ink-2); max-width: 880px; margin: 0; }
+  .foot { display: flex; align-items: center; justify-content: space-between; font-family: var(--struc); }
+  .url { font-family: var(--mono); font-size: 24px; color: var(--key); font-weight: 600; }
+  .certs { display: flex; gap: 10px; }
+  .pill {
+    font-size: 15px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    background: var(--key-soft); color: var(--key); border: 1px solid #b9cfc6;
+    padding: 8px 14px; border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+  <div class="bar"></div>
+  <div class="card">
+    <div>
+      <div class="eyebrow">Salesforce · Sydney, Australia</div>
+      <h1>Hemayet Hossain</h1>
+      <p class="sub">Salesforce administrator and implementation consultant. Complete, documented implementations against realistic business scenarios — the working published, not just the outcome.</p>
+    </div>
+    <div class="foot">
+      <div class="url">portfolio.hossainconsulting.com</div>
+      <div class="certs">
+        <span class="pill">Admin</span>
+        <span class="pill">App Builder</span>
+        <span class="pill">Adv. Admin</span>
+        <span class="pill">Agentforce</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
