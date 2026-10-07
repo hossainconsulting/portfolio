@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hemayet Hossain — Salesforce Portfolio</title>
-<meta name="description" content="Salesforce implementation portfolio — simulated end-to-end projects across Administrator, Platform App Builder, Advanced Administrator and Agentforce tracks. Sydney, Australia.">
+<title>Hemayet Hossain — Salesforce + AI Solutions Engineer</title>
+<meta name="description" content="Hemayet Hossain — Salesforce + AI Solutions Engineer in Sydney, Australia. Explore self-directed simulations across Salesforce, AI, automation and integrations.">
 <style>
   :root {
     --paper:   #FAF9F7;
@@ -54,6 +54,10 @@
   }
 
   * { box-sizing: border-box; }
+  .visually-hidden {
+    position: absolute; width: 1px; height: 1px; margin: -1px;
+    padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
   body {
     margin: 0; background: var(--paper); color: var(--ink);
     font-family: var(--prose); font-size: 17px; line-height: 1.62;
@@ -154,6 +158,76 @@
     header.top { padding: 44px 0 30px; }
     .status { margin-left: 0; }
   }
+
+  /* --- CONCIERGE widget ------------------------------------------------- */
+  #cx-launcher {
+    position: fixed; right: 20px; bottom: 20px; z-index: 20;
+    font-family: var(--struc); font-size: .86rem; font-weight: 600;
+    background: var(--key); color: var(--paper); border: none;
+    padding: 12px 20px; border-radius: 100px; cursor: pointer;
+    box-shadow: 0 2px 14px rgba(0,0,0,.16);
+  }
+  #cx-launcher:hover { opacity: .92; }
+  #cx-launcher:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+  #cx-panel {
+    position: fixed; right: 20px; bottom: 74px; z-index: 21;
+    width: min(370px, calc(100vw - 40px)); height: min(520px, calc(100vh - 120px));
+    display: flex; flex-direction: column;
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 8px; box-shadow: 0 6px 34px rgba(0,0,0,.20); overflow: hidden;
+  }
+  .cx-head {
+    display: flex; align-items: baseline; gap: 10px;
+    padding: 13px 16px; border-bottom: 1px solid var(--rule-2); background: var(--sunk);
+  }
+  .cx-head .t {
+    font-family: var(--struc); font-size: .8rem; font-weight: 700;
+    letter-spacing: .04em; color: var(--ink);
+  }
+  .cx-head .s { font-family: var(--struc); font-size: .72rem; color: var(--ink-3); }
+  #cx-close {
+    margin-left: auto; background: none; border: none; cursor: pointer;
+    color: var(--ink-3); font-size: 1.1rem; line-height: 1; padding: 2px 4px;
+  }
+  #cx-close:hover { color: var(--ink); }
+
+  #cx-log { flex: 1; overflow-y: auto; padding: 14px 16px; }
+  .cx-msg { display: flex; margin-bottom: 10px; }
+  .cx-msg.cx-you { justify-content: flex-end; }
+  .cx-bubble {
+    font-family: var(--struc); font-size: .87rem; line-height: 1.5;
+    padding: 9px 13px; border-radius: 12px; max-width: 85%;
+    white-space: pre-wrap; overflow-wrap: anywhere;
+  }
+  .cx-bot .cx-bubble { background: var(--sunk); color: var(--ink-2); border-bottom-left-radius: 3px; }
+  .cx-you .cx-bubble { background: var(--key-soft); color: var(--ink); border-bottom-right-radius: 3px; }
+  .cx-pending .cx-bubble { color: var(--ink-3); }
+
+  #cx-form { display: flex; gap: 8px; padding: 11px 13px; border-top: 1px solid var(--rule-2); }
+  #cx-input {
+    flex: 1; font-family: var(--struc); font-size: .87rem;
+    background: var(--paper); color: var(--ink);
+    border: 1px solid var(--rule); border-radius: 100px; padding: 9px 14px;
+  }
+  #cx-input:focus-visible { outline: 2px solid var(--key); outline-offset: 1px; }
+  #cx-send {
+    font-family: var(--struc); font-size: .82rem; font-weight: 600;
+    background: var(--key); color: var(--paper);
+    border: none; border-radius: 100px; padding: 9px 16px; cursor: pointer;
+  }
+  #cx-send:disabled, #cx-input:disabled { opacity: .55; cursor: default; }
+
+  .cx-note {
+    font-family: var(--struc); font-size: .68rem; color: var(--ink-3);
+    padding: 0 16px 11px; margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    #cx-panel { right: 10px; left: 10px; bottom: 68px; width: auto; }
+    #cx-launcher { right: 12px; bottom: 12px; }
+  }
+
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
 </head>
@@ -161,12 +235,12 @@
 
 <header class="top">
   <div class="wrap">
-    <div class="eyebrow">Salesforce · Sydney, Australia</div>
+    <div class="eyebrow">Salesforce + AI · Sydney, Australia</div>
     <h1>Hemayet Hossain</h1>
     <p class="sub">
-      Salesforce administrator and implementation consultant. I build complete,
-      documented implementations against realistic business scenarios — and
-      publish the working, not just the outcome.
+      Salesforce + AI Solutions Engineer, building toward Forward Deployed
+      Engineering. I turn complex business problems into connected,
+      intelligent solutions through Salesforce, automation, APIs and software.
     </p>
     <div class="links">
       <a href="https://github.com/hossainconsulting">GitHub</a>
@@ -175,21 +249,22 @@
   </div>
 </header>
 
+
 <div class="wrap">
 
 <section>
   <h2>What this is</h2>
   <p>
-    Each project below is a full engagement run end to end in its own Salesforce
-    Developer org: requirements gathered from stakeholders with conflicting
-    priorities, a data model designed before anything is clicked, security and
-    automation built and tested, and a written record of every decision.
+    These self-directed Salesforce simulations explore requirements, data
+    modelling, security, automation and handover in fictional business settings.
+    They are at different stages of development. Each repository's dated records
+    distinguish completed work, planned scope and unresolved decisions.
   </p>
   <p>
-    The repositories contain the configuration, the seed data, and — most
-    usefully — the <strong>deliverables</strong>: design documents, SOPs,
-    analyses, incident write-ups and runbooks. The configuration proves the
-    clicks happened. The documents prove the thinking did.
+    Where available, the repositories include configuration, seed data and
+    <strong>deliverables</strong> such as design documents, SOPs and analyses.
+    Read these alongside dated test results and session notes to understand
+    what was implemented, how it was checked and what remains unfinished.
   </p>
 
   <div class="disclosure">
@@ -209,6 +284,20 @@
 </section>
 
 <section>
+  <h2>For recruiters and hiring managers</h2>
+  <p>
+    This portfolio supports conversations about Salesforce, automation and
+    integration roles. Start with the SunRise evidence linked below to review
+    how I document decisions, investigate data quality and track unfinished work.
+    The examples come from self-directed simulations.
+  </p>
+  <p>
+    To discuss a role or request a walkthrough, email
+    <a href="mailto:hossainconsulting@gmail.com">hossainconsulting@gmail.com</a>.
+  </p>
+</section>
+
+<section>
   <h2>Projects</h2>
 
   <div class="proj">
@@ -224,9 +313,18 @@
       territory boundaries moved, and a quarter that missed quota with no
       explanation anyone can produce.
     </p>
+    <p>
+      <strong>Recorded progress, 7 September 2026:</strong> Week 4 opened.
+      Earlier records include duplicate-pair assessments, a partial Contact
+      merge and interim custodianship of 666 Opportunities. Held merge
+      decisions, access dependencies and other carry-forward work remain.
+      These are documented simulation outcomes, not a live org verification.
+    </p>
     <div class="foot">
-      <span>12 weeks · 21 projects</span>
+      <span>12-week scope · Week 4 opened</span>
       <a href="https://github.com/hossainconsulting/sunrise-solar-internship">repository →</a>
+      <a href="https://github.com/hossainconsulting/sunrise-solar-internship/blob/main/deliverables/sessions/2026-09-07.md">7 September session →</a>
+      <a href="https://github.com/hossainconsulting/sunrise-solar-internship/blob/main/deliverables/carry-forward-tickets.md">decisions and outstanding work →</a>
     </div>
   </div>
 
@@ -282,6 +380,7 @@
     <div class="foot">
       <span>6 weeks</span>
       <a href="https://github.com/hossainconsulting/agentforce-meridian-care">repository →</a>
+      <a href="/service-agent-patterns">pattern library →</a>
     </div>
   </div>
 
@@ -345,59 +444,159 @@
 
 <section>
   <h2>AI engineering</h2>
-  <p class="tally">The other side of the same problem. The projects above configure
-  the platform a trades business runs on; these build the tooling that plugs into it.</p>
+  <p class="tally">Planned tools for trades and home-services workflows,
+  complementing the Salesforce projects above.</p>
 
   <div class="proj">
     <div class="proj-hd">
       <h3>Home Services AI</h3>
-      <span class="status wip">In progress</span>
+      <span class="status wip">Planning / scaffold</span>
     </div>
-    <div class="cert">Claude Certified Developer — Foundations</div>
+    <div class="cert">Self-directed AI engineering learning project</div>
     <p>
-      Five tools for trades businesses, each targeting one place the work leaks
-      money — enquiries never quoted, jobs never invoiced, calls missed after
-      hours. <strong>Quote Triage</strong> turns a messy enquiry into a structured
-      job spec and states what it still needs to ask. <strong>Notes to
-      Invoice</strong> prices a day's work from a rates table without letting the
-      model do arithmetic. <strong>Jobs MCP Server</strong> exposes a scheduling
-      database to Claude with read tools and exactly one guarded write path.
-      <strong>After-Hours Agent</strong> books the job or escalates a gas leak to
-      a human. <strong>Eval Harness</strong> grades the other four across a fixed
-      case set and reports accuracy, cost and regressions.
+      Five proposed tools: <strong>Quote Triage</strong> for structuring
+      enquiries and identifying missing details; <strong>Notes to Invoice</strong>
+      for drafting invoices using a rates table and calculations in code;
+      <strong>Jobs MCP Server</strong> for database access and validated bookings;
+      <strong>After-Hours Agent</strong> for enquiry triage and human escalation;
+      and <strong>Eval Harness</strong> for testing quality, cost and regressions.
+    </p>
+    <p>
+      As reviewed on 16 September 2026, the repository's main branch contains
+      README templates and project folders. Implementation code, tests,
+      recorded demos and measured results are not yet present on main.
+      Other branches and open pull requests have not been assessed.
     </p>
     <div class="foot">
-      <span>10 weeks · 5 tools</span>
+      <span>Planned: 10 weeks · 5 tools</span>
       <a href="https://github.com/hossainconsulting/home-services-ai">repository →</a>
     </div>
   </div>
 </section>
 
+<section id="home-lab">
+  <h2>Home lab</h2>
+  <p class="tally"><b>Six Linux virtual machines</b> on my laptop, one per
+  skill area, each running its own practice projects.</p>
+  <p>
+    I don't have paid IT experience yet, so I built a place to get hands-on
+    practice. Each VM runs in VirtualBox, is reached over SSH with key-based
+    login, and has a dated record of what was set up and how it was checked.
+    Much of the setup was done with AI-assisted tooling (Claude Code and
+    Codex) under my direction. Those records live in a private repository;
+    I'm happy to walk through them on request.
+  </p>
+
+  <div class="proj">
+    <div class="proj-hd">
+      <h3>salesforce-dev</h3>
+      <span class="status passed">Active</span>
+    </div>
+    <div class="cert">Ubuntu 24.04 LTS · Salesforce</div>
+    <p>Working copies of the Salesforce simulations above, including SunRise
+    Solar, developed against Developer Edition orgs with the Salesforce CLI.</p>
+  </div>
+
+  <div class="proj">
+    <div class="proj-hd">
+      <h3>paperclip-dev</h3>
+      <span class="status passed">Active</span>
+    </div>
+    <div class="cert">Fedora Server 44 · AI agent orchestration</div>
+    <p>Fresh Fedora Server install running Paperclip, an agent
+    orchestration platform, as a systemd service. An agent is configured and
+    has passed an environment check; it is paused and has not run business
+    tasks.</p>
+  </div>
+
+  <div class="proj">
+    <div class="proj-hd">
+      <h3>agency-dev</h3>
+      <span class="status wip">Set up</span>
+    </div>
+    <div class="cert">Debian 12 · Hossain Consulting projects</div>
+    <p>Workspace for agency demos, with its own scoped GitHub deploy key.
+    No agency project is published from it yet.</p>
+  </div>
+
+  <div class="proj">
+    <div class="proj-hd">
+      <h3>rhce-dev</h3>
+      <span class="status wip">Set up</span>
+    </div>
+    <div class="cert">Red Hat Enterprise Linux 9 · Studying for RHCE</div>
+    <p>Linux administration practice towards the Red Hat Certified Engineer
+    exam. I don't hold the certification; exercises are not published yet.</p>
+  </div>
+
+  <div class="proj">
+    <div class="proj-hd">
+      <h3>fde-dev</h3>
+      <span class="status wip">Set up</span>
+    </div>
+    <div class="cert">CentOS Stream 9 · Web, Python and JavaScript</div>
+    <p>Practice environment for web development and forward-deployed
+    engineering skills. No projects are published from it yet.</p>
+  </div>
+
+  <div class="proj">
+    <div class="proj-hd">
+      <h3>oscp-dev</h3>
+      <span class="status wip">Set up</span>
+    </div>
+    <div class="cert">Kali Linux · OSCP study, authorised lab only</div>
+    <p>Security practice towards the OSCP, used only against systems I own
+    or am authorised to test. I don't hold the certification; no work is
+    published yet.</p>
+  </div>
+</section>
+
 <section>
-  <h2>Certification track</h2>
-  <p class="tally"><b>Four passed</b>, five in progress. The exams are one thing;
-  the projects above are the implementation evidence, built separately.</p>
+  <h2>Verified Salesforce credentials</h2>
+  <p class="tally"><b>Four credentials verified</b> through Salesforce's public credential record. The projects above provide separate implementation evidence.</p>
   <ul class="certs">
-    <li class="done"><span class="n">01</span> <span class="nm">Salesforce Administrator</span> <span class="status passed">Passed</span></li>
-    <li class="done"><span class="n">02</span> <span class="nm">Platform App Builder</span> <span class="status passed">Passed</span></li>
-    <li class="done"><span class="n">03</span> <span class="nm">Advanced Administrator</span> <span class="status passed">Passed</span></li>
-    <li class="done"><span class="n">04</span> <span class="nm">Agentforce Specialist</span> <span class="status passed">Passed</span></li>
-    <li><span class="n">05</span> <span class="nm">Sales Cloud Consultant</span> <span class="status wip">In progress</span></li>
-    <li><span class="n">06</span> <span class="nm">Service Cloud Consultant</span> <span class="status wip">In progress</span></li>
-    <li><span class="n">07</span> <span class="nm">Data Cloud Consultant</span> <span class="status wip">In progress</span></li>
-    <li><span class="n">08</span> <span class="nm">Marketing Cloud Administrator</span> <span class="status wip">In progress</span></li>
-    <li><span class="n">09</span> <span class="nm">Claude Certified Developer — Foundations</span> <span class="status wip">In progress</span></li>
+    <li class="done"><span class="n">01</span> <span class="nm">Salesforce Certified Agentforce Specialist — earned 18 August 2026</span> <span class="status passed">Verified</span></li>
+    <li class="done"><span class="n">02</span> <span class="nm">Salesforce Certified Platform Administrator II — earned 10 August 2026</span> <span class="status passed">Verified</span></li>
+    <li class="done"><span class="n">03</span> <span class="nm">Salesforce Certified Platform App Builder — earned 21 July 2026</span> <span class="status passed">Verified</span></li>
+    <li class="done"><span class="n">04</span> <span class="nm">Salesforce Certified Platform Administrator — earned 23 June 2026</span> <span class="status passed">Verified</span></li>
   </ul>
+  <p>
+    <a href="https://trailhead.salesforce.com/en/credentials/certification-detail-print/?searchString=/EMytG9drkgo/H4/0tgVITa/sw2U8vhbkvkc3jqlaJgauY5cCr+PvNo4YAw1Ki9f">View the public Salesforce credential record →</a><br>
+    <a href="https://github.com/hossainconsulting/salesforce-user-lifecycle-sop">Review the Salesforce User Lifecycle SOP →</a>
+  </p>
 </section>
 
 <footer>
   <div class="wrap" style="padding:0">
     Hemayet Hossain · Sydney, Australia ·
+    <a href="mailto:hossainconsulting@gmail.com">hossainconsulting@gmail.com</a> ·
     <a href="https://github.com/hossainconsulting">github.com/hossainconsulting</a><br>
     Salesforce and related marks are property of Salesforce, Inc.
   </div>
 </footer>
 
 </div>
+
+<button id="cx-launcher" type="button" hidden aria-expanded="false" aria-controls="cx-panel">
+  Ask about working with Hemayet
+</button>
+
+<div id="cx-panel" hidden role="dialog" aria-modal="false" aria-label="Chat with Hemayet's assistant">
+  <div class="cx-head">
+    <span class="t">Hemayet's assistant</span>
+    <span class="s">Replies within one business day</span>
+    <button id="cx-close" type="button" aria-label="Close chat">&times;</button>
+  </div>
+  <div id="cx-log" role="log" aria-live="polite"></div>
+  <form id="cx-form" autocomplete="off">
+    <label for="cx-input" class="visually-hidden">Your message</label>
+    <input id="cx-input" type="text" placeholder="Type your message" maxlength="4000">
+    <button id="cx-send" type="submit">Send</button>
+  </form>
+  <p class="cx-note">An AI assistant. Anything you share goes to Hemayet by email so he can reply, and nowhere else.</p>
+</div>
+
+<script src="/widget.js" defer></script>
+
 </body>
 </html>
