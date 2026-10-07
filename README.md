@@ -12,8 +12,9 @@ progress from queued work.
 
 ## Technology and structure
 
-Static HTML and CSS served through Cloudflare Workers static assets.
-There is no application build step or frontend package dependency.
+Static HTML and CSS served through Cloudflare Workers static assets, with
+a Worker endpoint for the proposed CONCIERGE widget. There is no frontend
+build step; the Worker uses the Anthropic SDK.
 
 - `public/index.html` — portfolio homepage.
 - `public/404.html` — custom page for unknown paths.
@@ -23,6 +24,35 @@ There is no application build step or frontend package dependency.
 The Worker is named `portfolio`. Its asset directory is `public/`,
 with `not_found_handling` set to `404-page`. The configuration disables
 workers.dev and preview URLs.
+
+## CONCIERGE widget (draft)
+
+This branch adds `public/widget.js`, widget markup in `public/index.html`, and a Worker in `src/index.js` serving static assets and `POST /api/chat`. The system prompt is in `src/system-prompt.js`. This describes proposed source functionality, not a verified live release.
+
+The browser sends conversation history to the Worker. The Worker checks message roles, content types, message and conversation size, and turn count before calling Anthropic. The API key is supplied as a Worker secret, rather than embedded in browser code. The `capture_lead` tool sends the structured lead and transcript to `LEAD_WEBHOOK_URL`; delivery failures are reported to the assistant for an email fallback. Lead details are also logged by the Worker.
+
+### Configuration and launch requirements
+
+- `ANTHROPIC_API_KEY`: Worker secret required for model calls.
+- `LEAD_WEBHOOK_URL`: Worker secret for lead delivery; configure and verify delivery before promising a reply.
+- `CONTACT_EMAIL`: public configuration in `wrangler.jsonc`.
+- `CONTACT_PHONE`: optional Worker secret; supplying it allows the assistant to share that number publicly.
+- Rate-limit `/api/chat` before public traffic. Request-size limits do not limit request frequency.
+- Publish and link a privacy statement describing lead and transcript handling before launch.
+
+These requirements were not verified during the 7 October 2026 conflict resolution. The PR remains draft. No secrets were configured and no deployment ran.
+
+### Local widget checks
+
+```bash
+npm install
+npm run check
+npm run dev
+```
+
+Use a gitignored `.dev.vars` for local secrets. Never commit real keys or webhook credentials. Python's static preview below cannot exercise `/api/chat`.
+
+`npm run check` checks JavaScript syntax and compares the runtime prompt with the private `acquisition-system/agents/Agent_Inbound_CONCIERGE.md` source when that sibling repository is available; otherwise that comparison is skipped. It does not prove live model compatibility, browser behaviour or webhook delivery. The initial PR describes historical mock checks; those were not independently replayed for this documentation resolution. A live conversation and lead-delivery check remain launch prerequisites.
 
 ## Local preview
 
