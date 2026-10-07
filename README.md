@@ -206,3 +206,9 @@ The homepage includes role and engagement guidance, an evidence navigation table
 - [finance/README.md](finance/README.md) — standalone finance dashboard with sample data and CSV import. It is outside the portfolio static asset directory.
 
 Adding these directories does not publish or configure their services. Historical test results in their documentation are not a current validation run.
+
+## Study Prompt Builder
+
+[public/study/index.html](public/study/index.html) provides the /study/ prompt builder. [learning-course-templates.md](learning-course-templates.md) is the source for seventeen templates; regenerate [public/study/templates.js](public/study/templates.js) with `python scripts/build-study-templates.py`. Behaviour lives in [public/study/app.js](public/study/app.js).
+
+The current site-wide CSP already allows same-origin scripts for the widget, so the builder uses that same policy without a path override. After an authorised deployment, inspect both `/` and `/study/` response headers and verify the builder loads. Local source checks do not establish Cloudflare routing or live behaviour.
