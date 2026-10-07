@@ -1,0 +1,129 @@
+/* ============================================================
+   Locked design system for LinkedIn infographics.
+   One board = one HTML file that links this stylesheet. Boards
+   never override these tokens; a new look is a new version of
+   this file, not a one-off. Palette and type match the hub.
+   Canvas: 1080 x 1350 (4:5), rendered at 2x for PNG.
+   ============================================================ */
+
+:root {
+  /* palette, from presence/brand-kit.md */
+  --paper:    #FAF9F7;
+  --surface:  #FFFFFF;
+  --sunk:     #F1EFEC;
+  --ink:      #141210;
+  --ink-2:    #4A4540;
+  --ink-3:    #78716A;
+  --rule:     #DED9D3;
+  --rule-2:   #EBE7E2;
+  --key:      #1B4D3E;
+  --key-soft: #E6EEEA;
+  --amber:    #8A6410;
+  --amber-soft:#F7EFDC;
+
+  /* type */
+  --sans: "Segoe UI", -apple-system, "Helvetica Neue", "Liberation Sans", Arial, sans-serif;
+  --mono: "Cascadia Code", "SF Mono", "DejaVu Sans Mono", Consolas, monospace;
+
+  /* spacing scale: everything is a multiple of 8 */
+  --s1: 8px; --s2: 16px; --s3: 24px; --s4: 32px; --s5: 40px; --s6: 48px; --s9: 72px;
+
+  /* board */
+  --board-w: 1080px;
+  --board-h: 1350px;
+  --pad: var(--s9);
+  --gap: var(--s3);
+  --radius: 12px;
+
+  /* motion */
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --dur: 600ms;
+  --stagger: 180ms;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: var(--board-w); height: var(--board-h); overflow: hidden; }
+body {
+  background: var(--paper); color: var(--ink); font-family: var(--sans);
+  -webkit-font-smoothing: antialiased; position: relative;
+}
+
+/* left accent bar, same as the OG card */
+.bar { position: absolute; left: 0; top: 0; bottom: 0; width: 12px; background: var(--key); }
+
+.board {
+  position: absolute; inset: 0; padding: var(--pad) var(--pad) var(--s6) calc(var(--pad) + 12px);
+  display: flex; flex-direction: column; gap: var(--gap);
+}
+
+/* ---- type scale ---- */
+.kicker {
+  font-size: 20px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--key);
+}
+h1 { font-size: 60px; line-height: 1.05; letter-spacing: -.03em; font-weight: 700; max-width: 900px; }
+h1 em { font-style: normal; color: var(--key); }
+.lede { font-size: 24px; line-height: 1.4; color: var(--ink-2); max-width: 840px; }
+h2 { font-size: 30px; line-height: 1.15; letter-spacing: -.02em; font-weight: 700; }
+p, li { font-size: 22px; line-height: 1.35; color: var(--ink-2); }
+strong { color: var(--ink); font-weight: 700; }
+.mono { font-family: var(--mono); font-size: 18px; color: var(--ink-3); }
+
+/* ---- cards ---- */
+.grid { display: grid; gap: var(--gap); }
+.grid.two { grid-template-columns: 1fr 1fr; }
+.card {
+  background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius);
+  padding: var(--s4); display: flex; flex-direction: column; gap: var(--s2);
+}
+.card .n {
+  font-family: var(--mono); font-size: 18px; color: var(--key); font-weight: 600;
+  letter-spacing: .08em;
+}
+.card ul { list-style: none; display: flex; flex-direction: column; gap: var(--s1); }
+.card li { padding-left: 22px; position: relative; }
+.card li::before {
+  content: ""; position: absolute; left: 0; top: 13px; width: 8px; height: 8px;
+  border-radius: 50%; background: var(--key);
+}
+.card.soft { background: var(--key-soft); border-color: color-mix(in srgb, var(--key) 26%, transparent); }
+.card.warn { background: var(--amber-soft); border-color: color-mix(in srgb, var(--amber) 30%, transparent); }
+.card.warn .n, .card.warn li::before { color: var(--amber); background: var(--amber); }
+.card.warn li::before { background: var(--amber); }
+.tag {
+  display: inline-block; font-size: 15px; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; padding: 6px 12px; border-radius: 4px;
+  background: var(--key-soft); color: var(--key); border: 1px solid #b9cfc6;
+}
+
+/* the takeaway block: one sentence, the opinion */
+.take {
+  border-left: 6px solid var(--key); padding: var(--s2) var(--s3);
+  font-size: 26px; line-height: 1.35; color: var(--ink); font-weight: 600;
+}
+
+/* ---- footer ---- */
+.foot {
+  margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end;
+  gap: var(--s3); border-top: 1px solid var(--rule); padding-top: var(--s2);
+}
+.foot .url { font-family: var(--mono); font-size: 20px; color: var(--key); font-weight: 600; }
+.foot .disc { font-size: 16px; color: var(--ink-3); max-width: 640px; line-height: 1.3; }
+
+/* ---- motion ----
+   Any element with class "r" reveals on its own beat. Set --i on it
+   (0, 1, 2, ...) and it starts at i * --stagger. Fill-mode "both" keeps it
+   hidden before its beat and static after, so the last frame is the
+   poster. Nothing moves linearly; nothing moves after the last beat. */
+.r { animation: rise var(--dur) var(--ease) both; animation-delay: calc(var(--i, 0) * var(--stagger)); }
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+.r.line { animation-name: draw; transform-origin: left center; }
+@keyframes draw {
+  from { opacity: 0; transform: scaleX(0); }
+  to   { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) { .r { animation: none; } }
+html.static .r { animation: none; }

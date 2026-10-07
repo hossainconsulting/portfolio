@@ -184,3 +184,9 @@ writing and documentation. Commits it co-authored carry a
 Hemayet Hossain remains the project owner and decision-maker. These credits do
 not represent separate GitHub accounts or collaborator invitations, and do
 not change existing authorship, licensing or project completion claims.
+
+## Presence and SEO source
+
+[presence](presence) contains profile records, branding and content playbooks, launch and measurement guides, and supporting assets. Profile verification labels describe their recorded dates; they were not refreshed during this conflict resolution. [.claude/skills](.claude/skills) holds the proposed presence workflows.
+
+The source includes [public/links.html](public/links.html), a social preview image, robots.txt, sitemap.xml and an IndexNow verification file. Homepage canonical, social preview and structured-data markup are source configuration, not evidence of deployment, indexing, account ownership or search-engine verification. Account registrations and publication require separate authorised work.
