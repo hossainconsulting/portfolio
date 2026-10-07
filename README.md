@@ -17,6 +17,7 @@ a Worker endpoint for the proposed CONCIERGE widget. There is no frontend
 build step; the Worker uses the Anthropic SDK.
 
 - `public/index.html` — portfolio homepage.
+- [public/writing](public/writing) — standalone articles and local images; each article carries its own inline styles.
 - [public/service-agent-patterns.html](public/service-agent-patterns.html) — service-agent pattern library, linked from the Meridian Appliance Care card at `/service-agent-patterns`; live routing awaits release verification.
 - `public/404.html` — custom page for unknown paths.
 - `public/_headers` — static asset response headers.
