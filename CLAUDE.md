@@ -29,3 +29,9 @@ Preserve dated credential and authorship context; do not invent current status, 
 For documentation, review content and relative links and run git diff --check. For widget source, npm run check runs syntax checks and a conditional prompt-source check. Report prompt-sync as skipped when the private authored source is unavailable. Select additional validation for the behaviour changed; avoid live calls or external writes merely to inspect documentation.
 
 .claude/settings.json contains read-only shell permissions and environment-file read restrictions. Parsing the JSON does not establish runtime enforcement. Tool permissions do not authorise deployments or unrelated work.
+
+## Recruiter-facing evidence and agent tooling
+
+For claims about project delivery, inspect the relevant project's dated deliverables and evidence. Do not assign shipped status to unshipped work, publish unmeasured metrics or list an unearned credential. Source documents also need their dates and verification limits; they do not by themselves prove current live behaviour.
+
+If Superpowers is used with Claude Code, keep it as user-level tooling rather than vendoring it into this repository. Installation was not checked during this conflict resolution. Apply workflows to the actual change and available checks; the older assertion that this repository has no tests or server code no longer describes its widget source and npm check command.
