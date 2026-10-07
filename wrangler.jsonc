@@ -1,8 +1,16 @@
 {
-  // Static-asset Worker. `npx wrangler deploy` uploads everything in ./public
-  // and serves it directly - no build step, no framework, no server code.
+  // Static assets plus one endpoint. `npx wrangler deploy` uploads everything in
+  // ./public and bundles src/index.js, which serves those assets and handles
+  // POST /api/chat for the CONCIERGE widget.
+  //
+  // Secrets - never in this file:
+  //   npx wrangler secret put ANTHROPIC_API_KEY   # required
+  //   npx wrangler secret put LEAD_WEBHOOK_URL    # required for the reply promise
+  //   npx wrangler secret put CONTACT_PHONE       # optional - see README
   "name": "portfolio",
   "compatibility_date": "2026-01-01",
+  // Required by @anthropic-ai/sdk when it runs on Workers.
+  "compatibility_flags": ["nodejs_compat"],
 
   // Serve only on portfolio.hossainconsulting.com. Without these, Wrangler
   // defaults both to true and the site is also published at
@@ -11,8 +19,21 @@
   "workers_dev": false,
   "preview_urls": false,
 
+  "main": "src/index.js",
+
+  "vars": {
+    "CONTACT_EMAIL": "hossainconsulting@gmail.com"
+  },
+
   "assets": {
     "directory": "./public",
+    // The Worker serves unmatched paths itself through env.ASSETS, which is what
+    // keeps not_found_handling working now that `main` is set.
+    "binding": "ASSETS",
     "not_found_handling": "404-page"
+  },
+
+  "observability": {
+    "enabled": true
   }
 }
