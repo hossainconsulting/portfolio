@@ -194,3 +194,7 @@ The source includes [public/links.html](public/links.html), a social preview ima
 ## Learning tracks
 
 [learning/ansible-linux](learning/ansible-linux) contains the planned twelve-module Ansible with Linux curriculum, lab inventory and starter playbooks. All modules are recorded as Not started. These files are repository learning material; the configured static asset directory is public/, so learning/ is not uploaded as site assets.
+
+## Recruiter evidence navigation
+
+The homepage includes role and engagement guidance, an evidence navigation table, and a Writing card for the service-agent pattern library. These are pointers to dated source records, not a claim that all projects are complete or live. Current credential and simulation disclosures remain authoritative.
