@@ -1,0 +1,88 @@
+{
+  "_comment": "Source of truth for what the platform sells. Prices are placeholders in AUD cents; set real ones before `npm run stripe:sync`. `agent_slugs` must match src/agents/registry.ts.",
+  "offerings": [
+    {
+      "slug": "quote-triage",
+      "kind": "agent",
+      "name": "Quote Triage",
+      "tagline": "Turns a messy enquiry into a structured job spec, and says what it still needs to ask.",
+      "description": "Paste an email, SMS or web-form enquiry. Get back a job type, urgency, location, access notes and a list of the questions you still have to ask before quoting. Missing information is a first-class output, not a guess.",
+      "price_cents": 2900, "interval": "month", "monthly_call_quota": 300,
+      "agent_slugs": ["quote-triage"],
+      "repo_url": "https://github.com/hossainconsulting/home-services-ai/tree/main/01-quote-triage", "sort": 10
+    },
+    {
+      "slug": "notes-to-invoice",
+      "kind": "agent",
+      "name": "Notes to Invoice",
+      "tagline": "End-of-day job notes in, line-itemed draft invoice out.",
+      "description": "Send the day's notes and your rates table. The agent maps work to rate lines and returns a draft invoice with quantities and rate references. It never does the arithmetic itself; totals are computed in code from the returned lines.",
+      "price_cents": 2900, "interval": "month", "monthly_call_quota": 300,
+      "agent_slugs": ["notes-to-invoice"],
+      "repo_url": "https://github.com/hossainconsulting/home-services-ai/tree/main/02-notes-to-invoice", "sort": 20
+    },
+    {
+      "slug": "after-hours-triage",
+      "kind": "agent",
+      "name": "After-Hours Triage",
+      "tagline": "Triages an 11pm message: gather what is missing, or escalate to a human now.",
+      "description": "Classifies an out-of-hours message as emergency, urgent or routine. Gas leak, live wiring and water through a ceiling always escalate to a human immediately. Everything else gets the minimal follow-up questions needed to book it in the morning.",
+      "price_cents": 4900, "interval": "month", "monthly_call_quota": 500,
+      "agent_slugs": ["after-hours-triage"],
+      "repo_url": "https://github.com/hossainconsulting/home-services-ai/tree/main/04-after-hours-agent", "sort": 30
+    },
+    {
+      "slug": "trades-ai-suite",
+      "kind": "agent",
+      "name": "Trades AI Suite",
+      "tagline": "All three agents, one subscription, one API key.",
+      "description": "Quote Triage, Notes to Invoice and After-Hours Triage together with a shared monthly call allowance. The right choice for a business that wants to plug the whole enquiry-to-invoice path.",
+      "price_cents": 7900, "interval": "month", "monthly_call_quota": 1500,
+      "agent_slugs": ["quote-triage", "notes-to-invoice", "after-hours-triage"],
+      "repo_url": "https://github.com/hossainconsulting/home-services-ai", "sort": 40
+    },
+    {
+      "slug": "salesforce-health-check",
+      "kind": "project",
+      "name": "Salesforce Health Check",
+      "tagline": "A written assessment of your org: security, automation, data quality, and what to fix first.",
+      "description": "Two weeks. Read-only access to your org. You receive a prioritised findings report, a data-quality baseline, and a 90-day remediation plan. The same method used across the seven simulated engagements in the portfolio.",
+      "price_cents": 150000, "interval": "once", "sort": 50,
+      "repo_url": "https://portfolio.hossainconsulting.com"
+    },
+    {
+      "slug": "service-cloud-quickstart",
+      "kind": "project",
+      "name": "Service Cloud Quickstart",
+      "tagline": "Cases, queues, entitlements and milestones, live in six weeks.",
+      "description": "A fixed-scope implementation for a contact centre that needs SLAs it can measure. Case record types, assignment, entitlement processes, knowledge, and a deflection report defined before go-live rather than after.",
+      "price_cents": 0, "interval": "quote", "sort": 60,
+      "repo_url": "https://github.com/hossainconsulting/kurrajong-energy"
+    },
+    {
+      "slug": "agentforce-pilot",
+      "kind": "project",
+      "name": "Agentforce Pilot",
+      "tagline": "Switch on the Agentforce licence you already pay for, with guardrails.",
+      "description": "Six weeks from discovery to a countable pilot. Coverage and policy answers come from retrieved actions, never from the model. Every conversation has a human handoff that carries the transcript. Deflection is defined and reported before launch.",
+      "price_cents": 0, "interval": "quote", "sort": 70,
+      "repo_url": "https://github.com/hossainconsulting/agentforce-meridian-care"
+    },
+    {
+      "slug": "fractional-admin",
+      "kind": "service",
+      "name": "Fractional Salesforce Admin",
+      "tagline": "A named administrator, two days a week, for businesses too small for a full-time hire.",
+      "description": "Monthly retainer. User management, automation changes, reports and dashboards, release management, and a written monthly status with done, next, risks and decisions needed.",
+      "price_cents": 240000, "interval": "month", "sort": 80
+    },
+    {
+      "slug": "advisory-hour",
+      "kind": "service",
+      "name": "Advisory Hour",
+      "tagline": "One hour on a call about your org, your data model, or your AI plan.",
+      "description": "Book a single hour. Bring a problem. Leave with a written summary of what was discussed and what to do next.",
+      "price_cents": 18000, "interval": "once", "sort": 90
+    }
+  ]
+}

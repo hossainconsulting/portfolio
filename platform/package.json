@@ -1,0 +1,30 @@
+{
+  "name": "hossain-platform",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Subscription platform for Hossain Consulting projects, AI agents and agency services. Cloudflare Workers + Hono + D1 + Stripe.",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "db:migrate:local": "wrangler d1 migrations apply platform-db --local",
+    "db:migrate": "wrangler d1 migrations apply platform-db --remote",
+    "db:seed:local": "node scripts/seed-sql.mjs && wrangler d1 execute platform-db --local --file=seed/catalogue.sql",
+    "db:seed": "node scripts/seed-sql.mjs && wrangler d1 execute platform-db --remote --file=seed/catalogue.sql",
+    "stripe:sync": "node scripts/stripe-sync.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "0.124.0",
+    "hono": "4.13.7",
+    "stripe": "22.6.1"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20260907.1",
+    "typescript": "5.9.3",
+    "vitest": "4.1.11",
+    "@cloudflare/vitest-pool-workers": "0.22.0",
+    "wrangler": "4.129.1"
+  }
+}

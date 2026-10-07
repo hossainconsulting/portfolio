@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Finance Dashboard</title>
+<meta name="description" content="Ten finance dashboards in one page: overview, transactions, P&amp;L, cash flow, budget vs actual, CFO one-pager, runway, insights, net worth, analyst audit. Sample data included; replace with your own CSV.">
+<style>
+  /* Tokens follow the validated data-viz reference palette; dark values are selected steps, not an inversion. */
+  :root {
+    color-scheme: light;
+    --page: #f9f9f7; --surface: #fcfcfb; --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781;
+    --grid: #e1e0d9; --axis: #c3c2b7; --border: rgba(11,11,11,.10); --wash: rgba(11,11,11,.04);
+    --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4; --s6: #008300; --s7: #4a3aa7; --s8: #e34948;
+    --seq-lo: #cde2fb; --seq-mid: #6da7ec; --seq-hi: #1c5cab; --div-neg: #d03b3b; --div-mid: #f0efec; --div-pos: #2a78d6;
+    --good: #0ca30c; --warning: #fab219; --serious: #ec835a; --critical: #d03b3b; --good-text: #006300;
+    --sans: system-ui, -apple-system, "Segoe UI", sans-serif; --mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    color-scheme: dark; --page: #0d0d0d; --surface: #1a1a19; --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
+    --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,.10); --wash: rgba(255,255,255,.06);
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+    --seq-lo: #184f95; --seq-mid: #3987e5; --seq-hi: #9ec5f4; --div-mid: #383835; --good-text: #0ca30c;
+  } }
+  :root[data-theme="dark"] {
+    color-scheme: dark; --page: #0d0d0d; --surface: #1a1a19; --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
+    --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,.10); --wash: rgba(255,255,255,.06);
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+    --seq-lo: #184f95; --seq-mid: #3987e5; --seq-hi: #9ec5f4; --div-mid: #383835; --good-text: #0ca30c;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--page); color: var(--ink); font: 14px/1.5 var(--sans); }
+  a { color: var(--s1); }
+  button, select, input, textarea { font: inherit; color: inherit; }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 0 20px 60px; }
+
+  header.top { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; padding: 18px 0 8px; }
+  header.top h1 { font-size: 20px; font-weight: 650; letter-spacing: -.01em; margin: 0; }
+  header.top .entity { color: var(--ink-2); }
+  header.top .spacer { flex: 1; }
+  .btn { border: 1px solid var(--border); background: var(--surface); border-radius: 8px; padding: 6px 12px; cursor: pointer; font-size: 13px; }
+  .btn:hover { background: var(--wash); }
+  .btn.primary { background: var(--s1); border-color: var(--s1); color: #fff; }
+  .btn.small { padding: 3px 9px; font-size: 12px; }
+
+  nav.tabs { display: flex; gap: 4px; overflow-x: auto; border-bottom: 1px solid var(--grid); margin: 6px 0 14px; scrollbar-width: thin; }
+  nav.tabs button { flex: 0 0 auto; background: none; border: 0; border-bottom: 2px solid transparent; padding: 10px 12px; color: var(--ink-2); cursor: pointer; white-space: nowrap; }
+  nav.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--s1); font-weight: 600; }
+
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 16px; }
+  .filters label { display: flex; align-items: center; gap: 6px; color: var(--ink-2); font-size: 13px; }
+  .filters select, .filters input { border: 1px solid var(--border); background: var(--surface); border-radius: 8px; padding: 5px 8px; font-size: 13px; }
+  .filters input[type=search] { min-width: 180px; }
+  .filters .presets { display: flex; gap: 2px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .filters .presets button { border: 0; background: var(--surface); padding: 5px 10px; cursor: pointer; font-size: 13px; color: var(--ink-2); }
+  .filters .presets button[aria-pressed="true"] { background: var(--wash); color: var(--ink); font-weight: 600; }
+
+  .grid { display: grid; gap: 14px; grid-template-columns: repeat(12, 1fr); }
+  .card { grid-column: span 12; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; min-width: 0; }
+  .card h2 { font-size: 14px; font-weight: 600; margin: 0 0 4px; }
+  .card .sub { color: var(--muted); font-size: 12px; margin: 0 0 10px; }
+  .span-3 { grid-column: span 3; } .span-4 { grid-column: span 4; } .span-6 { grid-column: span 6; } .span-8 { grid-column: span 8; }
+  @media (max-width: 1000px) { .span-3 { grid-column: span 6; } .span-4 { grid-column: span 6; } .span-8 { grid-column: span 12; } }
+  @media (max-width: 640px) { .span-3, .span-4, .span-6, .span-8 { grid-column: span 12; } }
+
+  /* stat tile: label / value / delta / sparkline */
+  .tile .label { color: var(--ink-2); font-size: 12px; }
+  .tile .value { font-size: 26px; font-weight: 600; letter-spacing: -.01em; margin: 2px 0; }
+  .tile .value.hero { font-size: 44px; }
+  .tile .delta { font-size: 12px; color: var(--ink-2); display: flex; gap: 6px; align-items: center; }
+  .delta .up { color: var(--good-text); } .delta .down { color: var(--critical); }
+  .tile svg.spark { display: block; width: 100%; height: 34px; margin-top: 8px; }
+
+  /* charts */
+  .chart { position: relative; width: 100%; }
+  .chart svg { display: block; width: 100%; height: auto; overflow: visible; font-family: var(--sans); }
+  .chart .axis text { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+  .chart .grid line { stroke: var(--grid); stroke-width: 1; }
+  .chart .baseline { stroke: var(--axis); stroke-width: 1; }
+  .chart .lbl { fill: var(--ink-2); font-size: 11px; }
+  .chart .mark { cursor: pointer; }
+  .chart .mark:hover, .chart .mark:focus { filter: brightness(1.12); outline: none; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; color: var(--ink-2); margin: 6px 0 2px; }
+  .legend .key { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -2px; margin-right: 5px; }
+  .legend .key.line { height: 2px; border-radius: 1px; vertical-align: 3px; }
+  #tooltip { position: fixed; z-index: 10; pointer-events: none; background: var(--surface); color: var(--ink); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; font-size: 12px; box-shadow: 0 6px 20px rgba(0,0,0,.12); max-width: 260px; }
+  #tooltip[hidden] { display: none; }
+  #tooltip .t { color: var(--muted); margin-bottom: 4px; }
+  #tooltip .r { display: flex; justify-content: space-between; gap: 14px; }
+  #tooltip .r b { font-variant-numeric: tabular-nums; }
+  #tooltip .k { display: inline-block; width: 10px; height: 2px; vertical-align: 3px; margin-right: 6px; }
+
+  /* tables */
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--grid); vertical-align: top; white-space: nowrap; }
+  th { color: var(--muted); font-weight: 600; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; user-select: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.desc { white-space: normal; min-width: 200px; }
+  tr.total td { font-weight: 600; border-top: 2px solid var(--axis); }
+  .pos { color: var(--good-text); } .neg { color: var(--critical); }
+  .status { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; }
+  .status .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+  .status.green .dot { background: var(--good); } .status.amber .dot { background: var(--warning); } .status.red .dot { background: var(--critical); }
+  .bar-track { height: 6px; background: var(--seq-lo); border-radius: 3px; overflow: hidden; min-width: 80px; }
+  .bar-track .fill { height: 100%; background: var(--s1); border-radius: 3px; }
+  .bar-track .fill.warn { background: var(--warning); } .bar-track .fill.over { background: var(--critical); }
+
+  .insight { display: grid; grid-template-columns: 22px 1fr; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--grid); }
+  .insight:last-child { border-bottom: 0; }
+  .insight .ico { width: 18px; height: 18px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: 700; margin-top: 2px; }
+  .ico.critical { background: var(--critical); } .ico.serious { background: var(--serious); } .ico.warning { background: var(--warning); color: #0b0b0b; } .ico.good { background: var(--good); } .ico.info { background: var(--muted); }
+  .insight b { display: block; }
+  .insight span { color: var(--ink-2); }
+  .form { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+  .form label { display: block; font-size: 12px; color: var(--ink-2); }
+  .form input { width: 100%; border: 1px solid var(--border); background: var(--page); border-radius: 8px; padding: 6px 8px; margin-top: 3px; }
+  .muted { color: var(--muted); } .small { font-size: 12px; }
+  ul.plain { margin: 6px 0 0; padding-left: 18px; } ul.plain li { margin-bottom: 4px; }
+  dialog { border: 1px solid var(--border); border-radius: 12px; background: var(--surface); color: var(--ink); max-width: 560px; width: calc(100% - 40px); padding: 20px; }
+  dialog::backdrop { background: rgba(0,0,0,.4); }
+  dialog textarea { width: 100%; min-height: 120px; border: 1px solid var(--border); border-radius: 8px; background: var(--page); padding: 8px; font-family: var(--mono); font-size: 12px; }
+  dialog .row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; }
+  code { font-family: var(--mono); font-size: 12px; background: var(--wash); padding: 1px 5px; border-radius: 4px; }
+  .empty { color: var(--muted); padding: 20px 0; text-align: center; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  @media print {
+    body { background: #fff; color: #000; } .wrap { max-width: none; padding: 0; }
+    nav.tabs, .filters, header.top .btn, #tooltip { display: none !important; }
+    .card { break-inside: avoid; border-color: #ccc; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>Finance Dashboard</h1>
+    <span class="entity" id="entity">Sample data · Meridian Field Services (fictional)</span>
+    <span class="spacer"></span>
+    <button class="btn" id="btn-import">Import CSV</button>
+    <button class="btn" id="btn-export">Export CSV</button>
+    <button class="btn" id="btn-print">Print / PDF</button>
+    <button class="btn" id="btn-reset" title="Discard imported data and settings">Reset to sample</button>
+    <button class="btn" id="btn-theme" title="Toggle light / dark">Theme</button>
+  </header>
+
+  <nav class="tabs" role="tablist" id="tabs"></nav>
+
+  <div class="filters" id="filters">
+    <div class="presets" id="presets" role="group" aria-label="Date range"></div>
+    <label>From <input type="date" id="f-from"></label>
+    <label>To <input type="date" id="f-to"></label>
+    <label>Month <select id="f-month" title="Reporting month for P&amp;L, cash flow, budget and CFO views"></select></label>
+    <label>Category <select id="f-category"><option value="">All</option></select></label>
+    <label>Account <select id="f-account"><option value="">All</option></select></label>
+    <label>Type <select id="f-type"><option value="">All</option><option value="income">Income</option><option value="expense">Expense</option></select></label>
+    <input type="search" id="f-search" placeholder="Search description, category, account">
+  </div>
+
+  <main id="view" class="grid" aria-live="polite"></main>
+</div>
+
+<div id="tooltip" role="tooltip" hidden></div>
+
+<dialog id="import-dialog">
+  <h2 style="margin:0 0 6px">Import your CSV</h2>
+  <p class="small muted" style="margin:0 0 10px">Header row required. Columns (any order, case-insensitive): <code>DATE, DESCRIPTION, CATEGORY, INCOME, EXPENSE, ACCOUNT, BALANCE</code>. <code>AMOUNT</code> with an optional <code>TYPE</code> column also works. Dates as <code>YYYY-MM-DD</code> or <code>DD/MM/YYYY</code>. Data stays in your browser.</p>
+  <input type="file" id="import-file" accept=".csv,text/csv">
+  <p class="small muted" style="margin:10px 0 4px">Or paste CSV text:</p>
+  <textarea id="import-text" spellcheck="false"></textarea>
+  <label class="small" style="display:block;margin-top:8px">Entity name <input id="import-entity" placeholder="e.g. My business" style="margin-left:6px;border:1px solid var(--border);border-radius:6px;padding:3px 6px;background:var(--page)"></label>
+  <label class="small" style="display:block;margin-top:6px">Opening cash balance (used when the CSV has no BALANCE column) <input id="import-opening" type="number" value="0" style="margin-left:6px;width:120px;border:1px solid var(--border);border-radius:6px;padding:3px 6px;background:var(--page)"></label>
+  <p class="small" id="import-error" style="color:var(--critical);margin:8px 0 0"></p>
+  <div class="row"><button class="btn" id="import-cancel">Cancel</button><button class="btn primary" id="import-ok">Import</button></div>
+</dialog>
+
+<script src="lib.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

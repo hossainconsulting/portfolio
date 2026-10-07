@@ -198,3 +198,11 @@ The source includes [public/links.html](public/links.html), a social preview ima
 ## Recruiter evidence navigation
 
 The homepage includes role and engagement guidance, an evidence navigation table, and a Writing card for the service-agent pattern library. These are pointers to dated source records, not a claim that all projects are complete or live. Current credential and simulation disclosures remain authoritative.
+
+## Independent applications
+
+- [platform/README.md](platform/README.md) — subscription platform source, with its own Worker configuration and application dependencies. Deployment and service provisioning are separate from the portfolio Worker.
+- [trading/README.md](trading/README.md) — Python trading research and analysis lab, with supporting research in [trading/docs](trading/docs). Product and live trading status require separate evidence.
+- [finance/README.md](finance/README.md) — standalone finance dashboard with sample data and CSV import. It is outside the portfolio static asset directory.
+
+Adding these directories does not publish or configure their services. Historical test results in their documentation are not a current validation run.
