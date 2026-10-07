@@ -1,5 +1,9 @@
 # YouTube
 
+The full channel plan (niche, identity, 90-day roadmap, first script,
+SEO, retention, monetisation, ideas) is in `../youtube/`. This page is the
+profile setup and the format rules.
+
 Long-form proof and the second-largest search engine. A 12-minute walkthrough
 of an SLA design outranks a LinkedIn post about it for years. Shorts feed
 TikTok and Reels from the same file.

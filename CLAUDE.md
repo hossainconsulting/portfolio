@@ -1,100 +1,37 @@
-# CLAUDE.md
+@AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working in this project.
+# Portfolio project guidance
 
-## What this is
+Read AGENTS.md, EVIDENCE.md and README.md before changing this repository. Preserve dated evidence and unrelated work. Distinguish source configuration, historical observations and verified live behaviour.
 
-`portfolio.hossainconsulting.com` — a static portfolio site served by a Cloudflare
-Workers static-asset Worker. **Plain HTML, no build step, no dependencies, no server
-code.** Six tracked files:
+## Structure
 
-- `public/index.html` — the site
-- `public/404.html` — served for unknown paths (`not_found_handling: "404-page"`)
-- `public/_headers` — response headers, read natively by Workers static assets
-- `wrangler.jsonc` — serves `public/` as static assets
-- `README.md`, `.gitignore`
+The portfolio uses plain HTML and CSS under public/, served by Cloudflare Workers static assets. The merged CONCIERGE source adds public/widget.js, src/index.js for POST /api/chat, src/system-prompt.js and an Anthropic SDK dependency. Keep the frontend simple; do not add a framework or build tooling without a concrete requirement. The older description of no dependencies or server code no longer matches the source.
 
-Keep it that way. Adding a framework, a bundler or a `package.json` to this repo needs a
-reason better than habit — "no build step" is the feature that makes it deployable from
-any machine in one command.
+wrangler.jsonc configures the portfolio Worker, public/ assets and the ASSETS binding. Preserve workers_dev: false and preview_urls: false unless a requested change requires otherwise.
 
-## Deploys are manual — pushing to `main` publishes nothing
+## Publication and verification
 
-This is the single most important fact about this repo, and an earlier README got it
-wrong. Verified 19/08/2026: there is **no GitHub Actions workflow, no Cloudflare Workers
-Builds connection, no webhooks**, and pushes produce no check runs or deployments.
+The documented release process is manual Wrangler deployment. A Git commit, push or merged PR is not evidence that a change is live. Deployment requires an explicit request covering publication. Follow README.md for account checks, release steps, homepage comparison, 404 responses and headers. Verify the actual public result before reporting a release complete.
 
-```bash
-npx wrangler login     # once per machine, opens a browser
-npx wrangler deploy
-```
+README.md records domain observations from 16 September 2026: HTTP redirected to HTTPS, and the apex returned a separate response rather than the older 403. These are dated observations, not a current check or proof of dashboard configuration. Recheck behaviour before proposing domain changes; do not carry forward the superseded 19 August claims as current. Apex hosting is outside this repository.
 
-**Never tell the user a change is live because it was pushed.** It is live when
-`wrangler deploy` has run and the verification below passes. If push-to-deploy is ever
-connected (Workers & Pages → `portfolio` → Settings → Builds), update the README and
-this file together.
+For CONCIERGE, source checks do not establish a working live model or lead delivery. Verify rate limiting, required secrets, privacy publication and end-to-end behaviour before launch. Do not print keys, webhook credentials, private transcripts or visitor contact data into shared evidence. .dev.vars and authentication material must remain out of Git.
 
-## Verifying a deploy
+## Claims and disclosure
 
-```bash
-# up, and serving what is in this repo
-curl -sS https://portfolio.hossainconsulting.com/ | diff - public/index.html && echo "in sync"
+Preserve visible simulation disclosure. The Salesforce companies listed in README.md are fictional; do not describe their projects as paid client delivery. Home Services AI is a self-directed engineering project. Planned and in-progress work must not be represented as complete.
 
-# 404 page renders rather than returning an empty body
-curl -sS -o /dev/null -w '%{http_code} %{size_download} bytes\n' \
-  https://portfolio.hossainconsulting.com/no-such-page
+Preserve dated credential and authorship context; do not invent current status, successful tests or independent verification. Record actual checks, skipped checks and limitations in dated evidence under EVIDENCE.md.
 
-# security headers are present
-curl -sSI https://portfolio.hossainconsulting.com/ \
-  | grep -Ei 'strict-transport|content-security|x-frame|x-content-type|referrer-policy|permissions-policy'
-```
+## Local checks
 
-If these run on a machine with antivirus HTTPS inspection (Norton, Kaspersky, ESET and
-similar), the certificate seen will be the antivirus's, not Cloudflare's. That is local
-interception, not a site problem.
+For documentation, review content and relative links and run git diff --check. For widget source, npm run check runs syntax checks and a conditional prompt-source check. Report prompt-sync as skipped when the private authored source is unavailable. Select additional validation for the behaviour changed; avoid live calls or external writes merely to inspect documentation.
 
-## Configuration that does not live in this repo
+.claude/settings.json contains read-only shell permissions and environment-file read restrictions. Parsing the JSON does not establish runtime enforcement. Tool permissions do not authorise deployments or unrelated work.
 
-Two zone-level Cloudflare settings cannot be changed from here, and both were
-outstanding as of 19/08/2026. Do not "fix" either one in code — the fix is a dashboard
-toggle, and the README carries the click path.
+## Recruiter-facing evidence and agent tooling
 
-1. **Always Use HTTPS — outstanding.** `http://portfolio.hossainconsulting.com/` returns
-   200 over plain HTTP with no redirect. `_headers` sets HSTS, which protects anyone who
-   has reached the site over HTTPS at least once; it does **not** protect a first-time
-   visitor arriving over `http://`.
-2. **The apex domain — outstanding.** `https://hossainconsulting.com/` returns 403; only
-   the `portfolio.` subdomain routes to this Worker. This is a live bug, not just
-   untidiness: `index.html` links to `https://hossainconsulting.com` in the site header,
-   so the deployed site contains a broken link. **Decision (19/08/2026): 301 the apex to
-   the portfolio subdomain**, with `portfolio.hossainconsulting.com` as the single
-   canonical address.
+For claims about project delivery, inspect the relevant project's dated deliverables and evidence. Do not assign shipped status to unshipped work, publish unmeasured metrics or list an unearned credential. Source documents also need their dates and verification limits; they do not by themselves prove current live behaviour.
 
-`wrangler.jsonc` sets `workers_dev: false` and `preview_urls: false` deliberately — both
-default to true, which would publish identical content at a second public URL and read
-as duplicate content to search engines. Do not remove them.
-
-## The disclosure is not optional
-
-The projects listed on this site are **simulations, not client work**. SunRise Solar
-Solutions, Meridian Field Services, TradeLink Group and Meridian Appliance Care are
-fictional companies used to develop and evidence Salesforce implementation skills. The
-disclosure appears in `README.md` and must remain visible on the site itself. Any new
-project added to the site carries the same framing — never describe a simulation in
-language that implies a paying client.
-
-## Content accuracy
-
-This site is read by recruiters and hiring managers. Every claim on it should be one
-that survives being asked about in an interview: no shipped-status for work that is not
-shipped, no metrics that were not measured, no credential listed before it is earned.
-The sibling repos' `deliverables/` folders are the source of truth for what was actually
-built.
-
-## Agent workflow
-
-Superpowers is expected to be installed as a **user-level plugin**
-(`/plugin install superpowers@claude-plugins-official`), not vendored into this repo.
-With no build and no tests, most of that workflow has nothing to run here — the parts
-that apply are verification-before-completion (deploy, then check with the curl commands
-above) and honest status reporting.
+If Superpowers is used with Claude Code, keep it as user-level tooling rather than vendoring it into this repository. Installation was not checked during this conflict resolution. Apply workflows to the actual change and available checks; the older assertion that this repository has no tests or server code no longer describes its widget source and npm check command.

@@ -1,279 +1,200 @@
-# portfolio.hossainconsulting.com
+# Hossain Consulting Portfolio
 
-Static portfolio site on Cloudflare Workers.
+Hemayet Hossain’s Salesforce + AI Solutions Engineering portfolio,
+building toward Forward Deployed Engineering.
 
-> **Deploys are manual.** An earlier version of this README claimed the site
-> deployed on every push to `main`. It does not — verified 19/08/2026: the repo
-> has no GitHub Actions workflow, no Cloudflare Workers Builds connection, no
-> webhooks, and pushes produce no check runs or deployments. **Pushing to `main`
-> publishes nothing.**
->
-> To release:
->
-> ```bash
-> npx wrangler login     # once per machine, opens a browser
-> npx wrangler deploy
-> ```
->
-> Then run the verification commands at the bottom of this file. If you want
-> push-to-deploy, connect the repo under Workers & Pages → `portfolio` →
-> **Settings** → **Builds**, and this note can go.
+The portfolio presents self-directed projects across Salesforce,
+automation, AI and integrations. Project pages distinguish work in
+progress from queued work.
 
-- `public/` — the site. Plain HTML, no build step.
-  - `index.html` — the site itself. Carries the Open Graph and Twitter Card
-    meta and the schema.org JSON-LD (`Person`, `ProfessionalService`,
-    `WebSite`) that ties every social profile to this hub.
-  - `service-agent-patterns.html` — a written piece, linked from the Meridian
-    Appliance Care project card; served at `/service-agent-patterns`
-  - `links.html` — the link-in-bio page, served at `/links`. Instagram,
-    TikTok and YouTube allow one URL in a bio; that URL is this page.
-  - `og.png` — the 1200×630 social preview card. Generated, do not edit by
-    hand: `presence/scripts/build-og.sh` renders it from
-    `presence/assets/og.html`.
-  - `robots.txt`, `sitemap.xml` — for the crawlers. Bump `lastmod` on release.
-  - `<32-hex>.txt` — the IndexNow key file. Public by design; see
-    `presence/seo.md`.
-  - `404.html` — served for unknown paths (`not_found_handling: "404-page"`)
-  - `widget.js` — the CONCIERGE chat widget, browser half
-  - `writing/` — one standalone page per post, plus its images. Each page
-    carries its own inline `<style>` block, same as `index.html` and
-    `404.html`; there is no shared stylesheet by design.
-  - `_headers` — response headers, read natively by Workers static assets
-- `src/` — the Worker.
-  - `index.js` — serves `public/` and handles `POST /api/chat`
-  - `system-prompt.js` — the widget's system prompt (the copy that runs)
-- `scripts/check-prompt-sync.mjs` — checks that prompt against its authored source
-- `wrangler.jsonc` — Worker config and the static-asset binding
-- `presence/` — the omnichannel presence manual: the profile directory
-  (source of truth for every handle and URL), brand kit, per-platform
-  playbooks, SEO setup for Google and Microsoft, the content pipeline, the
-  30-day launch checklist and the measurement plan. Start at
-  `presence/README.md`.
-- `.claude/skills/` — six Claude Code skills that run the manual:
-  `/presence-post`, `/presence-audit`, `/presence-check`,
-  `/presence-calendar`, `/presence-research`, `/presence-humanize`.
-- `learning/` — learning tracks referenced from the site, kept here rather than
-  in their own repositories. Not deployed: Wrangler only uploads `public/`.
-  - `ansible-linux/` — the Ansible with Linux track: curriculum, lab inventory
-    and playbooks.
+**Live portfolio:** https://portfolio.hossainconsulting.com
+**GitHub:** https://github.com/hossainconsulting
 
+## Technology and structure
 
-## The CONCIERGE widget
+Static HTML and CSS served through Cloudflare Workers static assets, with
+a Worker endpoint for the proposed CONCIERGE widget. There is no frontend
+build step; the Worker uses the Anthropic SDK.
 
-A chat widget in the bottom-right corner asks visitors whether they want to hire
-Hemayet or engage him as a consultant, collects enough detail for a useful reply,
-and hands the lead on. It is the site's only interactive part.
+- `public/index.html` — portfolio homepage.
+- [public/writing](public/writing) — standalone articles and local images; each article carries its own inline styles.
+- [public/service-agent-patterns.html](public/service-agent-patterns.html) — service-agent pattern library, linked from the Meridian Appliance Care card at `/service-agent-patterns`; live routing awaits release verification.
+- `public/404.html` — custom page for unknown paths.
+- `public/_headers` — static asset response headers.
+- `wrangler.jsonc` — Worker and static asset configuration.
 
-**The API key never reaches the browser.** The browser holds the conversation and
-posts it to `/api/chat`; the Worker calls the Anthropic API with a key held as a
-Worker secret. A widget that called the API directly from the page would publish
-the key to anyone who opened devtools.
+The Worker is named `portfolio`. Its asset directory is `public/`,
+with `not_found_handling` set to `404-page`. The configuration disables
+workers.dev and preview URLs.
 
-Because the browser holds the history, everything arriving at `/api/chat` is
-treated as untrusted: role, type, per-message length, total length and turn count
-are all checked before a request is billed (`src/index.js`).
+## CONCIERGE widget (draft)
 
-Lead capture is a tool call. Once the assistant has a name and one contact route
-it calls `capture_lead`, and the Worker POSTs the structured lead plus the full
-transcript to `LEAD_WEBHOOK_URL`. **If delivery fails, the tool result tells the
-assistant so**, and it gives the visitor the email address instead of promising a
-reply within one business day. A promise nobody can keep is worse than no promise.
+This branch adds `public/widget.js`, widget markup in `public/index.html`, and a Worker in `src/index.js` serving static assets and `POST /api/chat`. The system prompt is in `src/system-prompt.js`. This describes proposed source functionality, not a verified live release.
 
-### Required configuration
+The browser sends conversation history to the Worker. The Worker checks message roles, content types, message and conversation size, and turn count before calling Anthropic. The API key is supplied as a Worker secret, rather than embedded in browser code. The `capture_lead` tool sends the structured lead and transcript to `LEAD_WEBHOOK_URL`; delivery failures are reported to the assistant for an email fallback. Lead details are also logged by the Worker.
 
-```bash
-npx wrangler secret put ANTHROPIC_API_KEY   # required — without it the widget
-                                            # answers with the email fallback
-npx wrangler secret put LEAD_WEBHOOK_URL    # required for the one-business-day
-                                            # promise to mean anything
-```
+### Configuration and launch requirements
 
-`LEAD_WEBHOOK_URL` is any endpoint that turns a JSON POST into something Hemayet
-reads daily — an n8n or Make webhook that emails him is the least work. Without
-it, leads are only written to the Worker log, which nobody watches.
+- `ANTHROPIC_API_KEY`: Worker secret required for model calls.
+- `LEAD_WEBHOOK_URL`: Worker secret for lead delivery; configure and verify delivery before promising a reply.
+- `CONTACT_EMAIL`: public configuration in `wrangler.jsonc`.
+- `CONTACT_PHONE`: optional Worker secret; supplying it allows the assistant to share that number publicly.
+- Rate-limit `/api/chat` before public traffic. Request-size limits do not limit request frequency.
+- Publish and link a privacy statement describing lead and transcript handling before launch.
 
-### Optional configuration
+These requirements were not verified during the 7 October 2026 conflict resolution. The PR remains draft. No secrets were configured and no deployment ran.
 
-```bash
-npx wrangler secret put CONTACT_PHONE       # optional — see below
-```
-
-`CONTACT_EMAIL` is a plain var in `wrangler.jsonc`. `CONTACT_PHONE` is a secret
-and is **unset by default**: a number handed out by a public chat assistant is a
-public number, so publishing the mobile is a deliberate act, not a side effect of
-a commit. With it unset, the assistant offers the email and takes the visitor's
-number instead. Set it and the assistant volunteers it.
-
-### Decisions worth knowing about
-
-- **Model: `claude-opus-5`, effort `low`.** Opus with low effort, not a smaller
-  model — the visitor's first impression of the practice is this conversation.
-  Low effort keeps latency and spend down without turning thinking off. Both are
-  one-line changes at the top of `src/index.js` if the bill argues otherwise.
-- **Thinking stays on.** Disabling it on this model can leak reasoning into the
-  visible reply or put a tool call into prose where it never executes. Lowering
-  effort is the cheaper lever and has neither failure mode.
-- **Server-side refusal fallbacks are not enabled.** For a greeter, the right
-  response to a refusal is the polite close the prompt already specifies, not a
-  reroute to a weaker model. The Worker checks `stop_reason === "refusal"` and
-  returns the fallback line with the email address.
-- **CSP moved from `script-src 'none'` to `'self'`**, and no further. The widget's
-  behaviour is in `/widget.js`, not an inline `<script>`, so injected inline
-  script still cannot run.
-
-### Before this gets real traffic
-
-1. **Rate-limit `/api/chat`.** There is no per-IP limit in the Worker — the
-   per-request caps bound one conversation, not a thousand of them. Add a
-   Cloudflare WAF rate-limiting rule on the path (`portfolio.hossainconsulting.com`
-   → Security → WAF → Rate limiting rules); the free plan allows one, which is
-   all this needs. **Do this before announcing the site.**
-2. **Set `LEAD_WEBHOOK_URL`**, or the response standard is not being met.
-3. **Publish a privacy statement** and link it from the footer. The widget
-   collects names, emails and phone numbers from people in Australia, and says
-   in-chat what happens to them; a linked statement is the other half.
-
-### Working on the widget
+### Local widget checks
 
 ```bash
 npm install
-npx wrangler dev              # needs .dev.vars — gitignored
-npm run check                 # syntax + prompt-sync
+npm run check
+npm run dev
 ```
 
-`.dev.vars` for local work:
+Use a gitignored `.dev.vars` for local secrets. Never commit real keys or webhook credentials. Python's static preview below cannot exercise `/api/chat`.
 
-```
-ANTHROPIC_API_KEY="sk-ant-..."
-LEAD_WEBHOOK_URL="https://..."      # optional
-ANTHROPIC_BASE_URL="http://..."     # optional, point at a mock
-```
+`npm run check` checks JavaScript syntax and compares the runtime prompt with the private `acquisition-system/agents/Agent_Inbound_CONCIERGE.md` source when that sibling repository is available; otherwise that comparison is skipped. It does not prove live model compatibility, browser behaviour or webhook delivery. The initial PR describes historical mock checks; those were not independently replayed for this documentation resolution. A live conversation and lead-delivery check remain launch prerequisites.
 
-The system prompt exists twice: `src/system-prompt.js` is what runs, and the
-authored source is in the private `acquisition-system` repo
-(`agents/Agent_Inbound_CONCIERGE.md`). `npm run check` compares them when both
-repos are checked out side by side, and skips when they are not.
+## Local preview
 
-**What has been tested:** routing, the 404 fallthrough, every request-validation
-rejection, the full `capture_lead` round-trip against a mock API, all three lead
-delivery outcomes (delivered, webhook 5xx, no webhook configured), a refusal, and
-a rejected API key. **What has not:** a real conversation against the live
-Anthropic API. Have one before announcing the site.
-
-## After a deploy that changes content
+From the repository root:
 
 ```bash
-# tell Bing/Yandex/Naver immediately (Google: use Search Console instead)
-KEY=$(basename public/*.txt .txt | grep -E '^[a-f0-9]{32}$')
-curl -sS "https://api.indexnow.org/indexnow?url=https://portfolio.hossainconsulting.com/&key=$KEY"
+python3 -m http.server 8000 --bind 127.0.0.1 --directory public
 ```
 
-Then re-scrape the preview on LinkedIn Post Inspector, Facebook Sharing
-Debugger and X Card Validator; all three cache the old card.
+Open http://localhost:8000. Stop the server with Ctrl+C.
 
-## Configuration that does not live in this repo
+This previews page content. Python’s server does not apply Cloudflare’s
+`_headers` file or reproduce its routing configuration.
 
-Two things are zone-level Cloudflare settings and cannot be set from here. Both
-were outstanding as of 19/08/2026:
+## Deployment
 
-### 1. Always Use HTTPS — **outstanding**
+The established release process is manual using Wrangler.
+A Git push is not a deployment step in this workflow.
 
-`http://portfolio.hossainconsulting.com/` currently returns **200 and serves the
-page over plain HTTP**, with no redirect to HTTPS.
+Prerequisites: Node.js, npm and access to the Cloudflare account
+hosting the `portfolio` Worker.
 
-`_headers` sets `Strict-Transport-Security`, which protects anyone who has
-reached the site over HTTPS at least once. It does **not** protect a first-time
-visitor arriving over `http://`. That needs the zone toggle:
-
-> Cloudflare dashboard → select `hossainconsulting.com` → **SSL/TLS** → **Edge
-> Certificates** → turn on **Always Use HTTPS**.
-
-Verify with:
+From the repository root:
 
 ```bash
-curl -sSI http://portfolio.hossainconsulting.com/ | head -1
-# want: HTTP/1.1 301 Moved Permanently
+npx wrangler login
+npx wrangler whoami
+npx wrangler deploy
 ```
 
-### 2. The apex domain — **outstanding**
+Login is needed when the machine is not already authenticated.
+Check the account before deploying.
 
-`https://hossainconsulting.com/` returns **403**. Only the `portfolio.`
-subdomain is routed to this Worker.
+The positioning update from PR #14 was manually deployed on
+15 September 2026 and verified in a browser on the public domain.
 
-This matters beyond tidiness: `index.html` links to `https://hossainconsulting.com`
-in the site header, so the live site currently contains a broken link.
-The Instagram profile also links to `www.hossainconsulting.com`, so the same
-redirect rule should match `www.` as well as the apex.
+## Domain observations
 
-**Decision (19/08/2026): 301 the apex to the portfolio subdomain.**
-`portfolio.hossainconsulting.com` stays the single canonical address.
+Checked on 16 September 2026:
 
-> Cloudflare dashboard → select `hossainconsulting.com` → **Rules** →
-> **Redirect Rules** → **Create rule**.
->
-> - **Name:** `apex to portfolio`
-> - **When incoming requests match:** Custom filter expression →
->   `(http.host eq "hossainconsulting.com")`
-> - **Then:** Type **Dynamic**, Expression
->   `concat("https://portfolio.hossainconsulting.com", http.request.uri.path)`
-> - **Status code:** `301`
-> - Tick **Preserve query string**
->
-> Deploy the rule. A DNS record must exist for the apex and be **proxied**
-> (orange cloud) for the rule to fire — Cloudflare only applies redirect rules
-> to hostnames whose traffic it proxies.
->
-> If there is no apex record, add a proxied placeholder: `AAAA` for `@` pointing
-> at `100::`, or `A` for `@` pointing at `192.0.2.0`. Both are
-> [reserved originless placeholders](https://developers.cloudflare.com/dns/manage-dns-records/how-to/create-dns-records/#originless-setups) —
-> because the record is proxied, requests never reach the address; Cloudflare
-> intercepts them and applies the rule.
+| Address | Observed response |
+| --- | --- |
+| http://portfolio.hossainconsulting.com/ | 301 redirect to the HTTPS portfolio address |
+| https://hossainconsulting.com/ | 200 response with a Vercel server header; no redirect in that response |
 
-Verify with:
+These observations replace the outdated 19 August notes about HTTP
+being served without a redirect and the apex domain returning 403.
+
+The portfolio address is https://portfolio.hossainconsulting.com.
+The apex domain currently responds separately. Its hosting and
+configuration are outside this repository.
+
+Response checks do not establish which dashboard setting implements
+a redirect. Recheck behaviour before changing domain configuration.
+
+## Release verification
+
+Open the public portfolio and confirm the expected content after a
+hard refresh.
+
+From the repository root, compare the deployed homepage with the
+local file:
 
 ```bash
-curl -sS -o /dev/null -w '%{http_code} %{url_effective}\n' -L https://hossainconsulting.com/
+curl -fsS --max-time 20 https://portfolio.hossainconsulting.com/ -o /tmp/hossain-portfolio-live.html &&
+diff - /tmp/hossain-portfolio-live.html < public/index.html
 ```
 
-## Verifying a deploy
+No diff output means the files match.
+
+Check the custom 404 response; expect status 404 and a nonempty body:
 
 ```bash
-# up, and serving what is in this repo
-curl -sS https://portfolio.hossainconsulting.com/ | diff - public/index.html && echo "in sync"
-
-# 404 page renders rather than returning an empty body
-curl -sS -o /dev/null -w '%{http_code} %{size_download} bytes\n' \
+curl -sS --max-time 20 -o /dev/null \
+  -w '%{http_code} %{size_download} bytes\n' \
   https://portfolio.hossainconsulting.com/no-such-page
-
-# security headers are present
-curl -sSI https://portfolio.hossainconsulting.com/ \
-  | grep -Ei 'strict-transport|content-security|x-frame|x-content-type|referrer-policy|permissions-policy'
-
-# the widget endpoint is alive and rejecting rubbish
-curl -sS -X POST https://portfolio.hossainconsulting.com/api/chat \
-  -H 'content-type: application/json' -d '{}'
-# want: {"error":"messages must be a non-empty array"}
-
-# and answers a real message
-curl -sS -X POST https://portfolio.hossainconsulting.com/api/chat \
-  -H 'content-type: application/json' \
-  -d '{"messages":[{"role":"user","content":"Hi, who is Hemayet?"}]}'
 ```
 
-The first `diff` above compares the served page with `public/index.html`. That
-still holds — the Worker serves the same file — but the widget only works when
-`ANTHROPIC_API_KEY` is set, and a page that looks right can still have a dead
-endpoint behind it. Run the two `/api/chat` checks as well.
+Inspect deployed response headers against `public/_headers`:
 
-Note: if you run these on a machine with antivirus HTTPS inspection enabled
-(Norton, Kaspersky, ESET and similar), the TLS certificate you see will be the
-antivirus's, not Cloudflare's. That is local interception, not a site problem —
-check the real certificate from a browser or an external service.
+```bash
+curl -sSI --max-time 20 https://portfolio.hossainconsulting.com/
+```
 
-## Disclosure
+Check domain responses:
 
-The projects listed on this site are **simulations, not client work**. SunRise
-Solar Solutions, Meridian Field Services, TradeLink Group, Meridian Appliance
-Care, Coastline Retail Group, Ironbark Industrial Supply and Kurrajong Energy are
-fictional companies used to develop and evidence Salesforce
-implementation skills. No real customer data is involved.
+```bash
+curl -sSI --max-time 20 http://portfolio.hossainconsulting.com/
+curl -sSI --max-time 20 https://hossainconsulting.com/
+```
+
+## AI-assisted project method
+
+The [AI-assisted project workflow](docs/ai-assisted-project-workflow.md) maps learning, research, writing and evaluation prompts to existing repositories. Its examples are planning aids; project completion requires linked evidence.
+
+## Simulation disclosure
+
+The Salesforce projects presented here are simulations, not client work.
+SunRise Solar Solutions, Meridian Field Services, TradeLink Group,
+Meridian Appliance Care, Coastline Retail Group, Ironbark Industrial
+Supply and Kurrajong Energy are fictional companies.
+
+Home Services AI is a self-directed AI engineering project.
+In-progress and queued work must not be presented as completed delivery.
+
+No real customer data is used in these portfolio simulations.
+
+## Verified Salesforce credentials
+
+Hemayet Hossain holds four credentials verified through Salesforce's public credential record: Salesforce Certified Agentforce Specialist, Salesforce Certified Platform Administrator II, Salesforce Certified Platform App Builder, and Salesforce Certified Platform Administrator.
+
+[View the public Salesforce credential record](https://trailhead.salesforce.com/en/credentials/certification-detail-print/?searchString=/EMytG9drkgo/H4/0tgVITa/sw2U8vhbkvkc3jqlaJgauY5cCr+PvNo4YAw1Ki9f) · [Review the Salesforce User Lifecycle SOP](https://github.com/hossainconsulting/salesforce-user-lifecycle-sop)
+
+
+## AI contributor credit
+
+**OpenAI Codex** is credited as an AI-assisted contributor (Chief of Engineer) for authorised
+repository work under Hemayet Hossain's direction. This includes assistance
+with documentation and repository maintenance; implementation or validation
+contributions are recorded in the relevant commits and task evidence.
+
+**Anthropic Claude Code** is also credited as an AI-assisted contributor (Chief of Staff) for
+authorised repository work under Hemayet Hossain's direction, including coding,
+writing and documentation. Commits it co-authored carry a
+`Co-Authored-By: Claude` trailer.
+
+Hemayet Hossain remains the project owner and decision-maker. These credits do
+not represent separate GitHub accounts or collaborator invitations, and do
+not change existing authorship, licensing or project completion claims.
+
+## Presence and SEO source
+
+[presence](presence) contains profile records, branding and content playbooks, launch and measurement guides, and supporting assets. Profile verification labels describe their recorded dates; they were not refreshed during this conflict resolution. [.claude/skills](.claude/skills) holds the proposed presence workflows.
+
+The source includes [public/links.html](public/links.html), a social preview image, robots.txt, sitemap.xml and an IndexNow verification file. Homepage canonical, social preview and structured-data markup are source configuration, not evidence of deployment, indexing, account ownership or search-engine verification. Account registrations and publication require separate authorised work.
+
+## Learning tracks
+
+[learning/ansible-linux](learning/ansible-linux) contains the planned twelve-module Ansible with Linux curriculum, lab inventory and starter playbooks. All modules are recorded as Not started. These files are repository learning material; the configured static asset directory is public/, so learning/ is not uploaded as site assets.
+
+## Recruiter evidence navigation
+
+The homepage includes role and engagement guidance, an evidence navigation table, and a Writing card for the service-agent pattern library. These are pointers to dated source records, not a claim that all projects are complete or live. Current credential and simulation disclosures remain authoritative.
