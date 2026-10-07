@@ -1,89 +1,31 @@
-# CLAUDE.md
+@AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working in this project.
+# Portfolio project guidance
 
-## What this is
+Read AGENTS.md, EVIDENCE.md and README.md before changing this repository. Preserve dated evidence and unrelated work. Distinguish source configuration, historical observations and verified live behaviour.
 
-`portfolio.hossainconsulting.com` — a static portfolio site served by a Cloudflare
-Workers static-asset Worker. Plain HTML, **no build step, no dependencies, no
-server code**. Two pages and a headers file.
+## Structure
 
-```
-public/index.html   the site
-public/404.html     served for unknown paths (not_found_handling: "404-page")
-public/_headers     response headers, read natively by Workers static assets
-wrangler.jsonc      tells Wrangler to serve ./public as static assets
-```
+The portfolio uses plain HTML and CSS under public/, served by Cloudflare Workers static assets. The merged CONCIERGE source adds public/widget.js, src/index.js for POST /api/chat, src/system-prompt.js and an Anthropic SDK dependency. Keep the frontend simple; do not add a framework or build tooling without a concrete requirement. The older description of no dependencies or server code no longer matches the source.
 
-Keep it that way. A framework, a bundler or a dependency here would be cost with no
-benefit — the site is two pages of hand-written HTML and that is a feature.
+wrangler.jsonc configures the portfolio Worker, public/ assets and the ASSETS binding. Preserve workers_dev: false and preview_urls: false unless a requested change requires otherwise.
 
-## Pushing to `main` publishes nothing
+## Publication and verification
 
-**Deploys are manual.** There is no GitHub Actions workflow, no Cloudflare Workers
-Builds connection, no webhook. This was verified on 19/08/2026, after an earlier
-version of the README claimed otherwise. A merged pull request changes the
-repository and nothing else.
+The documented release process is manual Wrangler deployment. A Git commit, push or merged PR is not evidence that a change is live. Deployment requires an explicit request covering publication. Follow README.md for account checks, release steps, homepage comparison, 404 responses and headers. Verify the actual public result before reporting a release complete.
 
-To release:
+README.md records domain observations from 16 September 2026: HTTP redirected to HTTPS, and the apex returned a separate response rather than the older 403. These are dated observations, not a current check or proof of dashboard configuration. Recheck behaviour before proposing domain changes; do not carry forward the superseded 19 August claims as current. Apex hosting is outside this repository.
 
-```bash
-npx wrangler login     # once per machine, opens a browser
-npx wrangler deploy
-```
+For CONCIERGE, source checks do not establish a working live model or lead delivery. Verify rate limiting, required secrets, privacy publication and end-to-end behaviour before launch. Do not print keys, webhook credentials, private transcripts or visitor contact data into shared evidence. .dev.vars and authentication material must remain out of Git.
 
-Never state or imply that a change is live because it was pushed. If asked whether
-something is deployed, check:
+## Claims and disclosure
 
-```bash
-curl -sS https://portfolio.hossainconsulting.com/ | diff - public/index.html && echo "in sync"
-```
+Preserve visible simulation disclosure. The Salesforce companies listed in README.md are fictional; do not describe their projects as paid client delivery. Home Services AI is a self-directed engineering project. Planned and in-progress work must not be represented as complete.
 
-`wrangler deploy` publishes to the public internet. Do not run it without being
-asked.
+Preserve dated credential and authorship context; do not invent current status, successful tests or independent verification. Record actual checks, skipped checks and limitations in dated evidence under EVIDENCE.md.
 
-## Two Cloudflare settings that cannot be fixed from this repo
+## Local checks
 
-Both are zone-level and both were outstanding as of 19/08/2026. If either is
-mentioned, the fix is in the dashboard, not in a commit:
+For documentation, review content and relative links and run git diff --check. For widget source, npm run check runs syntax checks and a conditional prompt-source check. Report prompt-sync as skipped when the private authored source is unavailable. Select additional validation for the behaviour changed; avoid live calls or external writes merely to inspect documentation.
 
-1. **Always Use HTTPS is off.** `http://portfolio.hossainconsulting.com/` returns
-   200 over plain HTTP with no redirect. `_headers` sets HSTS, which protects
-   repeat visitors but does nothing for a first-time arrival over `http://`.
-   SSL/TLS → Edge Certificates → Always Use HTTPS.
-2. **The apex domain 403s.** Only the `portfolio.` subdomain is routed to this
-   Worker, and `index.html` links to `https://hossainconsulting.com` in the site
-   header — so the live site contains a broken link. Decision of 19/08/2026: 301
-   the apex to the subdomain via a Redirect Rule. The README carries the exact rule
-   configuration and the originless-placeholder DNS record it needs.
-
-## Configuration decisions already made
-
-`wrangler.jsonc` sets `workers_dev: false` and `preview_urls: false` deliberately.
-Both default to true, which publishes identical content at a second public URL that
-search engines read as duplicate content. Do not remove them.
-
-## The disclosure is not optional
-
-Every project listed on this site is a **simulation, not client work**. SunRise
-Solar Solutions, Meridian Field Services, TradeLink Group, Coastline Retail Group,
-Ironbark Industrial Supply, Kurrajong Energy and Meridian Appliance Care are
-fictional companies. The disclosure appears in the README and must stay visible on
-the site itself. Never write copy that describes these as client engagements,
-consulting work, or anything a reader could mistake for real customers.
-
-## Verifying a deploy
-
-```bash
-# 404 page renders rather than returning an empty body
-curl -sS -o /dev/null -w '%{http_code} %{size_download} bytes\n' \
-  https://portfolio.hossainconsulting.com/no-such-page
-
-# security headers are present
-curl -sSI https://portfolio.hossainconsulting.com/ \
-  | grep -Ei 'strict-transport|content-security|x-frame|x-content-type|referrer-policy|permissions-policy'
-```
-
-If TLS looks wrong on a machine running antivirus HTTPS inspection (Norton,
-Kaspersky, ESET), that is local interception, not a site problem. Check from a
-browser or an external service before chasing it.
+.claude/settings.json contains read-only shell permissions and environment-file read restrictions. Parsing the JSON does not establish runtime enforcement. Tool permissions do not authorise deployments or unrelated work.
