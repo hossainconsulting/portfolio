@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+data/raw/
+data/cache/
+reports/*.html
+reports/*.csv
+journal/*.csv
+.env
+*.egg-info/
