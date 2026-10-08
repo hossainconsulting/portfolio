@@ -1,6 +1,6 @@
 # AI resource triage — 5 October 2026
 
-**Status:** Sorting record for 123 distinct social-media screenshots (nine batches; repeats not re-counted) Hemayet supplied. It records what was kept for current projects and why the rest was dropped. It is a planning aid, not evidence of completed work. Claims in the posts (benchmarks, "10x", attributions) were not verified.
+**Status:** Sorting record for 124 distinct social-media screenshots (ten batches; repeats not re-counted) Hemayet supplied. It records what was kept for current projects and why the rest was dropped. It is a planning aid, not evidence of completed work. Claims in the posts (benchmarks, "10x", attributions) were not verified.
 
 **Scope correction, 5 October 2026:** Hemayet clarified the screenshots are meant for projects, personal branding *and* the Hossain Consulting agency. Many marketing, website, offer and positioning prompts marked "Drop" below were judged against the repositories only; they are now kept, rewritten to the compliance rules, in the private planning repository's prompt-kit skill (referenced from Master Plan v4.2). The decisions below are preserved as the original record.
 
@@ -161,6 +161,12 @@ Also reviewed against `presence/brand-kit.md` (Salesforce implementation for Aus
 | GIF infographic workflow (CreatorPlanetX) | Drop | Already covered by the `presence-infographic` skill on the locked design system. Optional idea: approve a wireframe before the final build, if the skill lacks that step |
 | Groove + Scale update | Drop | Lifetime-deal funnel suite; no sales funnel in scope |
 | "4 plugins before vibe coding" (HelloWorldavani) | Drop | Next.js and Supabase vibe-coding demo; the portfolio is static HTML and Salesforce work is built in Setup. Plugin names (Ponytail, OmniRoute, Graphify, Skill UI) were not verified, and the post is a comment-to-get lead hook |
+
+## Tenth batch (1 screenshot, 8 October 2026)
+
+| Screenshot | Decision | Reason |
+| --- | --- | --- |
+| "12 ways to work hard at working smart" (The AI Monetization Guy) | Drop | Generic productivity tips from the same account as the retirement prompts, ending in an engagement ask. Templates and an SOP library (tip 5) already exist as the One Codex Prompt, AGENTS.md/EVIDENCE.md and the `presence-*` skills. "80% then ship" (tip 7) applies to drafts only, not evidence, credential claims or deployments. Outsourcing to freelancers (tip 8) conflicts with the approval rule for payments and the synthetic-data-only rule. Automation (tip 2) must not send or post without approval |
 
 ## Proposed, not adopted: correction log
 

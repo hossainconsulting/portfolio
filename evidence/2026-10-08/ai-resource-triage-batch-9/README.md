@@ -5,6 +5,7 @@ Environment/target: portfolio repository, documentation only; no Salesforce org,
 Starting state: docs/ai-resource-triage-2026-10-05.md recorded eight batches (113 screenshots). `grep` for the new items' names found only the earlier decisions cited in the doc.
 Changes made:
 - docs/ai-resource-triage-2026-10-05.md: ninth-batch decision table (7 rows); status count updated to 123 screenshots, nine batches. One item kept as a design checklist (Jev decision-layer patterns), pointing to the existing home-services-ai typed-decision pilot rather than duplicating it.
+- Tenth batch (1 screenshot, dropped): added a one-row table; count now 124 screenshots, ten batches.
 - Nothing changed in home-services-ai (its docs/typed-decision-pilot.md already covers Jev).
 Validation procedure/command: Read-through against the screenshots and `presence/brand-kit.md`; `git diff --check`.
 Observed result and exit status: see commit; diff check run before commit.
