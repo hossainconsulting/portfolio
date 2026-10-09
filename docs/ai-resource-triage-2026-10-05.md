@@ -1,6 +1,6 @@
 # AI resource triage — 5 October 2026
 
-**Status:** Sorting record for 113 distinct social-media screenshots (eight batches; repeats not re-counted) Hemayet supplied. It records what was kept for current projects and why the rest was dropped. It is a planning aid, not evidence of completed work. Claims in the posts (benchmarks, "10x", attributions) were not verified.
+**Status:** Sorting record for 124 distinct social-media screenshots (ten batches; repeats not re-counted) Hemayet supplied. It records what was kept for current projects and why the rest was dropped. It is a planning aid, not evidence of completed work. Claims in the posts (benchmarks, "10x", attributions) were not verified.
 
 **Scope correction, 5 October 2026:** Hemayet clarified the screenshots are meant for projects, personal branding *and* the Hossain Consulting agency. Many marketing, website, offer and positioning prompts marked "Drop" below were judged against the repositories only; they are now kept, rewritten to the compliance rules, in the private planning repository's prompt-kit skill (referenced from Master Plan v4.2). The decisions below are preserved as the original record.
 
@@ -147,6 +147,26 @@ Nothing is sent to a customer automatically.
 | "Claude second brain" folder structure | Drop | Same idea as the seventh batch's project-file post; AGENTS.md and CLAUDE.md already hold standing instructions |
 | "Full Claude course" advert | Drop | Paid advert. Its "get certified" claim is not an Anthropic certification |
 | AI Agents Ultimate Cheat Sheet | Drop | Repeat of the second batch; superseded by the nine agent terms checklist |
+
+## Ninth batch (10 screenshots, 8 October 2026)
+
+Also reviewed against `presence/brand-kit.md` (Salesforce implementation for Australian trades and service businesses, simulations disclosed). Earlier batches' repeats were not re-counted: the second Walker/Muselinka/Prompt Professor/second-brain/course/cheat-sheet/"32 things to install" screenshots were already decided above or in the eighth batch, apart from the "32 things" graphic, which is recorded here.
+
+| Screenshot | Decision | Reason |
+| --- | --- | --- |
+| "9 ways to use Jev in your agent" (Code 231) | **Keep as a design checklist** | Maps to existing designs: tool-call gating is the single booking write tool in `03-jobs-mcp`; confidence gating is the escalation path in `04-after-hours-agent`; LLM evals are `05-evals`. Principle: code sets thresholds, not the model. Jev (TypeSafe AI) is already covered in `home-services-ai/docs/typed-decision-pilot.md`, which stays the source for any Jev decision; its diagram scores are illustrative and no vendor claim was verified |
+| "32 things to install in Claude" (Adrees AI Automation) | Drop; evaluate nothing now | Post text was cut off and star counts were not verified. Marketing, DM-automation and orchestration tools conflict with the draft-until-approved rule and the Chief of Staff / Chief of Engineer setup. Context7 and playwright-mcp only if a concrete need appears; Superpowers stays user-level. No installs approved. Third-party tools would need a source and permissions check first |
+| YouTube system design (James Code Lab) | Drop | Generic system-design content outside the Salesforce and trades positioning; observability and fault tolerance are already in the agent-terms checklist |
+| Retirement planner prompts 1-7 | Drop | Personal finance, unrelated to projects or the agency |
+| GIF infographic workflow (CreatorPlanetX) | Drop | Already covered by the `presence-infographic` skill on the locked design system. Optional idea: approve a wireframe before the final build, if the skill lacks that step |
+| Groove + Scale update | Drop | Lifetime-deal funnel suite; no sales funnel in scope |
+| "4 plugins before vibe coding" (HelloWorldavani) | Drop | Next.js and Supabase vibe-coding demo; the portfolio is static HTML and Salesforce work is built in Setup. Plugin names (Ponytail, OmniRoute, Graphify, Skill UI) were not verified, and the post is a comment-to-get lead hook |
+
+## Tenth batch (1 screenshot, 8 October 2026)
+
+| Screenshot | Decision | Reason |
+| --- | --- | --- |
+| "12 ways to work hard at working smart" (The AI Monetization Guy) | Drop | Generic productivity tips from the same account as the retirement prompts, ending in an engagement ask. Templates and an SOP library (tip 5) already exist as the One Codex Prompt, AGENTS.md/EVIDENCE.md and the `presence-*` skills. "80% then ship" (tip 7) applies to drafts only, not evidence, credential claims or deployments. Outsourcing to freelancers (tip 8) conflicts with the approval rule for payments and the synthetic-data-only rule. Automation (tip 2) must not send or post without approval |
 
 ## Proposed, not adopted: correction log
 
