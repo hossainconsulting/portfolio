@@ -46,7 +46,8 @@ repository README footers and every bio are derived from it. Run
 
 | Platform | URL | Status | Audience | Cadence |
 |---|---|---|---|---|
-| Reddit | https://www.reddit.com/user/hossainconsulting | CLAIM | Industry (r/salesforce, r/SalesforceDeveloper, r/AusFinance-adjacent trades subs) | Answer-only, 2 / week, no self-promotion |
+| Reddit (agency) | https://www.reddit.com/user/hossainconsulting | CONFIRM — account reported by Hemayet 9 Oct 2026 (listed in the Reddit app account switcher); not verified from outside the account | Industry (r/salesforce, r/SalesforceDeveloper, r/AusFinance-adjacent trades subs) | Answer-only, 2 / week, no self-promotion |
+| Reddit (personal) | https://www.reddit.com/user/hemayetAI | CONFIRM — personal account u/hemayetAI reported by Hemayet 9 Oct 2026; not verified from outside the account | Industry (personal voice) | Same answer-only rule as the agency account |
 | Pinterest | https://www.pinterest.com/hossainconsulting/ | CLAIM | Search (diagrams, checklists, carousels) | Monthly batch of 8–12 pins |
 | Threads | https://www.threads.net/@hossainconsulting | OPTIONAL — comes free with the Instagram account | Overflow from X | Mirror X |
 | Bluesky | https://bsky.app/profile/hossainconsulting.com | OPTIONAL — set the handle to the domain via a DNS TXT record in Cloudflare (`_atproto.hossainconsulting.com`). Free verification. | Industry | Mirror X |
