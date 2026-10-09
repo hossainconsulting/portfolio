@@ -1,0 +1,10 @@
+PASS /: 200
+PASS /links: 200
+PASS /links/: 307 -> /links
+PASS /links.html: 307 -> /links
+PASS /not-a-page: 404
+PASS /study/: 200
+PASS /service-agent-patterns: 200
+PASS /api/chat: 405
+PASS 6 internal links and fragment targets
+PASS structured data parses and separates personal/agency LinkedIn identities

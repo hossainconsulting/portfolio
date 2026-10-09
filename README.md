@@ -11,6 +11,37 @@ progress from queued work.
 **GitHub:** https://github.com/hossainconsulting
 **Lab:** working copy maintained on `paperclip-dev` (Fedora Server 44, VirtualBox VM on my own hardware). `paperclip-dev` is my lab name for the Fedora Server VM.
 
+## Websites and profiles
+
+[Personal website](https://hemayethossain.com) ·
+[Hossain Consulting](https://hossainconsulting.com) ·
+[Evidence by skill](https://portfolio.hossainconsulting.com/#evidence) ·
+[All links](https://portfolio.hossainconsulting.com/links)
+
+**Hemayet Hossain — personal profiles**
+
+[Facebook](https://www.facebook.com/profile.php?id=61553978682903) ·
+[Instagram](https://www.instagram.com/sirhemayethossain/) ·
+[X](https://x.com/hemayetAI) ·
+[Reddit](https://www.reddit.com/user/hemayetAI/) ·
+[TikTok](https://www.tiktok.com/@sirhemayethossain) ·
+[YouTube](https://www.youtube.com/@sirhemayethossain) ·
+[Pinterest](https://au.pinterest.com/hemayethossain/) ·
+[LinkedIn](https://www.linkedin.com/in/hemayethossain/) ·
+[Trailblazer](https://www.salesforce.com/trailblazer/hemayethossain)
+
+**Hossain Consulting — agency profiles**
+
+[Facebook](https://www.facebook.com/profile.php?id=61554142802965) ·
+[Instagram](https://www.instagram.com/hossainconsulting/) ·
+[X](https://x.com/HossainConsult) ·
+[Reddit](https://www.reddit.com/user/hossainconsulting/) ·
+[LinkedIn](https://www.linkedin.com/company/hossain-consulting) ·
+[YouTube](https://www.youtube.com/@hossain-consulting) ·
+[TikTok](https://www.tiktok.com/@hossainconsulting) ·
+[Pinterest](https://au.pinterest.com/hossainconsulting/) ·
+[Founder’s Trailblazer](https://www.salesforce.com/trailblazer/hemayethossain)
+
 ## Technology and structure
 
 Static HTML and CSS served through Cloudflare Workers static assets, with
@@ -18,6 +49,7 @@ a Worker endpoint for the proposed CONCIERGE widget. There is no frontend
 build step; the Worker uses the Anthropic SDK.
 
 - `public/index.html` — portfolio homepage.
+- [public/links.html](public/links.html) — `/links` website, evidence and social-profile hub; Wrangler also redirects `/links/` and `/links.html` to `/links`.
 - [public/writing](public/writing) — standalone articles and local images; each article carries its own inline styles.
 - [public/service-agent-patterns.html](public/service-agent-patterns.html) — service-agent pattern library, linked from the Meridian Appliance Care card at `/service-agent-patterns`; live routing awaits release verification.
 - `public/404.html` — custom page for unknown paths.
@@ -125,6 +157,18 @@ diff - /tmp/hossain-portfolio-live.html < public/index.html
 ```
 
 No diff output means the files match.
+
+Check the links hub after deployment. `/links` should return 200 and match
+`public/links.html`; `/links/` and `/links.html` should redirect to `/links`.
+Use Wrangler (`npm run dev -- --local`) for the same checks locally. A Python
+static preview does not reproduce these redirects.
+
+```bash
+curl -fsSL --max-time 20 https://portfolio.hossainconsulting.com/links -o /tmp/hossain-portfolio-links.html &&
+diff public/links.html /tmp/hossain-portfolio-links.html
+curl -sSI --max-time 20 https://portfolio.hossainconsulting.com/links/
+curl -sSI --max-time 20 https://portfolio.hossainconsulting.com/links.html
+```
 
 Check the custom 404 response; expect status 404 and a nonempty body:
 
