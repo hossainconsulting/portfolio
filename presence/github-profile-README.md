@@ -1,59 +1,66 @@
-# GitHub profile README
+# GitHub profile README — review draft
 
-GitHub shows the `README.md` of a public repository named exactly after the
-account (`hossainconsulting/hossainconsulting`) at the top of the profile.
-Create that repository, copy the block below into its `README.md`, and pin the
-six strongest project repositories underneath it.
+Prepared 9 October 2026. This file is a draft within the portfolio repository;
+it has not been published as an account profile README. Creating or changing
+`hossainconsulting/hossainconsulting` and profile settings requires a separate
+publication decision. Review project status before publication.
 
-Update the profile itself too: bio (brand kit, 160 chars), location "Sydney,
-Australia", website = hub, and the four **Social accounts** slots (LinkedIn,
-X, Instagram, YouTube). Those social links carry `rel="me"` and are read by
-search engines.
+The profile URLs below match the configured personal and agency footer groups
+in `hossainconsulting-portfolio/src/lib/site.ts` (blob
+`bd652e0f3176b6052ecbfc7e356d85f65eb8353c`). This is source verification,
+not independent proof of account ownership or current destination access.
+No email address is added while the contact choice remains pending.
 
 ---
 
 ```markdown
 # Hemayet Hossain
 
-**Salesforce administrator and implementation consultant · Sydney, Australia**
+**Salesforce + AI Solutions Engineering · Sydney, Australia**
 
-I build complete, documented implementations against realistic business
-scenarios, and publish the working, not just the outcome.
+Building toward Forward Deployed Engineering through self-directed projects
+across Salesforce, automation, AI and integrations. I publish dated source
+records, implementation notes and checks so readers can inspect the work.
+Projects are at different stages; planned scope is not completed delivery.
 
-Four certifications passed (Administrator, Platform App Builder, Advanced
-Administrator, Agentforce Specialist), five in progress.
+## Project evidence
 
-**[portfolio.hossainconsulting.com](https://portfolio.hossainconsulting.com/?utm_source=github&utm_medium=profile)** — the full record.
+- [SunRise Solar](https://github.com/hossainconsulting/salesforce-sunrise-solar) — Salesforce administration simulation.
+- [User lifecycle SOP](https://github.com/hossainconsulting/salesforce-user-lifecycle-sop) — documented provisioning and access-control procedures.
+- [Home Services AI](https://github.com/hossainconsulting/home-services-ai) — self-directed AI engineering project; inspect the repository for current implementation status.
+- [All public repositories](https://github.com/hossainconsulting?tab=repositories) — current source and dated evidence.
 
-## Engagements
+The Salesforce companies are fictional simulations, not paid client delivery.
+No real customer data is used in those simulations.
 
-Each is an end-to-end build in its own Salesforce org: requirements, ERD,
-security model, automation, reporting, go-live, and every decision written down.
+## Websites and profiles
 
-| Repository | Certification track | Scenario |
-|---|---|---|
-| [sunrise-solar-internship](https://github.com/hossainconsulting/sunrise-solar-internship) | Administrator | 47-person NSW solar installer, org unmaintained for six months |
-| [meridian-field-services](https://github.com/hossainconsulting/meridian-field-services) | Platform App Builder | Sydney plumbing, electrical and HVAC company on spreadsheets |
-| [tradelink-group](https://github.com/hossainconsulting/tradelink-group) | Advanced Administrator · Sales · Service | 450-staff franchise network, acquisition migration, SLA machine |
-| [agentforce-meridian-care](https://github.com/hossainconsulting/agentforce-meridian-care) | Agentforce Specialist | Warranty administrator, 12,400 cases a month, 0% deflection |
-| [coastline-retail-group](https://github.com/hossainconsulting/coastline-retail-group) | Data Cloud Consultant | 62-store retailer whose customers exist three times |
-| [ironbark-industrial-supply](https://github.com/hossainconsulting/ironbark-industrial-supply) | Sales Cloud Consultant | 140 reps, no territory model, forecasting from spreadsheets |
-| [kurrajong-energy](https://github.com/hossainconsulting/kurrajong-energy) | Service Cloud Consultant | Energy retailer, regulated response deadlines being missed |
-| [home-services-ai](https://github.com/hossainconsulting/home-services-ai) | Claude Certified Developer | Five AI tools for trades businesses, with an eval harness |
+[Personal website](https://hemayethossain.com) ·
+[Hossain Consulting](https://hossainconsulting.com) ·
+[Evidence by skill](https://portfolio.hossainconsulting.com/#evidence) ·
+[All links](https://portfolio.hossainconsulting.com/links)
 
-> **These are simulations, not client work.** Every company is fictional. The
-> configuration and the reasoning are real. No real customer data is involved.
+**Hemayet Hossain — personal profiles**
 
-## Elsewhere
+[Facebook](https://www.facebook.com/profile.php?id=61553978682903) ·
+[Instagram](https://www.instagram.com/sirhemayethossain/) ·
+[X](https://x.com/hemayetAI) ·
+[Reddit](https://www.reddit.com/user/hemayetAI/) ·
+[TikTok](https://www.tiktok.com/@sirhemayethossain) ·
+[YouTube](https://www.youtube.com/@sirhemayethossain) ·
+[Pinterest](https://au.pinterest.com/hemayethossain/) ·
+[LinkedIn](https://www.linkedin.com/in/hemayethossain/) ·
+[Trailblazer](https://www.salesforce.com/trailblazer/hemayethossain)
 
-[LinkedIn](https://www.linkedin.com/in/hossainconsulting) ·
-[Hossain Consulting](https://www.linkedin.com/company/hossain-consulting) ·
-[YouTube](https://www.youtube.com/@hossainconsulting) ·
+**Hossain Consulting — agency profiles**
+
+[Facebook](https://www.facebook.com/profile.php?id=61554142802965) ·
 [Instagram](https://www.instagram.com/hossainconsulting/) ·
-[X](https://x.com/hossainconsulting)
+[X](https://x.com/HossainConsult) ·
+[Reddit](https://www.reddit.com/user/hossainconsulting/) ·
+[LinkedIn](https://www.linkedin.com/company/hossain-consulting) ·
+[YouTube](https://www.youtube.com/@hossain-consulting) ·
+[TikTok](https://www.tiktok.com/@hossainconsulting) ·
+[Pinterest](https://au.pinterest.com/hossainconsulting/) ·
+[Founder’s Trailblazer](https://www.salesforce.com/trailblazer/hemayethossain)
 ```
-
----
-
-Replace the LinkedIn personal URL with the real slug from `profiles.md` before
-publishing.
