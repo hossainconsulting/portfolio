@@ -55,7 +55,7 @@ ${opts.description ? html`<meta name="description" content="${opts.description}"
     : html`<a href="/login">Sign in</a>`}
 </nav>
 ${opts.body}
-<footer>Hemayet Hossain · Sydney, Australia · <a href="https://portfolio.hossainconsulting.com">portfolio</a> · <a href="https://github.com/hossainconsulting">GitHub</a><br>
+<footer>Hemayet Hossain · Sydney, Australia · <a href="https://portfolio.hossainconsulting.com">portfolio</a> · <a href="https://github.com/hossainconsulting">GitHub</a> · <a href="https://www.reddit.com/user/hossainconsulting/" rel="me">Reddit (agency)</a> · <a href="https://www.reddit.com/user/hemayetAI/" rel="me">Reddit (personal)</a><br>
 Every project listed here is real work offered for sale; the portfolio projects it references are simulations and say so.</footer>
 </div>
 </body>
