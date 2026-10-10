@@ -258,3 +258,9 @@ Adding these directories does not publish or configure their services. Historica
 [public/study/index.html](public/study/index.html) provides the /study/ prompt builder. [learning-course-templates.md](learning-course-templates.md) is the source for seventeen templates; regenerate [public/study/templates.js](public/study/templates.js) with `python scripts/build-study-templates.py`. Behaviour lives in [public/study/app.js](public/study/app.js).
 
 The current site-wide CSP already allows same-origin scripts for the widget, so the builder uses that same policy without a path override. After an authorised deployment, inspect both `/` and `/study/` response headers and verify the builder loads. Local source checks do not establish Cloudflare routing or live behaviour.
+
+## Weekend Reset
+
+[public/burnout-recovery/index.html](public/burnout-recovery/index.html) contains the client-side prompt kit, with a [draft disclaimer](public/burnout-recovery/disclaimer.html). App drafts, progress and acknowledgement are stored locally; opening a prompt in a third-party AI service sends that text to the selected service. The original disclaimer is not lawyer-reviewed. The app remains unlinked from the homepage.
+
+The site-wide CSP already permits same-origin external scripts, so this app needs no path-specific override. After an authorised deployment, verify `/burnout-recovery/` and its disclaimer response, headers, first-visit gate and browser interactions. Source checks do not establish live behaviour.
