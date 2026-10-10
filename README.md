@@ -258,3 +258,17 @@ Adding these directories does not publish or configure their services. Historica
 [public/study/index.html](public/study/index.html) provides the /study/ prompt builder. [learning-course-templates.md](learning-course-templates.md) is the source for seventeen templates; regenerate [public/study/templates.js](public/study/templates.js) with `python scripts/build-study-templates.py`. Behaviour lives in [public/study/app.js](public/study/app.js).
 
 The current site-wide CSP already allows same-origin scripts for the widget, so the builder uses that same policy without a path override. After an authorised deployment, inspect both `/` and `/study/` response headers and verify the builder loads. Local source checks do not establish Cloudflare routing or live behaviour.
+
+---
+
+## Connect
+
+Built by **Hemayet Hossain**, Sydney, Australia. The portfolio links self-directed projects, dated evidence and credential records. Project status is documented separately from planned scope.
+
+[Portfolio](https://portfolio.hossainconsulting.com/?utm_source=github&utm_medium=readme&utm_campaign=portfolio) ·
+[All links](https://portfolio.hossainconsulting.com/links) ·
+[GitHub](https://github.com/hossainconsulting) ·
+[LinkedIn](https://www.linkedin.com/company/hossain-consulting) ·
+[Instagram](https://www.instagram.com/hossainconsulting/) ·
+[Reddit (agency)](https://www.reddit.com/user/hossainconsulting/) ·
+[Reddit (personal)](https://www.reddit.com/user/hemayetAI/)
