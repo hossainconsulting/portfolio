@@ -39,6 +39,19 @@ Two entry doors: cold visitors take the checklist (low commitment), warm visitor
 
 The offer matches your active Calendly event text: free 20-minute call, free one-page snapshot with up to 3 quick wins within 3 business days, written scope and fixed quote (+GST) before any project.
 
+## Contact addresses (decided 2026-10-14)
+
+| Where | Address |
+|---|---|
+| Agency site (hossainconsulting.com), this funnel, its emails and the PDF | `hemayet@hossainconsulting.com` |
+| Personal site (hemayethossain.com) | `hemayet@hemayethossain.com` |
+
+Both are aliases that forward to the Gmail inbox. Two things to set up so this works properly:
+- **Reply from the alias.** In Gmail, add each alias under "Send mail as", so replies do not show the Gmail address.
+- **Authenticate the sending domain.** The email platform must send as `hemayet@hossainconsulting.com` with SPF, DKIM and DMARC set on hossainconsulting.com, or the sequences are likely to land in spam. Forwarding alone does not do this.
+
+Not changed, because they belong to the existing portfolio hub and chat widget: `wrangler.jsonc` (`CONTACT_EMAIL`), `platform/wrangler.jsonc`, `src/index.js` (default address), `public/widget.js`, and `public/index.html`. They still show the Gmail address. Decide whether to switch them too.
+
 ## You must do before this goes live
 
 1. **Pick the email platform** (see options below) and create a webhook or automation that receives the `optin` JSON, adds the contact with a "consented" tag and starts Sequence 1. Then `npx wrangler secret put LEAD_WEBHOOK_URL`. Until it is set, the form shows an error and tells people to email you. It never pretends to subscribe them.

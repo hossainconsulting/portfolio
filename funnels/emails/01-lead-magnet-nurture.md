@@ -1,7 +1,7 @@
 # Sequence 1: Lead magnet nurture (after opt-in)
 
 Trigger: webhook record `type: optin`. Audience: trade and home-service owners.
-Sender: Hemayet Hossain <hossainconsulting@gmail.com>. Plain text, no images, one link each.
+Sender: Hemayet Hossain <hemayet@hossainconsulting.com> (the alias forwards to the Gmail inbox; see funnels/README.md "Contact addresses"). Plain text, no images, one link each.
 Footer on every email (required): `Hemayet Hossain, Hossain Consulting, Sydney NSW. You asked for the checklist at portfolio.hossainconsulting.com. Unsubscribe: {{unsubscribe_url}}`
 Exit the sequence on: booking made (Calendly), reply received, unsubscribe.
 If `want = snapshot`, also create a task for Hemayet: reply within 1 business day.

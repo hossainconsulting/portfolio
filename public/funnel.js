@@ -30,7 +30,7 @@
       .catch(function (err) {
         btn.disabled = false; btn.textContent = form.dataset.cta;
         msg.className = "err";
-        msg.textContent = "That did not go through (" + err.message + "). Email hossainconsulting@gmail.com and I will send it by hand.";
+        msg.textContent = "That did not go through (" + err.message + "). Email hemayet@hossainconsulting.com and I will send it by hand.";
       });
   });
 })();
