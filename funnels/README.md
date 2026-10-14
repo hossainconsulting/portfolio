@@ -34,6 +34,7 @@ Two entry doors: cold visitors take the checklist (low commitment), warm visitor
 | API | `src/index.js` `handleOptin` | Validates, honeypot, consent required, forwards to webhook |
 | Emails | `funnels/emails/01..03` | 3 sequences, copy ready to paste |
 | `/audit-score` | `public/audit-score.html`, `audit-score.js` | 2-minute self-scoring quiz across six areas. Runs in the browser, collects nothing |
+| Policy | `funnels/client-tools-and-payments-policy.md` | Clients own and pay for all third-party tools; they pay Hossain Consulting only its own fees |
 | Audit kit | `funnels/audits/` | Six scored audit rubrics, one-page client report template, delivery rules |
 
 The offer matches your active Calendly event text: free 20-minute call, free one-page snapshot with up to 3 quick wins within 3 business days, written scope and fixed quote (+GST) before any project.
@@ -102,7 +103,7 @@ Put the checklist link in every bio and video description. Put `/book` in the "c
 - Images: AI is fine for abstract illustrations and thumbnails. Use real screenshots of your own builds as proof.
 - Suggested tools: HeyGen or Synthesia for the avatar, ElevenLabs for voice, Canva for thumbnails and carousels. Pick one avatar tool, not three.
 
-**Retargeting and paid, later.** Run no ads until at least 20 organic opt-ins prove the page. Then test one Meta lead campaign to the checklist at a small daily budget. Add the Meta pixel only after updating the Privacy Policy and adding a consent banner.
+**Paid ads, later.** The growth roadmap on the agency site keeps paid ads, pixels and retargeting off unless Hemayet explicitly approves them, so treat this as not planned. If it is ever approved: it runs only in the client's own ad account on their card (see `client-tools-and-payments-policy.md`), or in Hossain Consulting's own account for its own marketing, with a written budget. Update the Privacy Policy and add consent before any pixel.
 
 **Other ideas**
 - Add the checklist link to the CONCIERGE chat widget's closing message.
