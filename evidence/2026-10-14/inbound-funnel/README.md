@@ -13,3 +13,8 @@ New `public/` pages (workflow-snapshot, book, thanks, privacy, terms), `funnel.c
 
 ## Not verified
 Not deployed. No live form submission, email delivery, Calendly link click-through, unsubscribe, rate limiting, or real conversion data. LEAD_WEBHOOK_URL not set. Privacy Policy and Terms not reviewed by a lawyer. Conversion ranges in `funnels/README.md` are assumptions.
+
+## Addendum: audit kit and quiz (2026-10-14)
+Added `funnels/audits/` (six rubrics, report template, rules) and `/audit-score` quiz.
+Verified: `node --check public/audit-score.js` passed. In headless Chromium with a driver script, submitting unanswered showed "Please answer all 12 questions"; answering alternately Yes/No scored 12/24, listed six areas at 2/4, named the weakest area and rendered both CTAs.
+Not verified: real-device layout, accessibility testing with a screen reader, any live use of the rubrics on a real business. The rubrics are untested drafts. Time estimates per audit are guesses until timed on real audits.

@@ -33,6 +33,8 @@ Two entry doors: cold visitors take the checklist (low commitment), warm visitor
 | PDF | `public/downloads/enquiry-leak-checklist.pdf` (source in `funnels/source/`) | The lead magnet, 2 pages |
 | API | `src/index.js` `handleOptin` | Validates, honeypot, consent required, forwards to webhook |
 | Emails | `funnels/emails/01..03` | 3 sequences, copy ready to paste |
+| `/audit-score` | `public/audit-score.html`, `audit-score.js` | 2-minute self-scoring quiz across six areas. Runs in the browser, collects nothing |
+| Audit kit | `funnels/audits/` | Six scored audit rubrics, one-page client report template, delivery rules |
 
 The offer matches your active Calendly event text: free 20-minute call, free one-page snapshot with up to 3 quick wins within 3 business days, written scope and fixed quote (+GST) before any project.
 
