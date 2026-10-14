@@ -19,7 +19,7 @@ Before we talk, it helps to have one recent enquiry in mind, from first message 
 
 Please don't send passwords or customer records.
 
-I'll send a free one-page workflow snapshot with up to three quick wins within 3 business days of the call. It's yours to keep.
+There's no obligation. If a project makes sense, I'll send a written scope and a fixed quote including GST afterwards.
 
 If you can't make it, use the reschedule link. Hemayet
 

@@ -1,4 +1,4 @@
-// Opt-in form handler for /workflow-snapshot. Posts to /api/optin on this origin.
+// Opt-in form handler for /checklist. Posts to /api/optin on this origin.
 (function () {
   var form = document.getElementById("optin");
   if (!form) return;
@@ -19,12 +19,12 @@
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
         name: d.get("name"), email: d.get("email"), business: d.get("business"), trade: d.get("trade"),
-        want: d.get("want"), consent: true, consent_version: form.dataset.consent, website: d.get("website"),
+        consent: true, consent_version: form.dataset.consent, website: d.get("website"),
         page: location.pathname, utm: utm
       })
     }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); })
       .then(function (r) {
-        if (r.ok) { location.href = "/thanks?w=" + encodeURIComponent(form.querySelector("[name=want]").value); return; }
+        if (r.ok) { location.href = "/thanks"; return; }
         throw new Error(r.j.error || "failed");
       })
       .catch(function (err) {

@@ -1,6 +1,6 @@
 # Audit 1: Follow-up audit (enquiry to booked job)
 
-**Purpose:** find where enquiries and quotes stall. This is the core audit and the basis of the free workflow snapshot.
+**Purpose:** find where enquiries and quotes stall. This is the core audit. It is sold as paid work and is the agenda for the intro call.
 **Inputs:** a 20-minute call, plus one recent enquiry walked through from first message to outcome. Public: the website contact path, GBP phone and message settings.
 **Score each 0 = no, 1 = sometimes, 2 = yes, or "not checked".**
 
@@ -34,5 +34,5 @@ Enquiries in more than three places. Quotes only in someone's head. No-one can s
 - A "we reply within X" line on the contact page, only if they can keep it.
 - A shared inbox or one list checked twice a day.
 
-## Hook version
+## Self-serve version
 The 2-minute self-score at `/audit-score`, then the PDF checklist.

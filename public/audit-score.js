@@ -47,7 +47,7 @@
     var note = document.createElement("div"); note.className = "note";
     note.textContent = "Weakest area: " + w.k + ". " + w.fix; out.appendChild(note);
     var row = document.createElement("div"); row.className = "row"; row.style.marginTop = "16px";
-    var a1 = document.createElement("a"); a1.className = "btn"; a1.href = "/workflow-snapshot?utm_source=quiz&utm_medium=result&utm_campaign=leak-score&utm_content=" + encodeURIComponent(w.k.toLowerCase().replace(/[^a-z]+/g, "-")); a1.textContent = "Get the free checklist";
+    var a1 = document.createElement("a"); a1.className = "btn"; a1.href = "/checklist?utm_source=quiz&utm_medium=result&utm_campaign=leak-score&utm_content=" + encodeURIComponent(w.k.toLowerCase().replace(/[^a-z]+/g, "-")); a1.textContent = "Get the free checklist";
     var a2 = document.createElement("a"); a2.className = "btn ghost"; a2.href = "/book?utm_source=quiz&utm_medium=result&utm_campaign=leak-score"; a2.textContent = "Book a free 20-minute call";
     row.appendChild(a1); row.appendChild(a2); out.appendChild(row);
     out.hidden = false; out.scrollIntoView({ behavior: "smooth", block: "start" });

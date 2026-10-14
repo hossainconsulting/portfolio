@@ -4,7 +4,6 @@ Trigger: webhook record `type: optin`. Audience: trade and home-service owners.
 Sender: Hemayet Hossain <hemayet@hossainconsulting.com> (the alias forwards to the Gmail inbox; see funnels/README.md "Contact addresses"). Plain text, no images, one link each.
 Footer on every email (required): `Hemayet Hossain, Hossain Consulting, Sydney NSW. You asked for the checklist at portfolio.hossainconsulting.com. Unsubscribe: {{unsubscribe_url}}`
 Exit the sequence on: booking made (Calendly), reply received, unsubscribe.
-If `want = snapshot`, also create a task for Hemayet: reply within 1 business day.
 
 | # | Send | Subject | Goal |
 |---|---|---|---|
@@ -23,8 +22,6 @@ Here is the checklist: https://portfolio.hossainconsulting.com/downloads/enquiry
 Take ten minutes, tick what is true today and write your score at the bottom. Page two turns your numbers into a dollar figure for one leak.
 
 I'm Hemayet, a Sydney Salesforce consultant. I'll send a few short emails over the next two weeks. You can leave any time with the link below.
-
-If you ticked the snapshot option, I'll reply personally within a business day.
 
 Hemayet
 
@@ -60,7 +57,7 @@ Hemayet
 ## 5. Want me to look at yours?
 Hi {{first_name}},
 
-If you'd like another set of eyes, I offer a free 20-minute call. Afterwards I send a one-page workflow snapshot with up to three quick wins, within 3 business days. It's yours to keep whether or not you hire me.
+If you'd like to talk it through, I offer a free 20-minute call. It's a conversation, not a review of your business, and there's no obligation. If a project makes sense afterwards, I send a written scope and a fixed quote including GST for you to approve first.
 
 Book here: https://portfolio.hossainconsulting.com/book?utm_source=email&utm_medium=nurture&utm_campaign=leak-checklist&utm_content=e5
 

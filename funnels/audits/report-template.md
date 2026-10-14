@@ -1,4 +1,4 @@
-# One-page audit report (client copy)
+# One-page audit report (client copy, paid work only)
 
 **{{Audit name}} for {{Business}}**  ·  {{date}}  ·  Prepared by Hemayet Hossain, Hossain Consulting
 
@@ -19,6 +19,6 @@
 {{Rankings, traffic, private data, anything needing access.}}
 
 ## Next step, if you want one
-Book 20 minutes and I will walk through it: portfolio.hossainconsulting.com/book. If a fix makes sense I send a written scope and fixed quote (+GST) for you to approve first. The report is yours to keep either way.
+Book 20 minutes and I will walk through it: portfolio.hossainconsulting.com/book. If a fix makes sense I send a written scope and fixed quote including GST for you to approve first.
 
 *Hossain Consulting is a new practice. My portfolio work is self-directed and simulated. This report is general guidance based on what was visible on {{date}}, not legal, tax or financial advice. Hossain Consulting, Sydney NSW, ABN 23 732 235 722.*

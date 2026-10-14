@@ -8,7 +8,7 @@ Built 2026-10-14. Everything here is a draft for Hemayet to approve. Nothing is 
 Social / Google / links hub / video
         |  (UTM-tagged link)
         v
-/workflow-snapshot  --opt-in + consent tick-->  POST /api/optin --> LEAD_WEBHOOK_URL (email platform)
+/checklist  --opt-in + consent tick-->  POST /api/optin --> LEAD_WEBHOOK_URL (email platform)
         |                                                   |
         v                                                   v
 /thanks (PDF download + book CTA)                  Sequence 1: six emails over 14 days
@@ -17,7 +17,7 @@ Social / Google / links hub / video
                                          |
                        Sequence 2 (Calendly confirmation + reminders)
                                          |
-                       Sequence 3 (after call: snapshot, no-show, quote follow-up)
+                       Sequence 3 (after call: scope offer, no-show, quote follow-up)
 ```
 
 Two entry doors: cold visitors take the checklist (low commitment), warm visitors go straight to `/book`.
@@ -26,7 +26,7 @@ Two entry doors: cold visitors take the checklist (low commitment), warm visitor
 
 | Path | File | Purpose |
 |---|---|---|
-| `/workflow-snapshot` | `public/workflow-snapshot.html` | Landing page and opt-in with consent box |
+| `/checklist` | `public/checklist.html` | Landing page and opt-in with consent box |
 | `/thanks` | `public/thanks.html`, `thanks.js` | Confirmation, PDF link, book CTA (noindex) |
 | `/book` | `public/book.html` | Booking page linking to the existing active Calendly event |
 | `/privacy`, `/terms` | `public/privacy.html`, `terms.html` | Privacy Policy and Terms/Acceptance (email consent, acceptable use) |
@@ -37,7 +37,9 @@ Two entry doors: cold visitors take the checklist (low commitment), warm visitor
 | Policy | `funnels/client-tools-and-payments-policy.md` | Clients own and pay for all third-party tools; they pay Hossain Consulting only its own fees |
 | Audit kit | `funnels/audits/` | Six scored audit rubrics, one-page client report template, delivery rules |
 
-The offer matches your active Calendly event text: free 20-minute call, free one-page snapshot with up to 3 quick wins within 3 business days, written scope and fixed quote (+GST) before any project.
+The offer: a free checklist PDF, a self-score quiz and a free 20-minute call. **No free workflow snapshot, audits or other free services** (Hemayet's decision, 2026-10-14). Anything beyond the call is paid work with a written scope and fixed quote including GST.
+
+**Calendly must be changed to match.** The active "20-minute intro call" event description still promises a free one-page workflow snapshot within 3 business days. Edit it before launch, or the call page contradicts this funnel. The agency `/services` page also lists a free "one agreed small fix" for the first three clients, which may conflict with this decision.
 
 ## Contact addresses (decided 2026-10-14)
 
@@ -55,7 +57,7 @@ Not changed, because they belong to the existing portfolio hub and chat widget: 
 ## You must do before this goes live
 
 1. **Pick the email platform** (see options below) and create a webhook or automation that receives the `optin` JSON, adds the contact with a "consented" tag and starts Sequence 1. Then `npx wrangler secret put LEAD_WEBHOOK_URL`. Until it is set, the form shows an error and tells people to email you. It never pretends to subscribe them.
-2. **Confirm the delivery promises.** "Reply within a business day" and "snapshot in 3 business days" are the numbers in your Calendly text. Only keep them if you can meet them.
+2. **Confirm the delivery promises.** Only keep any reply-time promise you can meet. Remove the snapshot promise from Calendly (see above).
 3. **Have the Privacy Policy and Terms reviewed** by a lawyer or a reliable template service. They are plain-language drafts written for Australian law (Privacy Act, Spam Act, Australian Consumer Law). They are not legal advice.
 4. **Name the email provider and its data location** in the Privacy Policy once chosen (it currently says "an email delivery provider").
 5. **Rate limiting.** `/api/optin` caps payload size and uses a honeypot, but has no per-IP limit. Add a Cloudflare rate-limiting rule on `/api/optin` before paid traffic.
@@ -96,10 +98,9 @@ Put the checklist link in every bio and video description. Put `/book` in the "c
 
 **Lead magnets, ranked for your situation**
 1. **Enquiry-Leak Checklist (built).** Low effort, fits trades, no service delivery cost.
-2. **Free workflow snapshot (built as the upgrade).** Highest conversion to a call. Also your best source of real evidence and first case studies, with permission.
-3. **Public-facing "enquiry path" audit.** You look at their website form, Google Business Profile and socials as a customer would, and score response paths. Fast to do, hard to fake. Offer as a Loom/video walkthrough. Add once the snapshot flow works.
-4. **Quote follow-up templates pack.** Cheap to produce, good for ads.
-5. **Salesforce-for-tradies one-page buyer guide.** For later, when you have a real case study.
+2. **Self-score quiz (built).** Self-serve, collects nothing.
+3. **Quote follow-up templates pack.** Cheap to produce.
+4. **Salesforce-for-tradies one-page buyer guide.** For later, when you have a real case study.
 
 **Hooks (first line of every post and video)**
 - "Your next job went to whoever replied first."
@@ -121,7 +122,7 @@ Put the checklist link in every bio and video description. Put `/book` in the "c
 **Other ideas**
 - Add the checklist link to the CONCIERGE chat widget's closing message.
 - Add a Google Business Profile post and "Book" link pointing at `/book`.
-- Add a "How I work" page with the snapshot, scope and fixed quote steps, once you have one real case study.
+- Add a "How I work" page with the call, scope and fixed quote steps, once you have one real case study.
 - Quarterly: send the list one useful email, not a pitch.
 
 ## Compliance summary (check each time you add a channel)

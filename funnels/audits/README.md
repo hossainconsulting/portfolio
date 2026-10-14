@@ -1,26 +1,26 @@
 # Audit kit
 
-Six audits, one method. Each is a scored rubric (12 checks, 0/1/2 points) plus a one-page client report. Use them as hooks before the call, as the live agenda during the call, or as paid or founding-client deliverables after.
+Six audits, one method. Each is a scored rubric (12 checks, 0/1/2 points) plus a one-page client report. **No audit is offered free.** They are internal call preparation, the live agenda on a call, and paid deliverables under a written scope and fixed quote including GST.
 
 ## The menu
 
 | # | Audit | File | Best use | Time to deliver | Needs from the client |
 |---|---|---|---|---|---|
-| 1 | Follow-up audit | `01-follow-up.md` | **Lead offer.** Core to your service (enquiry, quote, follow-up) | 30-45 min | A 20-min call, one recent enquiry |
-| 2 | SEO and Google Business Profile audit | `02-seo-local.md` | Hook for businesses with a website | 45-60 min | Website URL, GBP link |
-| 3 | Social audit | `03-social.md` | Hook for active socials | 30-45 min | Profile links |
+| 1 | Follow-up audit | `01-follow-up.md` | **Lead paid audit.** Core to your service (enquiry, quote, follow-up) | 30-45 min | A 20-min call, one recent enquiry |
+| 2 | SEO and Google Business Profile audit | `02-seo-local.md` | Paid audit for businesses with a website | 45-60 min | Website URL, GBP link |
+| 3 | Social audit | `03-social.md` | Paid audit for active socials | 30-45 min | Profile links |
 | 4 | Email repurposing audit | `04-email-repurposing.md` | Add-on for clients who already email | 30-45 min | 5-10 past emails |
 | 5 | Image repurposing audit | `05-image-repurposing.md` | Add-on for photo-heavy trades | 30 min | Photo folder or Instagram/Facebook link |
 | 6 | Video repurposing audit | `06-video-repurposing.md` | Add-on for clients with any video | 30-45 min | Video links or a list |
 
-Recommendation: lead with 1, then 2 or 3 depending on where the client gets customers. Offer 4-6 only after the call, because they need the client to hand over material.
+Recommendation: sell 1 first, then 2 or 3 depending on where the client gets customers. Offer 4-6 only after a paid job starts, because they need the client to hand over material.
 
 ## Where each one goes in the funnel
 
-- **Cold hook:** the 2-minute self-score quiz at `/audit-score` (no data collected). It points the visitor to their weakest area and to the checklist or a booking.
-- **Pre-call:** at booking, ask for the website and one profile link. Run audits 2 and 3 on public pages only, 15 minutes of prep, and open the call with two real observations.
-- **On the call:** use audit 1 as the live agenda. Score it together.
-- **After the call:** the existing free workflow snapshot is audit 1 written up. Offer 2-6 as the next free or founding-client piece.
+- **Cold hook:** the 2-minute self-score quiz at `/audit-score` (no data collected) and the free checklist PDF. They are self-serve resources, not services.
+- **Pre-call prep (internal):** ask for the website and one profile link when booking. Read the public pages for 15 minutes so you ask better questions. Do not send the client a report.
+- **On the call:** use audit 1 as the agenda. Score it together as a conversation.
+- **After the call:** if the client wants it, quote an audit as paid work, with a written scope and fixed quote including GST.
 
 ## Rules (keep these, they are your credibility)
 
@@ -30,7 +30,7 @@ Recommendation: lead with 1, then 2 or 3 depending on where the client gets cust
 4. **No fake results.** Do not say "audits like this typically lift leads by X%". You have no measured results yet. After you do, record them in `evidence/` first.
 5. **Say what you are.** New practice, simulated portfolio. The report footer carries it.
 6. **Consent first.** Auditing a business's public pages is fine. Storing their personal data or customers' data needs the Privacy Policy basis. Do not ask for customer records.
-7. **Scoped.** A free audit is one page and up to three quick wins. More than that is paid work with a written scope and fixed quote (+GST).
+7. **Scoped and paid.** No free audits or reports. Every audit is paid work with a written scope and fixed quote including GST.
 8. **Check before you send.** Spell-check names, confirm every link works, run the writing checklist at `presence/writing-checklist.md` on the summary.
 
 ## Delivery workflow
@@ -50,6 +50,6 @@ Recommendation: lead with 1, then 2 or 3 depending on where the client gets cust
 
 ## Selling the audits
 
-- Free: audit 1 (as the snapshot) and the quiz. Pay for the hook with the call.
-- Founding-client pricing for audits 2-6 is your decision. Do not publish a price until you have timed your first three audits and know your hours.
+- Free: only the checklist PDF, the quiz and the intro call. No free audits.
 - Make each audit a bridge to one next step: a fixed-price fix of the top finding.
+- Pricing and any founding-client rate are Hemayet's decision. Time the first three audits before quoting.

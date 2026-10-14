@@ -247,7 +247,7 @@ async function handleChat(request, env, ctx) {
 }
 
 // --- Lead-magnet opt-in -------------------------------------------------------------
-// POST /api/optin from /workflow-snapshot. Validates, then forwards one JSON record to
+// POST /api/optin from /checklist. Validates, then forwards one JSON record to
 // LEAD_WEBHOOK_URL (the email platform or automation that sends the sequence). The record
 // carries the consent evidence: tick, wording version and timestamp. When no webhook is
 // configured the endpoint says so (503) instead of pretending the person was subscribed.
@@ -279,12 +279,11 @@ async function handleOptin(request, env) {
   const lead = {
     type: "optin",
     received_at: new Date().toISOString(),
-    source: "workflow-snapshot",
+    source: "checklist",
     name,
     email,
     business: clip(b?.business, 120),
     trade: clip(b?.trade, 60),
-    want: b?.want === "snapshot" ? "snapshot" : "checklist",
     consent: { given: true, version: clip(b?.consent_version, 20), page: clip(b?.page, 80) },
     utm,
   };
