@@ -246,10 +246,72 @@ async function handleChat(request, env, ctx) {
   }
 }
 
+// --- Lead-magnet opt-in -------------------------------------------------------------
+// POST /api/optin from /workflow-snapshot. Validates, then forwards one JSON record to
+// LEAD_WEBHOOK_URL (the email platform or automation that sends the sequence). The record
+// carries the consent evidence: tick, wording version and timestamp. When no webhook is
+// configured the endpoint says so (503) instead of pretending the person was subscribed.
+const EMAIL_RE = /^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,}$/;
+const clip = (v, n) => (typeof v === "string" ? v.trim().slice(0, n) : "");
+
+async function handleOptin(request, env) {
+  if (request.method !== "POST") return json({ error: "method not allowed" }, 405);
+  const len = Number(request.headers.get("content-length") || 0);
+  if (len > 4_000) return json({ error: "request too large" }, 413);
+
+  let b;
+  try { b = await request.json(); } catch { return json({ error: "invalid JSON" }, 400); }
+
+  // Honeypot: bots fill the hidden field. Pretend success so they learn nothing.
+  if (clip(b?.website, 200)) return json({ ok: true });
+
+  const email = clip(b?.email, 160).toLowerCase();
+  const name = clip(b?.name, 80);
+  if (!EMAIL_RE.test(email)) return json({ error: "enter a valid email" }, 400);
+  if (!name) return json({ error: "enter your first name" }, 400);
+  if (b?.consent !== true) return json({ error: "consent is required" }, 400);
+
+  const utm = {};
+  for (const k of ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"]) {
+    const v = clip(b?.utm?.[k], 100);
+    if (v) utm[k] = v;
+  }
+  const lead = {
+    type: "optin",
+    received_at: new Date().toISOString(),
+    source: "workflow-snapshot",
+    name,
+    email,
+    business: clip(b?.business, 120),
+    trade: clip(b?.trade, 60),
+    want: b?.want === "snapshot" ? "snapshot" : "checklist",
+    consent: { given: true, version: clip(b?.consent_version, 20), page: clip(b?.page, 80) },
+    utm,
+  };
+
+  if (!env.LEAD_WEBHOOK_URL) {
+    console.error("OPTIN not delivered: LEAD_WEBHOOK_URL unset");
+    return json({ error: "signup is not available right now" }, 503);
+  }
+  try {
+    const res = await fetch(env.LEAD_WEBHOOK_URL, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(lead),
+    });
+    if (!res.ok) throw new Error(`webhook returned ${res.status}`);
+    return json({ ok: true });
+  } catch (err) {
+    console.error("OPTIN delivery failed:", err.message);
+    return json({ error: "could not save your details" }, 502);
+  }
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     if (url.pathname === "/api/chat") return handleChat(request, env, ctx);
+    if (url.pathname === "/api/optin") return handleOptin(request, env);
     // Everything else is a static asset. ASSETS applies not_found_handling, so unknown
     // paths still get public/404.html.
     return env.ASSETS.fetch(request);
