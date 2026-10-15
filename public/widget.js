@@ -106,7 +106,7 @@
         var reply =
           (out.data && out.data.reply) ||
           "Sorry — something went wrong at my end. Hemayet is at " +
-            "hossainconsulting@gmail.com and will reply personally.";
+            "hemayet@hossainconsulting.com and will reply personally.";
         thinking.remove();
         addBubble("bot", reply);
         // Only a real assistant turn goes into the history. An error reply is not one,
@@ -121,7 +121,7 @@
         thinking.remove();
         addBubble(
           "bot",
-          "I couldn't reach the server. Hemayet is at hossainconsulting@gmail.com " +
+          "I couldn't reach the server. Hemayet is at hemayet@hossainconsulting.com " +
             "and will reply personally."
         );
         messages.pop();

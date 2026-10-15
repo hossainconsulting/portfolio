@@ -30,7 +30,7 @@ const MAX_TOTAL_CHARS = 24_000;
 // One tool round-trip is all the flow needs: capture_lead, then the closing line.
 const MAX_ITERATIONS = 4;
 
-const DEFAULT_EMAIL = "hossainconsulting@gmail.com";
+const DEFAULT_EMAIL = "hemayet@hossainconsulting.com";
 
 /** @type {Anthropic.Tool} */
 const CAPTURE_LEAD = {
