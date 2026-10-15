@@ -11,3 +11,7 @@ Not changed: `OWNER_EMAIL` in `platform/wrangler.jsonc` (private notification in
 Checks: `npm run check` and `git diff --check` run after the edit (prompt-sync skipped, private spec absent).
 Not deployed. The Worker needs an explicit `npx wrangler deploy` request before this is live.
 The alias forwarding is user-reported, not verified by Claude.
+
+## Addendum: legal pages (2026-10-15)
+
+Privacy and Terms bumped to version 2026-10-15 (and `data-consent` on the checklist form to match, so recorded consent names the current wording). Privacy gained a Payments section and a pointer to the agency notice; Terms section 5 no longer calls all prices indicative. `npm run check` and `git diff --check` re-run. Not legally reviewed; not deployed.
