@@ -37,7 +37,7 @@
   "vars": {
     "APP_NAME": "Hossain Consulting Platform",
     "APP_URL": "https://platform.hossainconsulting.com",
-    "OWNER_EMAIL": "hossainconsulting@gmail.com",
+    "OWNER_EMAIL": "hemayet@hossainconsulting.com",
     "MAIL_FROM": "Hossain Consulting <platform@hossainconsulting.com>",
     "CURRENCY": "aud"
   },
