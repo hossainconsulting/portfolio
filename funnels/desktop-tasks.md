@@ -2,6 +2,7 @@
 
 Saved 2026-10-15 at Hemayet's request, so they are not lost when working from a phone. Tick each one when done and note the date. None of these can be done by Claude: they need your accounts.
 
+- [x] **Email aliases tested:** done 2026-10-15, reported by Hemayet. Both `hemayet@hossainconsulting.com` and `hemayet@hemayethossain.com` were tested. This was not independently verified by Claude. Sending from the aliases (the next item) and the sending-domain DNS records are still to do.
 - [ ] **Gmail "Send mail as":** add `hemayet@hossainconsulting.com` and `hemayet@hemayethossain.com` (Settings > See all settings > Accounts and Import). Test each with a message to another account.
 - [ ] **Choose the email platform** (Brevo suggested) and add `hossainconsulting.com` as a sender domain.
 - [ ] **Cloudflare DNS for `hossainconsulting.com`:** add the platform's DKIM and verification records (CNAMEs set to "DNS only"), merge the platform into the single existing SPF record, add `_dmarc` with `p=none`. If you use Google Workspace, also turn on Google's DKIM.
