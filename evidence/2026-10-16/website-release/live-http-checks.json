@@ -1,0 +1,155 @@
+[
+  {
+    "url": "https://hemayethossain.com/",
+    "checked_utc": "2026-10-16T11:43:09.771572+00:00",
+    "status": 200,
+    "final_url": "https://hemayethossain.com/",
+    "sha256": "29fd352536f2b4789ca1f6ee49767a80c4e84cc224e9cb291c8272d83c6819cc",
+    "assertions": "passed"
+  },
+  {
+    "url": "https://hemayethossain.com/about",
+    "checked_utc": "2026-10-16T11:43:10.161088+00:00",
+    "status": 200,
+    "final_url": "https://hemayethossain.com/about",
+    "sha256": "b5cdaa4bee4a07fcc90ec5aff3e235e1543e8de61212bbd8eb733404b5c6ddde",
+    "assertions": "passed"
+  },
+  {
+    "url": "https://hemayethossain.com/projects",
+    "checked_utc": "2026-10-16T11:43:10.527218+00:00",
+    "status": 200,
+    "final_url": "https://hemayethossain.com/projects",
+    "sha256": "b89700a13437d10dfe17b3b6aa24a77ff8320644e0fe6e9671bc55268aa9b566",
+    "assertions": "passed"
+  },
+  {
+    "url": "https://hemayethossain.com/resume",
+    "checked_utc": "2026-10-16T11:43:10.887730+00:00",
+    "status": 200,
+    "final_url": "https://hemayethossain.com/resume",
+    "sha256": "f44bdce7863c57b49e10d451585160d4f246d46008db8372e041251cb55efaea",
+    "assertions": "passed"
+  },
+  {
+    "url": "https://hemayethossain.com/privacy",
+    "checked_utc": "2026-10-16T11:43:11.223488+00:00",
+    "status": 200,
+    "final_url": "https://hemayethossain.com/privacy",
+    "sha256": "796726e261e488f5da5c471798bc9500d75384412a34326bd096693fffa0d701",
+    "assertions": "passed"
+  },
+  {
+    "url": "https://hemayethossain.com/legal",
+    "checked_utc": "2026-10-16T11:43:11.549553+00:00",
+    "status": 200,
+    "final_url": "https://hemayethossain.com/legal",
+    "sha256": "b949fad510ca2b8a7d9ba5c6e53e67e18c957a77c234e1e27222b28113894689",
+    "assertions": "passed"
+  },
+  {
+    "url": "https://hemayethossain.com/blog/forward-notes/salesforce-to-forward-deployed-engineer",
+    "checked_utc": "2026-10-16T11:43:11.892532+00:00",
+    "status": 200,
+    "final_url": "https://hemayethossain.com/blog/forward-notes/salesforce-to-forward-deployed-engineer",
+    "sha256": "5d5c42661017d2c5a43e25a2f3fd2cbb57a27c2cd8fc6f253454f873d05cd831",
+    "assertions": "passed"
+  },
+  {
+    "url": "https://hossainconsulting.com/",
+    "checked_utc": "2026-10-16T11:43:12.234698+00:00",
+    "status": 200,
+    "final_url": "https://hossainconsulting.com/",
+    "sha256": "a0bd7ba668c85142d2ef87698c724215f8fbd64a363a5697285e32134905d371",
+    "assertions": "passed"
+  },
+  {
+    "url": "https://hossainconsulting.com/services",
+    "checked_utc": "2026-10-16T11:43:12.587632+00:00",
+    "status": 200,
+    "final_url": "https://hossainconsulting.com/services",
+    "sha256": "4005c6756fb29ad049f4367bf20fc4013d8d85b0aa0e45a35d3d2089bc408ef2",
+    "assertions": "passed"
+  },
+  {
+    "url": "https://hossainconsulting.com/privacy",
+    "checked_utc": "2026-10-16T11:43:12.926636+00:00",
+    "status": 200,
+    "final_url": "https://hossainconsulting.com/privacy",
+    "sha256": "aab18281010268c8d9e978f3b68e78c6b93fe950752a6ba3250cb011bb35afef",
+    "assertions": "passed"
+  },
+  {
+    "url": "https://hossainconsulting.com/legal",
+    "checked_utc": "2026-10-16T11:43:13.305830+00:00",
+    "status": 200,
+    "final_url": "https://hossainconsulting.com/legal",
+    "sha256": "815965d47c5a3e264db09a7e7f066120dea8baadf053876418ba88080830e7bd",
+    "assertions": "passed"
+  },
+  {
+    "url": "https://hossainconsulting.com/blog/the-automation-brief/every-enquiry-gets-a-reply",
+    "checked_utc": "2026-10-16T11:43:13.664856+00:00",
+    "status": 200,
+    "final_url": "https://hossainconsulting.com/blog/the-automation-brief/every-enquiry-gets-a-reply",
+    "sha256": "21017950e2b5018b617ce50afc45486f4095e0c76522638e48dc5b782774a051",
+    "assertions": "passed"
+  },
+  {
+    "url": "https://portfolio.hossainconsulting.com/",
+    "checked_utc": "2026-10-16T11:43:13.873147+00:00",
+    "status": 200,
+    "final_url": "https://portfolio.hossainconsulting.com/",
+    "sha256": "0522ef1978673a9ecb43d71458f0667be0da89196570b8e2e5822ffe96304fff",
+    "approved_text_links_metadata_match": true,
+    "edge_note": "Cloudflare may inject infrastructure scripts; HTML byte identity is not asserted.",
+    "assertions": "passed"
+  },
+  {
+    "url": "https://portfolio.hossainconsulting.com/links",
+    "checked_utc": "2026-10-16T11:43:14.562828+00:00",
+    "status": 200,
+    "final_url": "https://portfolio.hossainconsulting.com/links",
+    "sha256": "855b8201dce6637a913e052cdf8aaf3c1d179799a488e7763e42f408fd4ff159",
+    "approved_text_links_metadata_match": true,
+    "edge_note": "Cloudflare may inject infrastructure scripts; HTML byte identity is not asserted.",
+    "assertions": "passed"
+  },
+  {
+    "url": "https://portfolio.hossainconsulting.com/privacy",
+    "checked_utc": "2026-10-16T11:43:14.643110+00:00",
+    "status": 200,
+    "final_url": "https://portfolio.hossainconsulting.com/privacy",
+    "sha256": "007c43a3b04b13818b15172810345ae864b82585b48b8197f7aef92d9859bbb0",
+    "approved_text_links_metadata_match": true,
+    "edge_note": "Cloudflare may inject infrastructure scripts; HTML byte identity is not asserted.",
+    "assertions": "passed"
+  },
+  {
+    "url": "https://portfolio.hossainconsulting.com/terms",
+    "checked_utc": "2026-10-16T11:43:14.715892+00:00",
+    "status": 200,
+    "final_url": "https://portfolio.hossainconsulting.com/terms",
+    "sha256": "0ba3525cad56c41e41250a4079a4ace28105199da5799c5fdd40519f7a08ad53",
+    "approved_text_links_metadata_match": true,
+    "edge_note": "Cloudflare may inject infrastructure scripts; HTML byte identity is not asserted.",
+    "assertions": "passed"
+  },
+  {
+    "url": "https://portfolio.hossainconsulting.com/og.png",
+    "checked_utc": "2026-10-16T11:43:15.103784+00:00",
+    "status": 200,
+    "final_url": "https://portfolio.hossainconsulting.com/og.png",
+    "sha256": "082d15456bd6f1c1943c7d41cfd48ae32564b41e26f65bbb748ee6ab9182f2b9",
+    "approved_asset_match": true,
+    "assertions": "passed"
+  },
+  {
+    "url": "https://www.hossainconsulting.com/",
+    "checked_utc": "2026-10-16T11:43:15.443691+00:00",
+    "status": 200,
+    "final_url": "https://www.hossainconsulting.com/",
+    "sha256": "a0bd7ba668c85142d2ef87698c724215f8fbd64a363a5697285e32134905d371",
+    "assertions": "passed"
+  }
+]
