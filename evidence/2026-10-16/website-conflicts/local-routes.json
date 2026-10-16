@@ -1,0 +1,34 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "bytes": 38573,
+    "candidate": true,
+    "sunrise_anchor": true
+  },
+  {
+    "path": "/links",
+    "status": 200,
+    "bytes": 10231,
+    "candidate": true,
+    "sunrise_anchor": false
+  },
+  {
+    "path": "/privacy",
+    "status": 200,
+    "bytes": 4916,
+    "candidate": false,
+    "sunrise_anchor": false
+  },
+  {
+    "path": "/terms",
+    "status": 200,
+    "bytes": 4419,
+    "candidate": false,
+    "sunrise_anchor": false
+  },
+  {
+    "path": "/missing-review-route",
+    "error": "HTTP Error 404: Not Found"
+  }
+]

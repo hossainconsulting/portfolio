@@ -1,0 +1,7 @@
+{
+  "index.html": "HTML parsed; no inaccessible SunRise anchors or current-role headline",
+  "structured_data": "JSON parsed; no unsupported jobTitle",
+  "links.html": "HTML parsed; no inaccessible SunRise anchors or current-role headline",
+  "terms.html": "HTML parsed; no inaccessible SunRise anchors or current-role headline",
+  "routes": "portfolio root/SunRise anchor, links, privacy and terms: 200; sunrise id present"
+}
