@@ -38,3 +38,11 @@ Codex (Chief of Engineer) work under Hemayet's direction.
 - Open follow-ups for Codex are in `evidence/2026-10-07/connect-and-handoff/README.md` in the
   private `vm-lab` repository.
 <!-- /mission-and-lab-pointer -->
+
+## Repository delivery skill
+
+When Hemayet requests "Commit, Push and PR", follow
+[the commit-push-pr skill](.claude/skills/commit-push-pr/SKILL.md).
+It covers error review, fixes, validation, dated evidence, remote verification
+and creating or updating the task PR. This is repository-local guidance for
+agents that read this file; it does not install a global skill.
