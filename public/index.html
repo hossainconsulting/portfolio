@@ -426,6 +426,75 @@
   </p>
 </section>
 
+
+<section id="fde-roadmap" aria-labelledby="fde-heading">
+  <h2 id="fde-heading">Building toward Forward Deployed Engineering</h2>
+  <p class="tally"><strong>Longer-term direction: Forward Deployed Engineer (FDE).</strong> The learning plan below connects ten domains to customer-facing engineering. It is planned scope, not a claim of proficiency or completed delivery.</p>
+  <p>My immediate job search remains focused on Salesforce Administrator and CRM support opportunities. Alongside that foundation, I am developing the ability to take a customer problem through discovery, prototype, integration, deployment and handover.</p>
+
+  <div class="grid">
+    <div class="tile">
+      <span class="lbl">Linux-first foundation</span>
+      <p>Python, SQL, Git, HTTP and JSON; Linux administration with Bash, SSH and systemd; YAML configuration and Ansible automation. PowerShell on Linux is a secondary scripting skill. Windows administration is outside this learning plan.</p>
+    </div>
+    <div class="tile">
+      <span class="lbl">Practice environment</span>
+      <p>The <a href="#home-lab">six Linux VMs below</a> provide the existing lab structure. Editor choice is flexible; VS Code and Vim are suitable options. Listed tools are learning priorities, not a verified inventory of installed software.</p>
+    </div>
+  </div>
+
+  <h3>Skills, tools and project practice across ten domains</h3>
+  <div style="overflow-x:auto">
+    <table>
+      <caption>Planned FDE learning map — existing project statuses remain authoritative.</caption>
+      <thead><tr><th scope="col">Domain</th><th scope="col">Skills to develop</th><th scope="col">Tools to practise</th><th scope="col">Proposed project contribution</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Software engineering</th><td>Python, API design, SQL, debugging and tests</td><td>FastAPI, Pydantic, PostgreSQL, pytest, Git</td><td>Build a validated customer-operations API with role-based access.</td></tr>
+        <tr><th scope="row">Infrastructure engineering</th><td>Networking, cloud foundations and reproducible provisioning</td><td>Docker, one cloud platform, Terraform or OpenTofu</td><td>Provision the application environment from version-controlled configuration.</td></tr>
+        <tr><th scope="row">AI engineering</th><td>Structured outputs, retrieval, tool calling and evaluation</td><td>Model APIs, PostgreSQL with pgvector, Python evaluation scripts</td><td>Extend Home Services AI with cited answers and quality, latency and cost measurements.</td></tr>
+        <tr><th scope="row">Consulting</th><td>Discovery, requirements, scope, tradeoffs and customer handover</td><td>Documents, spreadsheets, diagrams.net</td><td>Produce a discovery brief, acceptance criteria, demo and implementation proposal.</td></tr>
+        <tr><th scope="row">Web development</th><td>HTML, CSS, JavaScript, accessibility and API integration</td><td>Browser developer tools, TypeScript and React after fundamentals</td><td>Build a responsive interface for enquiries and support requests.</td></tr>
+        <tr><th scope="row">Server engineering</th><td>Linux services, SSH, permissions, logs, backups and recovery</td><td>Bash, systemd, YAML, Ansible, Nginx</td><td>Configure a Linux application server and demonstrate a restore onto a fresh VM.</td></tr>
+        <tr><th scope="row">Ethical hacking</th><td>Authorised assessment, access-control testing and remediation</td><td>OWASP guidance, ZAP, Nmap in the isolated lab</td><td>Assess the portfolio application, document findings, fix issues and retest.</td></tr>
+        <tr><th scope="row">CRM administration</th><td>Data models, data quality, permissions, flows and reporting</td><td>Salesforce, Salesforce CLI, Flow and REST APIs</td><td>Connect an application to a Salesforce simulation and verify record access and data mapping.</td></tr>
+        <tr><th scope="row">Workflow automation</th><td>Webhooks, authentication, retries, duplicate prevention and approvals</td><td>Python, n8n, Postman</td><td>Route enquiries into the CRM with failure alerts and a recovery procedure.</td></tr>
+        <tr><th scope="row">Digital marketing consulting</th><td>Customer journeys, lead qualification and funnel measurement</td><td>UTM conventions, spreadsheets, CRM dashboards; GA4 where appropriate</td><td>Use synthetic enquiry data to report qualified leads and follow-up performance.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Three connected portfolio projects</h3>
+  <p>Use fictional business scenarios and synthetic data. Build on the existing Salesforce simulations, Home Services AI and Ansible learning track; their current status labels remain unchanged.</p>
+  <div class="proj">
+    <div class="proj-hd"><h3>1. Customer operations application</h3><span class="status queued">Proposed</span></div>
+    <div class="cert">Python · FastAPI · PostgreSQL · web interface · Salesforce integration</div>
+    <p>Capture and manage enquiries or support requests through an accessible interface and validated API. Add authentication, record-level permissions and a sandbox CRM integration.</p>
+    <p><strong>Evidence to produce:</strong> discovery brief, architecture diagram, API documentation, meaningful tests and a demo showing allowed and denied access.</p>
+  </div>
+  <div class="proj">
+    <div class="proj-hd"><h3>2. AI-assisted enquiry and support workflow</h3><span class="status queued">Proposed extension</span></div>
+    <div class="cert">Home Services AI · retrieval · model evaluation · CRM automation</div>
+    <p>Extract structured enquiry details, route records and answer from approved documents with citations. Include human review before consequential actions, permission-aware retrieval, retry handling and duplicate-event protection.</p>
+    <p><strong>Evidence to produce:</strong> evaluation cases and results, failure scenarios, workflow diagram, recovery instructions and measured latency and model cost.</p>
+  </div>
+  <div class="proj">
+    <div class="proj-hd"><h3>3. Linux deployment and customer handover</h3><span class="status queued">Proposed</span></div>
+    <div class="cert">Bash · YAML · Ansible · Docker · CI · monitoring · recovery</div>
+    <p>Deploy the application on Linux using repeatable configuration. Add automated checks, service monitoring, backups and an authorised security assessment. Rebuild the environment and restore its data to verify the operating instructions.</p>
+    <p><strong>Evidence to produce:</strong> deployment configuration, actual rebuild and restore results, remediation and retest notes, operating-cost estimate, incident runbook and a customer handover guide.</p>
+  </div>
+
+  <h3>Learning and job-readiness milestones</h3>
+  <ol>
+    <li><strong>Foundation:</strong> Linux, Bash, Python, Git, SQL, networking and HTTP.</li>
+    <li><strong>Application delivery:</strong> APIs, database design, frontend basics, authentication and tests.</li>
+    <li><strong>Operations:</strong> YAML, Ansible, Docker, CI, one cloud platform, monitoring and tested recovery.</li>
+    <li><strong>Integrations and AI:</strong> CRM APIs, webhooks, workflow reliability, retrieval and evaluation.</li>
+    <li><strong>Customer delivery:</strong> practise discovery, scoping, demonstrations and documentation throughout; finish with acceptance checks, training and outcome measurement.</li>
+  </ol>
+  <p><strong>FDE portfolio goal:</strong> demonstrate a customer problem, an implemented solution, verified behaviour, deployment and a usable handover. Publish dated evidence as work is completed. Keep forecasts separate from measured outcomes and simulation work separate from paid experience.</p>
+</section>
+
 <section id="evidence">
   <h2>Where each skill is applied</h2>
   <p class="tally">Review the public evidence and dated status below. Private evidence is available for discussion on request. These examples do not establish current org state or a deployed service.</p>
