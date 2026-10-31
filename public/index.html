@@ -256,6 +256,17 @@
     .status { margin-left: 0; }
   }
 
+  /* --- Questions recruiters ask (static FAQ, no model at runtime) -------- */
+  .faq details { border-bottom: 1px solid var(--rule-2); padding: 2px 0; }
+  .faq details:first-of-type { border-top: 1px solid var(--rule-2); }
+  .faq summary {
+    cursor: pointer; padding: 12px 0; font-family: var(--struc); font-weight: 600;
+    font-size: .98rem; color: var(--ink); list-style-position: outside;
+  }
+  .faq summary:focus-visible { outline: 2px solid var(--key); outline-offset: 2px; }
+  .faq details p { font-size: .96rem; color: var(--ink-2); margin: 0 0 14px; }
+  .faq .src { font-family: var(--struc); font-size: .8rem; color: var(--ink-3); }
+
   /* --- CONCIERGE widget ------------------------------------------------- */
   #cx-panel[hidden] { display: none; }
   #cx-launcher {
@@ -423,10 +434,63 @@
   <p class="cta">
     <a href="mailto:hemayet@hemayethossain.com">hemayet@hemayethossain.com</a> ·
     <a href="https://www.linkedin.com/in/hemayethossain/">Personal LinkedIn</a> ·
-    Email is the contact fallback; the assistant source still requires live configuration and verification.
+    <a href="#ask">Questions recruiters ask</a>
   </p>
 </section>
 
+
+<section id="ask" class="faq" aria-labelledby="ask-heading">
+  <h2 id="ask-heading">Questions recruiters ask</h2>
+  <p>Straight answers, taken only from what this page shows. If your question isn't here, email me.</p>
+
+  <details>
+    <summary>Have you done paid Salesforce work?</summary>
+    <p>No. I'm looking for my first paid Salesforce or IT role. The projects on this page are self-directed simulations in my own orgs, with fictional companies, and I haven't completed a paid client engagement.</p>
+  </details>
+
+  <details>
+    <summary>Which Salesforce certifications do you hold?</summary>
+    <p>Four, all verified on Salesforce's public credential record: Platform Administrator (23 June 2026), Platform App Builder (21 July 2026), Platform Administrator II (10 August 2026) and Agentforce Specialist (18 August 2026). The projects named after other certification tracks are study targets, not credentials.</p>
+    <p class="src"><a href="#credentials">See the credentials section →</a></p>
+  </details>
+
+  <details>
+    <summary>What Salesforce work can I look at right now?</summary>
+    <p>The public <a href="https://github.com/hossainconsulting/salesforce-user-lifecycle-sop">User Lifecycle SOP</a>, and SunRise Solar Solutions, which is in progress. Its 7 September 2026 record covers duplicate-pair assessments, a partial Contact merge and interim custodianship of 666 Opportunities. SunRise evidence is private; email me for a walkthrough.</p>
+  </details>
+
+  <details>
+    <summary>Which projects are finished?</summary>
+    <p>None is marked complete. SunRise Solar Solutions is in progress. Meridian Field Services, TradeLink Group, Meridian Appliance Care, Coastline Retail Group, Ironbark Industrial Supply and Kurrajong Energy are queued. Home Services AI is at the planning and scaffold stage. Each repository's dated records separate finished work from planned scope.</p>
+  </details>
+
+  <details>
+    <summary>What have you built with Python?</summary>
+    <p>No finished Python project yet. Python is part of the Linux-first foundation in my forward deployed engineering learning plan, and the proposed customer operations application would use Python, FastAPI and PostgreSQL. That is planned scope, not a claim of proficiency.</p>
+    <p class="src"><a href="#fde-roadmap">See the learning plan →</a></p>
+  </details>
+
+  <details>
+    <summary>What about Agentforce and AI?</summary>
+    <p>I hold the Agentforce Specialist certification. I've written a <a href="/service-agent-patterns">service-agent pattern library</a>: about 25 patterns with risk tiers, as written analysis rather than an implementation. The Meridian Appliance Care Agentforce project is queued, and Home Services AI is planned.</p>
+  </details>
+
+  <details>
+    <summary>What's in your home lab?</summary>
+    <p>Six Linux virtual machines in VirtualBox on my laptop, one per skill area, reached over SSH with key-based login. salesforce-dev and paperclip-dev are active; agency-dev, rhce-dev, fde-dev and oscp-dev are set up. Much of the setup was done with AI-assisted tooling (Claude Code and Codex) under my direction. I'm studying toward RHCE and OSCP but hold neither certification. The Ansible track is planned.</p>
+    <p class="src"><a href="#home-lab">See the home lab →</a></p>
+  </details>
+
+  <details>
+    <summary>What roles are you open to?</summary>
+    <p>Salesforce Administrator and CRM support employment or suitable contract opportunities, including agency placements, based in Sydney. Forward deployed engineering is my longer-term direction. Business enquiries go through <a href="https://hossainconsulting.com">Hossain Consulting</a>, which is preparing to launch paid services.</p>
+  </details>
+
+  <details>
+    <summary>How do I reach you?</summary>
+    <p>Email <a href="mailto:hemayet@hemayethossain.com">hemayet@hemayethossain.com</a> or message me on <a href="https://www.linkedin.com/in/hemayethossain/">LinkedIn</a>. I'm happy to walk you through any project's records.</p>
+  </details>
+</section>
 
 <section id="fde-roadmap" aria-labelledby="fde-heading">
   <h2 id="fde-heading">Building toward Forward Deployed Engineering</h2>
@@ -856,7 +920,7 @@
   </div>
 </section>
 
-<section>
+<section id="credentials">
   <h2>Verified Salesforce credentials</h2>
   <p class="tally"><b>Four credentials verified</b> through Salesforce's public credential record. The projects above provide separate implementation evidence.</p>
   <ul class="certs">
@@ -886,27 +950,6 @@
 </footer>
 
 </div>
-
-<button id="cx-launcher" type="button" hidden aria-expanded="false" aria-controls="cx-panel">
-  Ask about working with Hemayet
-</button>
-
-<div id="cx-panel" hidden role="dialog" aria-modal="false" aria-label="Chat with Hemayet's assistant">
-  <div class="cx-head">
-    <span class="t">Hemayet's assistant</span>
-    <span class="s">Replies within one business day</span>
-    <button id="cx-close" type="button" aria-label="Close chat">&times;</button>
-  </div>
-  <div id="cx-log" role="log" aria-live="polite"></div>
-  <form id="cx-form" autocomplete="off">
-    <label for="cx-input" class="visually-hidden">Your message</label>
-    <input id="cx-input" type="text" placeholder="Type your message" maxlength="4000">
-    <button id="cx-send" type="submit">Send</button>
-  </form>
-  <p class="cx-note">An AI assistant. Anything you share goes to Hemayet by email so he can reply, and nowhere else.</p>
-</div>
-
-<script src="/widget.js" defer></script>
 
 </body>
 </html>
