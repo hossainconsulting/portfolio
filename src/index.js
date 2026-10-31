@@ -13,9 +13,15 @@ import Anthropic, {
   AuthenticationError,
   RateLimitError,
 } from "@anthropic-ai/sdk";
-import { systemPrompt } from "./system-prompt.js";
+import { knowledgeBlock, systemPrompt } from "./system-prompt.js";
+import { KNOWLEDGE } from "./knowledge.js";
 
-const MODEL = "claude-opus-5";
+const MODEL = "claude-opus-5-5";
+
+// If a safety classifier declines a turn, the API re-runs it on Anthropic's recommended
+// fallback model instead of returning the refusal. The refusal branch below still runs
+// if the fallback declines too.
+const FALLBACK_BETA = "server-side-fallback-2026-07-01";
 
 // Reply length. Adaptive thinking is on by default for this model and its tokens come
 // out of the same budget, so this is well above what a three-sentence answer needs.
@@ -27,10 +33,11 @@ const MAX_MESSAGES = 40;
 const MAX_MESSAGE_CHARS = 4_000;
 const MAX_TOTAL_CHARS = 24_000;
 
-// One tool round-trip is all the flow needs: capture_lead, then the closing line.
+// Q&A turns need no tools; a hand-off needs one round-trip: capture_lead, then the
+// closing line.
 const MAX_ITERATIONS = 4;
 
-const DEFAULT_EMAIL = "hemayet@hossainconsulting.com";
+const DEFAULT_EMAIL = "hemayet@hemayethossain.com";
 
 /** @type {Anthropic.Tool} */
 const CAPTURE_LEAD = {
@@ -171,20 +178,26 @@ async function handleChat(request, env, ctx) {
     // Unset in production, where the SDK's default is what you want.
     ...(env.ANTHROPIC_BASE_URL ? { baseURL: env.ANTHROPIC_BASE_URL } : {}),
   });
-  const system = systemPrompt({
-    email: env.CONTACT_EMAIL || DEFAULT_EMAIL,
-    phone: env.CONTACT_PHONE,
-  });
+  // Two system blocks: the instructions, then the portfolio text the assistant answers
+  // from. Both are identical on every request, so the cache breakpoint on the second
+  // block lets repeat turns read ~10k tokens of portfolio from cache instead of paying
+  // for them again. Nothing per-request may go into these blocks.
+  const system = [
+    { type: "text", text: systemPrompt({ email: env.CONTACT_EMAIL || DEFAULT_EMAIL, phone: env.CONTACT_PHONE }) },
+    { type: "text", text: knowledgeBlock(KNOWLEDGE), cache_control: { type: "ephemeral" } },
+  ];
 
   let captured = false;
 
   try {
     for (let i = 0; i < MAX_ITERATIONS; i++) {
-      const response = await client.messages.create({
+      const response = await client.beta.messages.create({
         model: MODEL,
         max_tokens: MAX_TOKENS,
-        // Chat, not analysis. Low effort keeps latency and spend down without
-        // turning thinking off — see README for why thinking stays on.
+        betas: [FALLBACK_BETA],
+        fallbacks: "default",
+        // Chat, not analysis. Low effort keeps latency and spend down; thinking stays
+        // on (this model does not allow turning it off).
         output_config: { effort: "low" },
         system,
         tools: [CAPTURE_LEAD],

@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "check": "node --check src/index.js && node --check public/widget.js && node scripts/check-prompt-sync.mjs"
+    "check": "node --check src/index.js && node --check public/widget.js && node scripts/build-knowledge.mjs --check && node scripts/check-prompt-sync.mjs",
+    "knowledge": "node scripts/build-knowledge.mjs",
+    "test": "node --test test/*.test.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.70.0"
