@@ -16,8 +16,9 @@
   if (!launcher || !panel || !log || !form || !input) return;
 
   var GREETING =
-    "Hello. Are you looking to hire Hemayet into a role, or explore consulting help " +
-    "with Salesforce or automation?";
+    "Hello. Ask me anything about Hemayet's work: his Salesforce projects, his " +
+    "certifications, his stack or his home lab. I answer only from what is on this " +
+    "portfolio, and I can pass a message to him.";
 
   var messages = []; // [{role, content}] — the API history, greeting excluded.
   var busy = false;
@@ -106,7 +107,7 @@
         var reply =
           (out.data && out.data.reply) ||
           "Sorry — something went wrong at my end. Hemayet is at " +
-            "hemayet@hossainconsulting.com and will reply personally.";
+            "hemayet@hemayethossain.com and will reply personally.";
         thinking.remove();
         addBubble("bot", reply);
         // Only a real assistant turn goes into the history. An error reply is not one,
@@ -121,7 +122,7 @@
         thinking.remove();
         addBubble(
           "bot",
-          "I couldn't reach the server. Hemayet is at hemayet@hossainconsulting.com " +
+          "I couldn't reach the server. Hemayet is at hemayet@hemayethossain.com " +
             "and will reply personally."
         );
         messages.pop();

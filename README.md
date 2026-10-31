@@ -66,6 +66,12 @@ This branch adds `public/widget.js`, widget markup in `public/index.html`, and a
 
 The browser sends conversation history to the Worker. The Worker checks message roles, content types, message and conversation size, and turn count before calling Anthropic. The API key is supplied as a Worker secret, rather than embedded in browser code. The `capture_lead` tool sends the structured lead and transcript to `LEAD_WEBHOOK_URL`; delivery failures are reported to the assistant for an email fallback. Lead details are also logged by the Worker.
 
+### Portfolio Q&A (added 31 October 2026, draft)
+
+The assistant now answers visitors' questions about Hemayet's work, such as "what has he built with Python?", and still passes a message on through `capture_lead` when asked. It answers only from `src/knowledge.js`, which `scripts/build-knowledge.mjs` generates from `public/index.html`, `public/service-agent-patterns.html` and `public/writing/claude-with-microsoft-365.html`. Run `npm run knowledge` after editing any of those pages; `npm run check` fails while the file is stale. The portfolio text is sent as a second, cached system block.
+
+`npm test` runs offline Worker checks against a local mock of the Anthropic API. Answer quality from the real model is not measured yet: [test/eval-questions.md](test/eval-questions.md) lists the questions and pass criteria for a live run.
+
 ### Configuration and launch requirements
 
 - `ANTHROPIC_API_KEY`: Worker secret required for model calls.

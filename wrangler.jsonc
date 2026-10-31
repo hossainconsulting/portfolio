@@ -22,7 +22,8 @@
   "main": "src/index.js",
 
   "vars": {
-    "CONTACT_EMAIL": "hemayet@hossainconsulting.com"
+    // Matches the recruitment address on public/index.html.
+    "CONTACT_EMAIL": "hemayet@hemayethossain.com"
   },
 
   "assets": {
