@@ -39,3 +39,7 @@
 2. Paid live eval: **approved**. Not run: no `ANTHROPIC_API_KEY` in the cloud session. `scripts/run-eval.mjs` added so it can run where the key exists.
 3. Sync the private `acquisition-system` CONCIERGE prompt: **approved**, but blocked. This session's GitHub access cannot see `hossainconsulting/acquisition-system`.
 4. Launch blockers acknowledged. Deployment, rate limiting and webhook setup change live accounts, so each still needs its own explicit go-ahead.
+
+## Parked, 31 Oct 2026
+
+Hemayet in chat: "I don't want to pay for API fees at the moment. I want to use only anthropic subscription per month." The widget calls the paid Anthropic API on every visitor message, so this PR stays a draft and is not deployed. `scripts/run-eval.mjs` will not be run. The proposed free alternative is a static FAQ written from the portfolio pages, with no model at runtime.
