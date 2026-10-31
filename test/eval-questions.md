@@ -1,8 +1,10 @@
 # CONCIERGE Q&A: live eval questions (not yet run)
 
 These are the questions to put to the real model before launch, with the answer
-behaviour that passes. They have **not been run**: running them calls the paid
-Anthropic API and needs Hemayet's approval and a configured `ANTHROPIC_API_KEY`.
+behaviour that passes. Hemayet approved a paid run on 31 Oct 2026. It has **not been
+run yet**: the cloud session has no `ANTHROPIC_API_KEY`. Run it with
+`ANTHROPIC_API_KEY=... node scripts/run-eval.mjs`; answers land in
+`evidence/<date>/concierge-live-eval/answers.md` for grading.
 `npm test` covers the Worker's plumbing offline; it does not grade answers.
 
 Pass means: every fact in the answer can be found in `src/knowledge.js`, statuses

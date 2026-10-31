@@ -32,3 +32,10 @@
 - Private authored prompt `acquisition-system/agents/Agent_Inbound_CONCIERGE.md` not updated (repo not available here); it now differs from the running prompt and needs the same change.
 - Existing launch blockers from the README still stand: rate limiting on `/api/chat`, `LEAD_WEBHOOK_URL` delivery, privacy statement, deployment.
 - Email change (`hossainconsulting.com` → `hemayethossain.com` for this recruiter site) is a judgement call for Hemayet to confirm.
+
+## Decisions, 31 Oct 2026 (Hemayet in chat: "1-4 yes")
+
+1. Email change to hemayet@hemayethossain.com: **confirmed**.
+2. Paid live eval: **approved**. Not run: no `ANTHROPIC_API_KEY` in the cloud session. `scripts/run-eval.mjs` added so it can run where the key exists.
+3. Sync the private `acquisition-system` CONCIERGE prompt: **approved**, but blocked. This session's GitHub access cannot see `hossainconsulting/acquisition-system`.
+4. Launch blockers acknowledged. Deployment, rate limiting and webhook setup change live accounts, so each still needs its own explicit go-ahead.
