@@ -1,0 +1,7 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> check
+> node --check src/index.js && node --check public/widget.js && node scripts/check-prompt-sync.mjs
+
+prompt-sync: skipped — no spec at ../acquisition-system/agents/Agent_Inbound_CONCIERGE.md
+prompt-sync: check the private acquisition-system repo out beside this one to enable it.
