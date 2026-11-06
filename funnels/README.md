@@ -1,6 +1,17 @@
 # Inbound funnel: checklist, booking, email follow-up
 
-Built 2026-10-14. Everything here is a draft for Hemayet to approve. Nothing is deployed.
+Built 2026-10-14. Correction recorded 2026-11-06: `/checklist` was observed publicly accessible with signup copy, so the previous blanket statement that nothing was deployed was incorrect. This branch pauses signup; it is not a deployment record. Email sequences remain drafts, and provider delivery and suppression have not been verified.
+
+## Signup containment in this branch
+
+- `/checklist` and `/thanks` offer the existing PDF directly without email collection.
+- `POST /api/optin` returns 503 without reading, logging or forwarding the body, even if `LEAD_WEBHOOK_URL` is configured. Other methods return 405.
+- `public/funnel.js` replaces an older form with a download notice without submitting data. An older cached client can still send to the server, but the paused endpoint rejects it.
+- Chat retains its existing shared webhook configuration. Do not remove that secret to pause signup.
+- Reopening requires a separately approved code change, named provider/data locations, appropriate consent records, working delivery, verified unsubscribe/suppression, updated notices and an approved release. Setting a secret alone cannot reopen signup.
+- No live form submission or production configuration change was made for this repair.
+
+The diagram and email plans below describe the proposed future flow, not an active verified subscription service.
 
 ## The funnel
 
@@ -26,12 +37,12 @@ Two entry doors: cold visitors take the checklist (low commitment), warm visitor
 
 | Path | File | Purpose |
 |---|---|---|
-| `/checklist` | `public/checklist.html` | Landing page and opt-in with consent box |
-| `/thanks` | `public/thanks.html`, `thanks.js` | Confirmation, PDF link, book CTA (noindex) |
+| `/checklist` | `public/checklist.html` | Landing page and direct download; signup paused |
+| `/thanks` | `public/thanks.html` | PDF link and book CTA, no email confirmation (noindex) |
 | `/book` | `public/book.html` | Booking page linking to the existing active Calendly event |
 | `/privacy`, `/terms` | `public/privacy.html`, `terms.html` | Privacy Policy and Terms/Acceptance (email consent, acceptable use) |
 | PDF | `public/downloads/enquiry-leak-checklist.pdf` (source in `funnels/source/`) | The lead magnet, 2 pages |
-| API | `src/index.js` `handleOptin` | Validates, honeypot, consent required, forwards to webhook |
+| API | `src/index.js` `handleOptin` | Paused: rejects before reading or forwarding contact details |
 | Emails | `funnels/emails/01..03` | 3 sequences, copy ready to paste |
 | `/audit-score` | `public/audit-score.html`, `audit-score.js` | 2-minute self-scoring quiz across six areas. Runs in the browser, collects nothing |
 | Policy | `funnels/client-tools-and-payments-policy.md` | Clients own and pay for all third-party tools; they pay Hossain Consulting only its own fees |
@@ -56,11 +67,11 @@ Not changed, because they belong to the existing portfolio hub and chat widget: 
 
 ## You must do before this goes live
 
-1. **Pick the email platform** (see options below) and create a webhook or automation that receives the `optin` JSON, adds the contact with a "consented" tag and starts Sequence 1. Then `npx wrangler secret put LEAD_WEBHOOK_URL`. Until it is set, the form shows an error and tells people to email you. It never pretends to subscribe them.
+1. **Pick the email platform** (see options below) and create a webhook or automation that receives the `optin` JSON, adds the contact with a "consented" tag and starts Sequence 1. Then `npx wrangler secret put LEAD_WEBHOOK_URL`. This is a future launch step requiring approval. The paused endpoint does not forward to this webhook, even when it is set. Preserve the existing chat configuration.
 2. **Confirm the delivery promises.** Only keep any reply-time promise you can meet. Remove the snapshot promise from Calendly (see above).
 3. **Have the Privacy Policy and Terms reviewed** by a lawyer or a reliable template service. They are plain-language drafts written for Australian law (Privacy Act, Spam Act, Australian Consumer Law). They are not legal advice.
-4. **Name the email provider and its data location** in the Privacy Policy once chosen (it currently says "an email delivery provider").
-5. **Rate limiting.** `/api/optin` caps payload size and uses a honeypot, but has no per-IP limit. Add a Cloudflare rate-limiting rule on `/api/optin` before paid traffic.
+4. **Name the email provider and its data location** in the Privacy Policy once chosen (this branch explicitly states that a provider has not been identified or verified).
+5. **Rate limiting.** The paused `/api/optin` does not read request bodies. Before reopening, implement bounded body reading and suitable abuse controls. Add a Cloudflare rate-limiting rule on `/api/optin` before paid traffic.
 6. **Deploy** manually with `npx wrangler deploy` after review (repository policy). Then verify: submit a test with your own address, check the webhook record, check the email arrives, check unsubscribe works.
 7. **Turn on Calendly workflows** for Sequence 2 and add the call-notes question "business owner or recruiter".
 8. **Postal or contact details.** Spam Act needs accurate sender identity. The emails use name, business, Sydney and your email. Add your ABN line if you prefer.

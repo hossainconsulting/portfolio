@@ -1,36 +1,13 @@
-// Opt-in form handler for /checklist. Posts to /api/optin on this origin.
+// Compatibility guard for an older cached checklist page. No data is read or sent.
 (function () {
   var form = document.getElementById("optin");
   if (!form) return;
-  var msg = document.getElementById("form-msg");
-  var btn = form.querySelector("button[type=submit]");
-  var p = new URLSearchParams(location.search), utm = {};
-  ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].forEach(function (k) { if (p.get(k)) utm[k] = p.get(k).slice(0, 100); });
-  try { if (Object.keys(utm).length) sessionStorage.setItem("utm", JSON.stringify(utm)); else utm = JSON.parse(sessionStorage.getItem("utm") || "{}"); } catch (e) {}
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    msg.className = ""; msg.textContent = "";
-    var d = new FormData(form);
-    if (!d.get("consent")) { msg.className = "err"; msg.textContent = "Please tick the box so I know I can email you."; return; }
-    btn.disabled = true; btn.textContent = "Sending...";
-    fetch("/api/optin", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        name: d.get("name"), email: d.get("email"), business: d.get("business"), trade: d.get("trade"),
-        consent: true, consent_version: form.dataset.consent, website: d.get("website"),
-        page: location.pathname, utm: utm
-      })
-    }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); })
-      .then(function (r) {
-        if (r.ok) { location.href = "/thanks"; return; }
-        throw new Error(r.j.error || "failed");
-      })
-      .catch(function (err) {
-        btn.disabled = false; btn.textContent = form.dataset.cta;
-        msg.className = "err";
-        msg.textContent = "That did not go through (" + err.message + "). Email hemayet@hossainconsulting.com and I will send it by hand.";
-      });
-  });
+  form.addEventListener("submit", function (event) { event.preventDefault(); });
+  var notice = document.createElement("p");
+  notice.textContent = "Email signup is paused. ";
+  var download = document.createElement("a");
+  download.href = "/downloads/enquiry-leak-checklist.pdf";
+  download.textContent = "Download the checklist without signing up (PDF).";
+  notice.appendChild(download);
+  form.replaceWith(notice);
 })();
