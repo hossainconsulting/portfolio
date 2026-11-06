@@ -82,3 +82,28 @@ obtain Hemayet's written approval for merge/deployment. Before reopening signup:
 identify provider and data locations, implement separate marketing consent,
 verify delivery and end-to-end unsubscribe/suppression, review abuse controls and
 update notices. Do not alter the existing shared chat secret merely to pause signup.
+
+
+## Follow-up privacy copy review, 6 November 2026
+
+The coordinating review identified a surviving contradiction: the privacy notice
+said analytics would be added later and campaign tags were retained in session
+storage, despite the existing GA4/GTM loader and newly paused form script.
+Inspected `public/site-tracking.js`: it loads GA4 and GTM only on the portfolio
+hostname; configures query/fragment-free page_location, origin-only referrer, and
+false Google Signals / advertising personalisation flags. It does not read forms.
+The remotely managed GTM container itself was not inspected, so the notice now
+explicitly limits those statements to the source loader rather than guaranteeing
+all provider/tag behaviour. Removed the inaccurate future-analytics, session-storage
+and collection-only-from-user statements. Tracking code was not changed.
+
+Clarified sole-trader identity using the parent's same-day ABN Lookup verification:
+https://abr.business.gov.au/ABN/View?abn=23732235722 (Hemayet Hossain trading as Hossain
+Consulting, individual/sole trader, GST registered). Chat's Anthropic conversation
+processing, possible lead/transcript webhook handoff and Worker logging are now
+explicit; the unknown webhook recipient remains a verification/disclosure gap,
+not an invented provider. No chat behaviour or integration was changed.
+
+Added a copy/source regression test. Final `npm test`: nine passed, zero failed;
+`npm run check` exit 0 with the same private prompt-sync skip; `node --check
+public/funnel.js` and `git diff --check` exit 0. Logs replaced with this final run.

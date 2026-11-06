@@ -3,19 +3,20 @@ npm warn Unknown env config "http-proxy". This will stop working in the next maj
 > test
 > node --test tests/*.test.mjs
 
-✔ paused signup never reads or forwards a body (no config) (6.813526ms)
-✔ paused signup never reads or forwards a body (LEAD_WEBHOOK_URL) (1.55775ms)
-✔ paused signup never reads or forwards a body (LEAD_WEBHOOK_URL,ANTHROPIC_API_KEY) (1.02727ms)
-✔ non-POST signup requests reject without reading the body (0.654517ms)
-✔ chat still delivers a captured lead to its configured webhook (mock only) (2.620054ms)
-✔ static assets still use the existing binding (0.302787ms)
-✔ checklist and thanks expose a real PDF and do not promise signup/delivery (7.416596ms)
-✔ legacy form guard replaces form without collecting or transmitting data (2.543458ms)
-ℹ tests 8
+✔ paused signup never reads or forwards a body (no config) (6.017077ms)
+✔ paused signup never reads or forwards a body (LEAD_WEBHOOK_URL) (1.261561ms)
+✔ paused signup never reads or forwards a body (LEAD_WEBHOOK_URL,ANTHROPIC_API_KEY) (1.172707ms)
+✔ non-POST signup requests reject without reading the body (0.658121ms)
+✔ chat still delivers a captured lead to its configured webhook (mock only) (2.614079ms)
+✔ static assets still use the existing binding (0.27939ms)
+✔ checklist and thanks expose a real PDF and do not promise signup/delivery (5.774611ms)
+✔ legacy form guard replaces form without collecting or transmitting data (2.85039ms)
+✔ privacy describes current analytics and distinguishes unverified handoff (1.432128ms)
+ℹ tests 9
 ℹ suites 0
-ℹ pass 8
+ℹ pass 9
 ℹ fail 0
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 137.523402
+ℹ duration_ms 132.087897

@@ -72,3 +72,20 @@ test('legacy form guard replaces form without collecting or transmitting data', 
   assert.equal(replaced.child.href, '/downloads/enquiry-leak-checklist.pdf');
   vm.runInNewContext(script, { document: { getElementById: () => null } });
 });
+
+
+test('privacy describes current analytics and distinguishes unverified handoff', async () => {
+  const privacy = await readFile(new URL('../public/privacy.html', import.meta.url), 'utf8');
+  const tracking = await readFile(new URL('../public/site-tracking.js', import.meta.url), 'utf8');
+  const funnel = await readFile(new URL('../public/funnel.js', import.meta.url), 'utf8');
+  assert.doesNotMatch(privacy, /If I add analytics|collect only what you give|Campaign tags from the link are held|sets no advertising cookies/);
+  assert.match(privacy, /loads Google Analytics 4 and Google Tag Manager/);
+  assert.match(privacy, /individual\/sole trader trading as Hossain Consulting/);
+  assert.match(privacy, /sends your conversation to Anthropic/);
+  assert.match(privacy, /webhook recipient and its data handling still need to be verified/);
+  assert.match(privacy, /remotely managed Google Tag Manager container/);
+  assert.match(tracking, /page_location: location.origin \+ location.pathname/);
+  assert.match(tracking, /allow_google_signals: false/);
+  assert.match(tracking, /allow_ad_personalization_signals: false/);
+  assert.doesNotMatch(funnel, /sessionStorage|FormData|fetch\(/);
+});
