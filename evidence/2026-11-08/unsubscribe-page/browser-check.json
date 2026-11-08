@@ -1,0 +1,148 @@
+{
+  "steps": [
+    {
+      "step": "unsubscribe-desktop",
+      "title": "Unsubscribe | Hossain Consulting",
+      "h1": "Unsubscribe",
+      "url": "/unsubscribe",
+      "forms": 0,
+      "footer": "Hossain Consulting · Privacy · Terms · Unsubscribe · Home",
+      "privacy": true,
+      "terms": true,
+      "overflow": 0,
+      "mailtoCount": 4,
+      "texts": [
+        "Email an unsubscribe request to hemayet@hemayethossain.com",
+        "hemayet@hemayethossain.com",
+        "Email an unsubscribe request to hemayet@hossainconsulting.com",
+        "hemayet@hossainconsulting.com"
+      ]
+    },
+    {
+      "step": "keyboard-tab",
+      "tabStops": [
+        {
+          "tag": "A",
+          "text": "Hossain Consulting",
+          "href": "/"
+        },
+        {
+          "tag": "A",
+          "text": "Email an unsubscribe request to hemayet@hemayethossain.com",
+          "href": "mailto:hemayet@hemayethossain.com?subject=Unsubscribe%20request&body=Please%20unsubscribe%20this%20email%20address%20from%20marketing%20messages.%0A%0AEmail%20address%20to%20remove%3A%0A"
+        },
+        {
+          "tag": "A",
+          "text": "hemayet@hemayethossain.com",
+          "href": "mailto:hemayet@hemayethossain.com?subject=Unsubscribe%20request&body=Please%20unsubscribe%20this%20email%20address%20from%20marketing%20messages.%0A%0AEmail%20address%20to%20remove%3A%0A"
+        },
+        {
+          "tag": "A",
+          "text": "Email an unsubscribe request to hemayet@hossainconsulting.com",
+          "href": "mailto:hemayet@hossainconsulting.com?subject=Unsubscribe%20request&body=Please%20unsubscribe%20this%20email%20address%20from%20marketing%20messages.%0A%0AEmail%20address%20to%20remove%3A%0A"
+        },
+        {
+          "tag": "A",
+          "text": "hemayet@hossainconsulting.com",
+          "href": "mailto:hemayet@hossainconsulting.com?subject=Unsubscribe%20request&body=Please%20unsubscribe%20this%20email%20address%20from%20marketing%20messages.%0A%0AEmail%20address%20to%20remove%3A%0A"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy Policy",
+          "href": "/privacy"
+        },
+        {
+          "tag": "A",
+          "text": "Terms and Acceptance",
+          "href": "/terms"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy",
+          "href": "/privacy"
+        },
+        {
+          "tag": "A",
+          "text": "Terms",
+          "href": "/terms"
+        },
+        {
+          "tag": "A",
+          "text": "Unsubscribe",
+          "href": "/unsubscribe"
+        },
+        {
+          "tag": "A",
+          "text": "Home",
+          "href": "/"
+        },
+        {
+          "tag": "BODY",
+          "text": "Hossain Consulting\n\nVersion 2026-11-08Unsubscribe\nTo stop marketing email, send an unsubsc",
+          "href": null
+        },
+        {
+          "tag": "A",
+          "text": "Hossain Consulting",
+          "href": "/"
+        },
+        {
+          "tag": "A",
+          "text": "Email an unsubscribe request to hemayet@hemayethossain.com",
+          "href": "mailto:hemayet@hemayethossain.com?subject=Unsubscribe%20request&body=Please%20unsubscribe%20this%20email%20address%20from%20marketing%20messages.%0A%0AEmail%20address%20to%20remove%3A%0A"
+        },
+        {
+          "tag": "A",
+          "text": "hemayet@hemayethossain.com",
+          "href": "mailto:hemayet@hemayethossain.com?subject=Unsubscribe%20request&body=Please%20unsubscribe%20this%20email%20address%20from%20marketing%20messages.%0A%0AEmail%20address%20to%20remove%3A%0A"
+        },
+        {
+          "tag": "A",
+          "text": "Email an unsubscribe request to hemayet@hossainconsulting.com",
+          "href": "mailto:hemayet@hossainconsulting.com?subject=Unsubscribe%20request&body=Please%20unsubscribe%20this%20email%20address%20from%20marketing%20messages.%0A%0AEmail%20address%20to%20remove%3A%0A"
+        }
+      ]
+    },
+    {
+      "step": "clicked-privacy",
+      "path": "/privacy",
+      "h1": "Privacy Policy",
+      "footer": "Hossain Consulting · Privacy · Terms · Unsubscribe · Home"
+    },
+    {
+      "step": "clicked-terms",
+      "path": "/terms",
+      "h1": "Terms and Acceptance",
+      "footer": "Hossain Consulting · Privacy · Terms · Unsubscribe · Home"
+    },
+    {
+      "step": "clicked-unsubscribe-footer",
+      "path": "/unsubscribe"
+    },
+    {
+      "step": "homepage-footer",
+      "found": true,
+      "text": "ia · github.com/hossainconsulting · Reddit (agency) · Reddit (personal) · all links · Recruitment enquiries · Agency enquiries · Privacy · Terms · Unsubscribe Salesforce and related marks are property of Salesforce, Inc."
+    },
+    {
+      "step": "homepage-footer-click",
+      "path": "/unsubscribe"
+    },
+    {
+      "step": "mailto-click",
+      "stillOn": "http://127.0.0.1:8793/unsubscribe",
+      "requests": [
+        "mailto:hemayet@hemayethossain.com?subject=Unsubscribe%20request&body=Please%20unsubscribe%20this%20email%20address%20from%20marketing%20messages.%0A%0AEmail%20address%20to%20remove%3A%0A"
+      ]
+    },
+    {
+      "step": "mobile",
+      "overflow": 0,
+      "h1": "Unsubscribe",
+      "buttons": [
+        350,
+        350
+      ]
+    }
+  ]
+}

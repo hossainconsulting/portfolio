@@ -30,6 +30,7 @@ Two entry doors: cold visitors take the checklist (low commitment), warm visitor
 | `/thanks` | `public/thanks.html`, `thanks.js` | Confirmation, PDF link, book CTA (noindex) |
 | `/book` | `public/book.html` | Booking page linking to the existing active Calendly event |
 | `/privacy`, `/terms` | `public/privacy.html`, `terms.html` | Privacy Policy and Terms/Acceptance (email consent, acceptable use) |
+| `/unsubscribe` | `public/unsubscribe.html` | Mailto unsubscribe for the recruitment and agency addresses. Nothing is submitted on the site. |
 | PDF | `public/downloads/enquiry-leak-checklist.pdf` (source in `funnels/source/`) | The lead magnet, 2 pages |
 | API | `src/index.js` `handleOptin` | Validates, honeypot, consent required, forwards to webhook |
 | Emails | `funnels/emails/01..03` | 3 sequences, copy ready to paste |
