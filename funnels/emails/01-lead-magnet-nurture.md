@@ -3,7 +3,7 @@
 Trigger: webhook record `type: optin`. Audience: trade and home-service owners.
 Sender: Hemayet Hossain <hemayet@hossainconsulting.com> (the alias forwards to the Gmail inbox; see funnels/README.md "Contact addresses"). Plain text, no images, one link each.
 Footer on every email (required): `Hemayet Hossain, Hossain Consulting, Sydney NSW. You asked for the checklist at portfolio.hossainconsulting.com. Unsubscribe: {{unsubscribe_url}}`
-Exit the sequence on: booking made (Calendly), reply received, unsubscribe.
+Exit the sequence on: booking made (CalendarBug), reply received, unsubscribe.
 
 | # | Send | Subject | Goal |
 |---|---|---|---|

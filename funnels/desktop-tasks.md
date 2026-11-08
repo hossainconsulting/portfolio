@@ -8,7 +8,8 @@ Saved 2026-10-15 at Hemayet's request, so they are not lost when working from a 
 - [ ] **Cloudflare DNS for `hossainconsulting.com`:** add the platform's DKIM and verification records (CNAMEs set to "DNS only"), merge the platform into the single existing SPF record, add `_dmarc` with `p=none`. If you use Google Workspace, also turn on Google's DKIM.
 - [ ] **Check authentication:** send a test and use "Show original" in Gmail; SPF, DKIM and DMARC should all show PASS.
 - [ ] **Set the lead webhook:** `npx wrangler secret put LEAD_WEBHOOK_URL` using the platform's webhook URL.
-- [x] **Calendly:** done 2026-10-15. The "20-minute intro call" description no longer mentions the free workflow snapshot or "+GST", and now says "fixed quote including GST" and "New South Wales only". Re-check it reads the way you want.
+- [x] **Calendly:** done 2026-10-15. The "20-minute intro call" description no longer mentions the free workflow snapshot or "+GST", and now says "fixed quote including GST" and "New South Wales only". Re-check it reads the way you want. Historical only: the portfolio booking page no longer opens that event.
+- [x] **CalendarBug:** done 2026-11-08 in the portfolio source. `public/book.html` opens the existing agency event https://www.calendarbug.com/book/hemayet-hossain/free-introductory-call. No new CalendarBug event was created. This checklist line is not a live deploy.
 - [ ] **Agency site `/services`** (repo `hossainconsulting-portfolio`): remove the free "one agreed small fix" and align the privacy page with this funnel.
 - [ ] **Cloudflare rate limit:** add a rule on `/api/optin` before sending traffic.
 - [ ] **Legal review:** send the Privacy Policy and Terms (and the payments terms when drafted) to a lawyer. Name the email provider and payment provider in the Privacy Policy.

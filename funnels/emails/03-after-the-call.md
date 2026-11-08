@@ -1,6 +1,6 @@
 # Sequence 3: After the call (show, no-show, quote)
 
-Trigger: Calendly event ends (show) or Hemayet marks no-show (Calendly "Mark as no-show"). Send by hand or from a template; these are one-to-one replies, not bulk marketing.
+Trigger: the free introductory call has happened, or Hemayet records a no-show. Send by hand or from a template; these are one-to-one replies, not bulk marketing.
 No free reports, audits or snapshots are offered. The next step after a call is a written scope and fixed quote, only if the client wants one.
 
 ## Same day: thanks (showed up)
