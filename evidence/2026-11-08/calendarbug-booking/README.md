@@ -41,4 +41,4 @@ Limitations / checks not run:
 - `prompt-sync` was skipped because the private authored prompt source was not in this environment.
 - Terms and unsubscribe pages were not changed. Historical evidence files were not rewritten.
 
-Related issue/PR: Pull request for branch `cursor/calendarbug-booking-8ecf`. Not merged.
+Related issue/PR: https://github.com/hossainconsulting/portfolio/pull/40 (branch `cursor/calendarbug-booking-8ecf`). Not merged. Not deployed.
