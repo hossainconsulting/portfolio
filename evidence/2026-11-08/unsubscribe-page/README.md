@@ -63,4 +63,4 @@ Limitations / checks not run:
 - A direct request from this environment to `https://portfolio.hossainconsulting.com/unsubscribe` and `/privacy` returned HTTP 403 with `cf-mitigated: challenge`. That does not confirm the previously reported live 404, and it does not show the new page on the public site. This change was not deployed. `npx wrangler deploy` was not run.
 - Live homepage comparison against production was not run, because this commit is not published.
 
-Related issue/PR: pull request for branch `cursor/unsubscribe-page-af1e`.
+Related issue/PR: https://github.com/hossainconsulting/portfolio/pull/39
