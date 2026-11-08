@@ -71,7 +71,7 @@ hub release note.
 
 ## Client-specific
 
-- The Services page and a "Book a call" link (Calendly or similar) in Featured.
+- The Services page and a "Book a call" link to the agency CalendarBug event (https://www.calendarbug.com/book/hemayet-hossain/free-introductory-call) in Featured.
 - Recommendations: ask one per finished engagement equivalent, from a peer
   who reviewed the work. Never invent one for a fictional stakeholder.
 

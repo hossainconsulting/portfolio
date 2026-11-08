@@ -1,6 +1,6 @@
 # Sequence 2: Before the call (booking confirmed to call time)
 
-Calendly sends the confirmation and reminders itself. Configure these in Calendly (Event type > Notifications and workflows) so nothing needs a second tool. Use the same wording; keep each under 120 words.
+CalendarBug sends the confirmation and reminders for the free introductory call when email notifications are on for that event. Turn those on in CalendarBug so nothing needs a second tool. Use the same wording; keep each under 120 words.
 Booking is not marketing consent. These are service messages about a booking the person made. Do not add the booker to Sequence 1 unless they also ticked the opt-in box.
 
 | When | Message |
@@ -8,7 +8,7 @@ Booking is not marketing consent. These are service messages about a booking the
 | On booking | Confirmation (below) |
 | 24 hours before | Reminder + prep questions |
 | 1 hour before | Short reminder with the meeting link |
-| Booker reschedules or cancels | Calendly default, plus a one-line note with the rebook link |
+| Booker reschedules or cancels | A one-line note with the rebook link: https://portfolio.hossainconsulting.com/book |
 
 ## Confirmation
 Subject: You're booked: 20 minutes with Hemayet, {{date_time}}

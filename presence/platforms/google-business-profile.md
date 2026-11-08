@@ -28,7 +28,7 @@ the service areas.
 | Attributes | Online appointments · Identifies as… (only if true) |
 | Social profiles | LinkedIn, Instagram, YouTube, X, Facebook, TikTok, Pinterest (Google supports these seven) |
 | Photos | Logo, cover (headshot or banner), 3 diagram images from the deliverables, 1 workspace photo. Minimum 5. |
-| Booking link | Calendly or equivalent |
+| Booking link | https://www.calendarbug.com/book/hemayet-hossain/free-introductory-call |
 | Q&A | Seed three questions yourself and answer them: "Do you work with small trades businesses?", "Are the portfolio projects real clients?", "Do you work remotely?" |
 
 ## Verification

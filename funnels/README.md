@@ -13,9 +13,9 @@ Social / Google / links hub / video
         v                                                   v
 /thanks (PDF download + book CTA)                  Sequence 1: six emails over 14 days
         |                                                   |
-        +----------------> /book --> Calendly "20-minute intro call"
+        +----------------> /book --> CalendarBug "free introductory call"
                                          |
-                       Sequence 2 (Calendly confirmation + reminders)
+                       Sequence 2 (CalendarBug confirmation + reminders)
                                          |
                        Sequence 3 (after call: scope offer, no-show, quote follow-up)
 ```
@@ -28,7 +28,7 @@ Two entry doors: cold visitors take the checklist (low commitment), warm visitor
 |---|---|---|
 | `/checklist` | `public/checklist.html` | Landing page and opt-in with consent box |
 | `/thanks` | `public/thanks.html`, `thanks.js` | Confirmation, PDF link, book CTA (noindex) |
-| `/book` | `public/book.html` | Booking page linking to the existing active Calendly event |
+| `/book` | `public/book.html` | Booking page linking to the agency CalendarBug event |
 | `/privacy`, `/terms` | `public/privacy.html`, `terms.html` | Privacy Policy and Terms/Acceptance (email consent, acceptable use) |
 | `/unsubscribe` | `public/unsubscribe.html` | Mailto unsubscribe for the recruitment and agency addresses. Nothing is submitted on the site. |
 | PDF | `public/downloads/enquiry-leak-checklist.pdf` (source in `funnels/source/`) | The lead magnet, 2 pages |
@@ -40,7 +40,7 @@ Two entry doors: cold visitors take the checklist (low commitment), warm visitor
 
 The offer: a free checklist PDF, a self-score quiz and a free 20-minute call. **No free workflow snapshot, audits or other free services** (Hemayet's decision, 2026-10-14). Anything beyond the call is paid work with a written scope and fixed quote including GST.
 
-**Calendly must be changed to match.** The active "20-minute intro call" event description still promises a free one-page workflow snapshot within 3 business days. Edit it before launch, or the call page contradicts this funnel. The agency `/services` page also lists a free "one agreed small fix" for the first three clients, which may conflict with this decision.
+**Booking destination (8 November 2026).** `/book` opens the existing agency CalendarBug event at https://www.calendarbug.com/book/hemayet-hossain/free-introductory-call. Do not create a new event, and do not use the personal site's separate CalendarBug event for Salesforce intro calls. On 8 November 2026 the public page titled that event "Free introductory call", said it is 20 minutes, and described a free introductory call about published website, marketing, CRM and workflow packages. It said the call is not a paid service booking and that Hossain Consulting serves clients in New South Wales only. That public text did not mention a free workflow snapshot. The older Calendly "20-minute intro call" is no longer the portfolio booking link. The agency `/services` page may still list a free "one agreed small fix" for the first three clients, which may conflict with the 14 October 2026 decision.
 
 ## Contact addresses (decided 2026-10-14)
 
@@ -58,12 +58,12 @@ Not changed, because they belong to the existing portfolio hub and chat widget: 
 ## You must do before this goes live
 
 1. **Pick the email platform** (see options below) and create a webhook or automation that receives the `optin` JSON, adds the contact with a "consented" tag and starts Sequence 1. Then `npx wrangler secret put LEAD_WEBHOOK_URL`. Until it is set, the form shows an error and tells people to email you. It never pretends to subscribe them.
-2. **Confirm the delivery promises.** Only keep any reply-time promise you can meet. Remove the snapshot promise from Calendly (see above).
+2. **Confirm the delivery promises.** Only keep any reply-time promise you can meet. The portfolio booking page no longer uses the Calendly event. The CalendarBug event text observed on 8 November 2026 did not promise a workflow snapshot.
 3. **Have the Privacy Policy and Terms reviewed** by a lawyer or a reliable template service. They are plain-language drafts written for Australian law (Privacy Act, Spam Act, Australian Consumer Law). They are not legal advice.
 4. **Name the email provider and its data location** in the Privacy Policy once chosen (it currently says "an email delivery provider").
 5. **Rate limiting.** `/api/optin` caps payload size and uses a honeypot, but has no per-IP limit. Add a Cloudflare rate-limiting rule on `/api/optin` before paid traffic.
 6. **Deploy** manually with `npx wrangler deploy` after review (repository policy). Then verify: submit a test with your own address, check the webhook record, check the email arrives, check unsubscribe works.
-7. **Turn on Calendly workflows** for Sequence 2 and add the call-notes question "business owner or recruiter".
+7. **Turn on CalendarBug email notifications** for the free introductory call so Sequence 2 confirmation and reminders go out from CalendarBug. Add a notes question for "business owner or recruiter" if that event does not already ask.
 8. **Postal or contact details.** Spam Act needs accurate sender identity. The emails use name, business, Sydney and your email. Add your ABN line if you prefer.
 
 ## Email platform options
